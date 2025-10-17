@@ -30,7 +30,7 @@ public class FileHandler {
 
 	public static void escribirEnArchivoDeTexto(String url, String contenido) {
 
-		try {
+		try {	
 			archivo = new File(url);
 
 			if (!archivo.exists()) {
