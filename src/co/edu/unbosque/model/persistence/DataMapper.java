@@ -9,7 +9,7 @@ import co.edu.unbosque.model.MujerDTO;
 
 public class DataMapper {
 
-	public static ArrayList<HombreDTO> convertirHombreaHombreDTO(ArrayList<Hombre> entityList) {
+	public static ArrayList<HombreDTO> convertirListaHombreaHombreDTO(ArrayList<Hombre> entityList) {
 		ArrayList<HombreDTO> dtoList = new ArrayList<HombreDTO>();
 		for (Hombre entity : entityList) {
 			dtoList.add(new HombreDTO(entity.getNombre(), entity.getAlias(), entity.getEdad(), entity.getCorreo(),
@@ -21,7 +21,7 @@ public class DataMapper {
 		return dtoList;
 	}
 
-	public static ArrayList<Hombre> convertirHombreDTOaHombre(ArrayList<HombreDTO> dtoList) {
+	public static ArrayList<Hombre> convertirListaHombreDTOaHombre(ArrayList<HombreDTO> dtoList) {
 		ArrayList<Hombre> entityList = new ArrayList<Hombre>();
 		for (HombreDTO dto : dtoList) {
 			entityList.add(new Hombre(dto.getNombre(), dto.getAlias(), dto.getEdad(), dto.getCorreo(),
@@ -32,7 +32,7 @@ public class DataMapper {
 		return entityList;
 	}
 
-	public static ArrayList<MujerDTO> convertirMujeraMujerDTO(ArrayList<Mujer> entityList) {
+	public static ArrayList<MujerDTO> convertirListaMujeraMujerDTO(ArrayList<Mujer> entityList) {
 		ArrayList<MujerDTO> dtoList = new ArrayList<MujerDTO>();
 		for (Mujer entity : entityList) {
 			dtoList.add(new MujerDTO(entity.getNombre(), entity.getAlias(), entity.getEdad(), entity.getCorreo(),
@@ -43,7 +43,7 @@ public class DataMapper {
 		return dtoList;
 	}
 
-	public static ArrayList<Mujer> convertirMujerDTOaMujer(ArrayList<MujerDTO> dtoList) {
+	public static ArrayList<Mujer> convertirListaMujerDTOaMujer(ArrayList<MujerDTO> dtoList) {
 		ArrayList<Mujer> entityList = new ArrayList<Mujer>();
 		for (MujerDTO dto : dtoList) {
 			entityList.add(new Mujer(dto.getNombre(), dto.getAlias(), dto.getEdad(), dto.getCorreo(),
@@ -52,6 +52,39 @@ public class DataMapper {
 		}
 
 		return entityList;
+	}
+
+	public static HombreDTO convertirHombreaHombreDTO(Hombre entity) {
+		HombreDTO dto = new HombreDTO(entity.getNombre(), entity.getAlias(), entity.getEdad(), entity.getCorreo(),
+				entity.getContrasenia(), entity.getFoto(), entity.isEsVisiblePefil(), entity.getEdadMinima(),
+				entity.getEdadMaxima(), entity.getIngresoMensual(), entity.isPreferenciaDivorcio(),
+				entity.getEstatura());
+
+		return dto;
+	}
+
+	public static Hombre convertirHombreDTOaHombre(HombreDTO dto) {
+		Hombre entity = new Hombre(dto.getNombre(), dto.getAlias(), dto.getEdad(), dto.getCorreo(),
+				dto.getContrasenia(), dto.getFoto(), dto.isEsVisiblePefil(), dto.getEdadMinima(), dto.getEdadMaxima(),
+				dto.getIngresoMensual(), dto.isPreferenciaDivorcio(), dto.getEstatura());
+
+		return entity;
+	}
+
+	public static MujerDTO convertirMujeraMujerDTO(Mujer entity) {
+		MujerDTO dto = new MujerDTO(entity.getNombre(), entity.getAlias(), entity.getEdad(), entity.getCorreo(),
+				entity.getContrasenia(), entity.getFoto(), entity.isEsVisiblePefil(), entity.getEdadMinima(),
+				entity.getEdadMaxima(), entity.isEsDivorciada(), entity.getEstaturaIdeal(), entity.getEstatura());
+
+		return dto;
+	}
+
+	public static Mujer convertirMujerDTOaMujer(MujerDTO dto) {
+		Mujer entity = new Mujer(dto.getNombre(), dto.getAlias(), dto.getEdad(), dto.getCorreo(), dto.getContrasenia(),
+				dto.getFoto(), dto.isEsVisiblePefil(), dto.getEdadMinima(), dto.getEdadMaxima(), dto.isEsDivorciada(),
+				dto.getEstaturaIdeal(), dto.getEstatura());
+
+		return entity;
 	}
 
 }

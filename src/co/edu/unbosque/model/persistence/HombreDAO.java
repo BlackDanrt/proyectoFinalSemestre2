@@ -1,19 +1,24 @@
 package co.edu.unbosque.model.persistence;
 
+import java.util.ArrayList;
+
+import co.edu.unbosque.model.Hombre;
 import co.edu.unbosque.model.HombreDTO;
 
-public class HombreDAO implements DAO<HombreDTO>{
+public class HombreDAO implements DAO<HombreDTO> {
 
-	@Override
-	public void crear(HombreDTO datoNuevo) {
-		// TODO Auto-generated method stub
-		
+	private ArrayList<Hombre> listaHombres;
+	private static String SERIAL_FILE_NAME = "Hombres.bin";
+
+	public HombreDAO() {
+		listaHombres = new ArrayList<Hombre>();
+		cargarDesdeArchivoSerializado(SERIAL_FILE_NAME);
 	}
 
 	@Override
-	public String mostrar() {
-		// TODO Auto-generated method stub
-		return null;
+	public void crear(HombreDTO datoNuevo) {
+		Hombre entity = DataMapper.convertirHombreDTOaHombre(datoNuevo);
+		listaHombres.add(entity);
 	}
 
 	@Override
@@ -29,15 +34,19 @@ public class HombreDAO implements DAO<HombreDTO>{
 	}
 
 	@Override
-	public void cargarDesdeArchivSerializado(String url) {
-		// TODO Auto-generated method stub
-		
+	public void cargarDesdeArchivoSerializado() {
+		FileHandler.escribirEnArchivoSerializado(SERIAL_FILE_NAME, listaHombres);
+
 	}
 
 	@Override
-	public void cargarDesdeArchivSerializado() {
-		// TODO Auto-generated method stub
-		
+	public void cargarDesdeArchivoSerializado(String url) {
+		Object contenido = FileHandler.leerDesdeArchivoSerializado(url);
+		if (contenido instanceof ArrayList<?>) {
+			listaHombres = (ArrayList<Hombre>) contenido;
+		} else {
+			listaHombres = new ArrayList<Hombre>();
+		}
 	}
 
 }

@@ -10,11 +10,6 @@ public class MujerDAO implements DAO<HombreDTO>{
 		
 	}
 
-	@Override
-	public String mostrar() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public boolean eliminar(int indice) {
@@ -29,13 +24,13 @@ public class MujerDAO implements DAO<HombreDTO>{
 	}
 
 	@Override
-	public void cargarDesdeArchivSerializado(String url) {
+	public void cargarDesdeArchivoSerializado(String url) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void cargarDesdeArchivSerializado() {
+	public void cargarDesdeArchivoSerializado() {
 		// TODO Auto-generated method stub
 		
 	}
