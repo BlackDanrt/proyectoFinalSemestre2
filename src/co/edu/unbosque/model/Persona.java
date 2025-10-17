@@ -1,0 +1,119 @@
+package co.edu.unbosque.model;
+
+import java.io.Serializable;
+
+public class Persona implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2605090105710016709L;
+
+	private String nombre;
+	private String alias;
+	private int edad;
+	private String correo;
+	private String contrasenia;
+	private String foto;
+	private boolean esVisiblePefil;
+	private long edadMinima;
+	private long edadMaxima;
+
+	public Persona() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public Persona(String nombre, String alias, int edad, String correo, String contrasenia, String foto,
+			boolean esVisiblePefil, long edadMinima, long edadMaxima) {
+		super();
+		this.nombre = nombre;
+		this.alias = alias;
+		this.edad = edad;
+		this.correo = correo;
+		this.contrasenia = contrasenia;
+		this.foto = foto;
+		this.esVisiblePefil = esVisiblePefil;
+		this.edadMinima = edadMinima;
+		this.edadMaxima = edadMaxima;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public String getAlias() {
+		return alias;
+	}
+
+	public void setAlias(String alias) {
+		this.alias = alias;
+	}
+
+	public int getEdad() {
+		return edad;
+	}
+
+	public void setEdad(int edad) {
+		this.edad = edad;
+	}
+
+	public String getCorreo() {
+		return correo;
+	}
+
+	public void setCorreo(String correo) {
+		this.correo = correo;
+	}
+
+	public String getContrasenia() {
+		return contrasenia;
+	}
+
+	public void setContrasenia(String contrasenia) {
+		this.contrasenia = contrasenia;
+	}
+
+	public String getFoto() {
+		return foto;
+	}
+
+	public void setFoto(String foto) {
+		this.foto = foto;
+	}
+
+	public boolean isEsVisiblePefil() {
+		return esVisiblePefil;
+	}
+
+	public void setEsVisiblePefil(boolean esVisiblePefil) {
+		this.esVisiblePefil = esVisiblePefil;
+	}
+
+	public long getEdadMinima() {
+		return edadMinima;
+	}
+
+	public void setEdadMinima(long edadMinima) {
+		this.edadMinima = edadMinima;
+	}
+
+	public long getEdadMaxima() {
+		return edadMaxima;
+	}
+
+	public void setEdadMaxima(long edadMaxima) {
+		this.edadMaxima = edadMaxima;
+	}
+
+	@Override
+	public String toString() {
+		return "Persona [nombre=" + nombre + ", alias=" + alias + ", edad=" + edad + ", correo=" + correo
+				+ ", contrasenia=" + contrasenia + ", foto=" + foto + ", esVisiblePefil=" + esVisiblePefil
+				+ ", edadMinima=" + edadMinima + ", edadMaxima=" + edadMaxima + "]";
+	}
+
+}
