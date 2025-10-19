@@ -21,18 +21,20 @@ public class Mujer extends Persona {
 		this.estatura = estatura;
 	}
 
-	public Mujer(String nombre, String alias, int edad, String correo, String contrasenia, String foto,
-			boolean esVisiblePefil, long edadMinima, long edadMaxima, boolean esDivorciada, int estaturaIdeal,
-			int estatura) {
-		super(nombre, alias, edad, correo, contrasenia, foto, esVisiblePefil, edadMinima, edadMaxima);
+	public Mujer(String nombre, String apellido, String alias, int edad, String correo, String contrasenia, String foto,
+			int cantLike, boolean esVisiblePefil, long edadMinima, long edadMaxima, boolean esDivorciada,
+			int estaturaIdeal, int estatura) {
+		super(nombre, apellido, alias, edad, correo, contrasenia, foto, cantLike, esVisiblePefil, edadMinima,
+				edadMaxima);
 		this.esDivorciada = esDivorciada;
 		this.estaturaIdeal = estaturaIdeal;
 		this.estatura = estatura;
 	}
 
-	public Mujer(String nombre, String alias, int edad, String correo, String contrasenia, String foto,
-			boolean esVisiblePefil, long edadMinima, long edadMaxima) {
-		super(nombre, alias, edad, correo, contrasenia, foto, esVisiblePefil, edadMinima, edadMaxima);
+	public Mujer(String nombre, String apellido, String alias, int edad, String correo, String contrasenia, String foto,
+			int cantLike, boolean esVisiblePefil, long edadMinima, long edadMaxima) {
+		super(nombre, apellido, alias, edad, correo, contrasenia, foto, cantLike, esVisiblePefil, edadMinima,
+				edadMaxima);
 		// TODO Auto-generated constructor stub
 	}
 

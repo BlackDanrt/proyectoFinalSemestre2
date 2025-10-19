@@ -2,7 +2,9 @@ package co.edu.unbosque.view;
 
 public class ViewFacade {
 
+	private Ventana ven;
+
 	public ViewFacade() {
-		// TODO Auto-generated constructor stub
+		ven = new Ventana();
 	}
 }

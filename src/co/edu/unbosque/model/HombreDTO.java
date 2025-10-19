@@ -21,18 +21,20 @@ public class HombreDTO extends Persona {
 		this.estatura = estatura;
 	}
 
-	public HombreDTO(String nombre, String alias, int edad, String correo, String contrasenia, String foto,
-			boolean esVisiblePefil, long edadMinima, long edadMaxima, long ingresoMensual, boolean preferenciaDivorcio,
-			int estatura) {
-		super(nombre, alias, edad, correo, contrasenia, foto, esVisiblePefil, edadMinima, edadMaxima);
+	public HombreDTO(String nombre, String apellido, String alias, int edad, String correo, String contrasenia,
+			String foto, int cantLike, boolean esVisiblePefil, long edadMinima, long edadMaxima, long ingresoMensual,
+			boolean preferenciaDivorcio, int estatura) {
+		super(nombre, apellido, alias, edad, correo, contrasenia, foto, cantLike, esVisiblePefil, edadMinima,
+				edadMaxima);
 		this.ingresoMensual = ingresoMensual;
 		this.preferenciaDivorcio = preferenciaDivorcio;
 		this.estatura = estatura;
 	}
 
-	public HombreDTO(String nombre, String alias, int edad, String correo, String contrasenia, String foto,
-			boolean esVisiblePefil, long edadMinima, long edadMaxima) {
-		super(nombre, alias, edad, correo, contrasenia, foto, esVisiblePefil, edadMinima, edadMaxima);
+	public HombreDTO(String nombre, String apellido, String alias, int edad, String correo, String contrasenia,
+			String foto, int cantLike, boolean esVisiblePefil, long edadMinima, long edadMaxima) {
+		super(nombre, apellido, alias, edad, correo, contrasenia, foto, cantLike, esVisiblePefil, edadMinima,
+				edadMaxima);
 		// TODO Auto-generated constructor stub
 	}
 

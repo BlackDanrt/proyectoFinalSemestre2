@@ -10,11 +10,13 @@ public class Persona implements Serializable {
 	private static final long serialVersionUID = 2605090105710016709L;
 
 	private String nombre;
+	private String apellido;
 	private String alias;
 	private int edad;
 	private String correo;
 	private String contrasenia;
 	private String foto;
+	private int cantLike;
 	private boolean esVisiblePefil;
 	private long edadMinima;
 	private long edadMaxima;
@@ -23,15 +25,17 @@ public class Persona implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Persona(String nombre, String alias, int edad, String correo, String contrasenia, String foto,
-			boolean esVisiblePefil, long edadMinima, long edadMaxima) {
+	public Persona(String nombre, String apellido, String alias, int edad, String correo, String contrasenia,
+			String foto, int cantLike, boolean esVisiblePefil, long edadMinima, long edadMaxima) {
 		super();
 		this.nombre = nombre;
+		this.apellido = apellido;
 		this.alias = alias;
 		this.edad = edad;
 		this.correo = correo;
 		this.contrasenia = contrasenia;
 		this.foto = foto;
+		this.cantLike = cantLike;
 		this.esVisiblePefil = esVisiblePefil;
 		this.edadMinima = edadMinima;
 		this.edadMaxima = edadMaxima;
@@ -43,6 +47,14 @@ public class Persona implements Serializable {
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+
+	public String getApellido() {
+		return apellido;
+	}
+
+	public void setApellido(String apellido) {
+		this.apellido = apellido;
 	}
 
 	public String getAlias() {
@@ -85,6 +97,14 @@ public class Persona implements Serializable {
 		this.foto = foto;
 	}
 
+	public int getCantLike() {
+		return cantLike;
+	}
+
+	public void setCantLike(int cantLike) {
+		this.cantLike = cantLike;
+	}
+
 	public boolean isEsVisiblePefil() {
 		return esVisiblePefil;
 	}
@@ -111,9 +131,10 @@ public class Persona implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Persona [nombre=" + nombre + ", alias=" + alias + ", edad=" + edad + ", correo=" + correo
-				+ ", contrasenia=" + contrasenia + ", foto=" + foto + ", esVisiblePefil=" + esVisiblePefil
-				+ ", edadMinima=" + edadMinima + ", edadMaxima=" + edadMaxima + "]";
+		return "Persona [nombre=" + nombre + ", apellido=" + apellido + ", alias=" + alias + ", edad=" + edad
+				+ ", correo=" + correo + ", contrasenia=" + contrasenia + ", foto=" + foto + ", cantLike=" + cantLike
+				+ ", esVisiblePefil=" + esVisiblePefil + ", edadMinima=" + edadMinima + ", edadMaxima=" + edadMaxima
+				+ "]";
 	}
 
 }
