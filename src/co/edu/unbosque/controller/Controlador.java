@@ -1,6 +1,5 @@
 package co.edu.unbosque.controller;
 
-import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileWriter;
@@ -29,8 +28,18 @@ public class Controlador implements ActionListener {
 	}
 
 	public void runGUI() {
+
+		// Panel iniciar sesion
+		vf.getpInic().setBounds(360, 70, 560, 620);
+		vf.getVen().add(vf.getpInic());
 		vf.getVen().add(vf.getpBan());
+
+		// Panel banner
+		vf.getpBan().setBounds(0, 801, 1280, 80);
+		vf.getVen().add(vf.getpBan());
+
 		vf.refrescarVista();
+		vf.getVen().setVisible(true);
 	}
 
 	public void inicializarConfig() {

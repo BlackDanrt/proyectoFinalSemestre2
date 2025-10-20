@@ -10,10 +10,12 @@ public class ViewFacade {
 
 	private Ventana ven;
 	private PanelBanner pBan;
+	private PanelIniciarSesion pInic;
 
 	public ViewFacade() {
 		ven = new Ventana();
 		pBan = new PanelBanner();
+		pInic = new PanelIniciarSesion();
 	}
 
 	public Ventana getVen() {
@@ -36,6 +38,14 @@ public class ViewFacade {
 		pBan.repaint();
 	}
 
+	public PanelIniciarSesion getpInic() {
+		return pInic;
+	}
+
+	public void setpInic(PanelIniciarSesion pInic) {
+		this.pInic = pInic;
+	}
+
 	private void cambiarIconoModo(String ruta) {
 		ImageIcon iconoOriginal = new ImageIcon(ruta);
 		Image imgEscalada = iconoOriginal.getImage().getScaledInstance(40, 40,
@@ -45,13 +55,9 @@ public class ViewFacade {
 	}
 
 	public void modoOscuro() {
-		String colorFondo = "#121212";
-		ven.getContentPane().setBackground(Color.decode(colorFondo));
-		pBan.setBackground(Color.decode(colorFondo));
+		ven.getContentPane().setBackground(Color.decode("#101010"));
+		pBan.setBackground(Color.decode("#19191C"));
 
-		// Cambiar colores de botones
-		pBan.getBtnModoOscuro().setBackground(Color.WHITE);
-		pBan.getBtnModoOscuro().setForeground(Color.decode(colorFondo));
 		pBan.getBtnModoOscuro().setBorder(BorderFactory.createLineBorder(Color.WHITE, 2, true));
 
 		cambiarIconoModo("files/sol.png");
@@ -59,11 +65,8 @@ public class ViewFacade {
 
 	public void modoClaro() {
 		ven.getContentPane().setBackground(Color.WHITE);
-		pBan.setBackground(Color.WHITE);
+		pBan.setBackground(Color.decode("#F5F5F5"));
 
-		// Cambiar colores de botones
-		pBan.getBtnModoOscuro().setBackground(Color.BLACK);
-		pBan.getBtnModoOscuro().setForeground(Color.WHITE);
 		pBan.getBtnModoOscuro().setBorder(BorderFactory.createLineBorder(Color.BLACK, 2, true));
 
 		cambiarIconoModo("files/luna.png");

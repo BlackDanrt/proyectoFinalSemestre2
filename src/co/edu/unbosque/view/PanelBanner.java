@@ -1,7 +1,6 @@
 package co.edu.unbosque.view;
 
 import java.awt.Color;
-import java.awt.Insets;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -18,7 +17,8 @@ public class PanelBanner extends JPanel {
 	}
 
 	public void inicializarComponentes() {
-		this.setBounds(0, 0, 1280, 80);
+		this.setLayout(null);
+		this.setSize(1280, 80);
 		this.setBorder(BorderFactory.createLineBorder(Color.decode("#FF4458")));
 		this.setVisible(true);
 
@@ -41,7 +41,6 @@ public class PanelBanner extends JPanel {
 		btnModoOscuro.setFocusPainted(false);
 		btnModoOscuro.setContentAreaFilled(false);
 		btnModoOscuro.setBorderPainted(false);
-		
 
 		this.add(cmbIdioma);
 		this.add(btnModoOscuro);
