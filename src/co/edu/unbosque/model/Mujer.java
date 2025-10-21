@@ -22,19 +22,19 @@ public class Mujer extends Persona {
 	}
 
 	public Mujer(String nombre, String apellido, String alias, int edad, String correo, String contrasenia, String foto,
-			int cantLike, boolean esVisiblePefil, long edadMinima, long edadMaxima, boolean esDivorciada,
-			int estaturaIdeal, int estatura) {
+			int cantLike, boolean esVisiblePefil, long edadMinima, long edadMaxima, boolean estaVerificado,
+			boolean esDivorciada, int estaturaIdeal, int estatura) {
 		super(nombre, apellido, alias, edad, correo, contrasenia, foto, cantLike, esVisiblePefil, edadMinima,
-				edadMaxima);
+				edadMaxima, estaVerificado);
 		this.esDivorciada = esDivorciada;
 		this.estaturaIdeal = estaturaIdeal;
 		this.estatura = estatura;
 	}
 
 	public Mujer(String nombre, String apellido, String alias, int edad, String correo, String contrasenia, String foto,
-			int cantLike, boolean esVisiblePefil, long edadMinima, long edadMaxima) {
+			int cantLike, boolean esVisiblePefil, long edadMinima, long edadMaxima, boolean estaVerificado) {
 		super(nombre, apellido, alias, edad, correo, contrasenia, foto, cantLike, esVisiblePefil, edadMinima,
-				edadMaxima);
+				edadMaxima, estaVerificado);
 		// TODO Auto-generated constructor stub
 	}
 

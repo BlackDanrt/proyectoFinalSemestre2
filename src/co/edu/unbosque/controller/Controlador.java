@@ -122,6 +122,14 @@ public class Controlador implements ActionListener {
 		vf.refrescarVista();
 	}
 
+	public void iniciarSesion() {
+
+	}
+
+	public void registrarse() {
+
+	}
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String comando = e.getActionCommand();
@@ -136,16 +144,32 @@ public class Controlador implements ActionListener {
 			idioma();
 			break;
 		}
+		case "iniciar sesion": {
+			iniciarSesion();
+			break;
+		}
+		case "registrarse": {
+			registrarse();
+			break;
+		}
 
+		// Fin casos swtich
 		}
 		// Fin switch
 	}
 
 	public void inicializarOyentes() {
+		// Panel Banner
 		vf.getpBan().getBtnModoOscuro().addActionListener(this);
 		vf.getpBan().getBtnModoOscuro().setActionCommand("modo oscuro");
 		// vf.getpBan().getCmbIdioma().addActionListener(this);
 		// vf.getpBan().getCmbIdioma().setActionCommand("idioma");
+
+		// Panel Iniciar Sesion
+		vf.getpInic().getBtnIniciarSesion().addActionListener(this);
+		vf.getpInic().getBtnIniciarSesion().setActionCommand("iniciar sesion");
+		vf.getpInic().getBtnIniciarSesion().addActionListener(this);
+		vf.getpInic().getBtnIniciarSesion().setActionCommand("registrarse");
 
 	}
 

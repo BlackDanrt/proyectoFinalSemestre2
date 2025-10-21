@@ -20,13 +20,15 @@ public class Persona implements Serializable {
 	private boolean esVisiblePefil;
 	private long edadMinima;
 	private long edadMaxima;
+	private boolean estaVerificado;
 
 	public Persona() {
 		// TODO Auto-generated constructor stub
 	}
 
 	public Persona(String nombre, String apellido, String alias, int edad, String correo, String contrasenia,
-			String foto, int cantLike, boolean esVisiblePefil, long edadMinima, long edadMaxima) {
+			String foto, int cantLike, boolean esVisiblePefil, long edadMinima, long edadMaxima,
+			boolean estaVerificado) {
 		super();
 		this.nombre = nombre;
 		this.apellido = apellido;
@@ -39,6 +41,7 @@ public class Persona implements Serializable {
 		this.esVisiblePefil = esVisiblePefil;
 		this.edadMinima = edadMinima;
 		this.edadMaxima = edadMaxima;
+		this.estaVerificado = estaVerificado;
 	}
 
 	public String getNombre() {
@@ -127,6 +130,18 @@ public class Persona implements Serializable {
 
 	public void setEdadMaxima(long edadMaxima) {
 		this.edadMaxima = edadMaxima;
+	}
+
+	public boolean isEstaVerificado() {
+		return estaVerificado;
+	}
+
+	public void setEstaVerificado(boolean estaVerificado) {
+		this.estaVerificado = estaVerificado;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 
 	@Override

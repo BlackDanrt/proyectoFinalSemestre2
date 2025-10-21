@@ -57,4 +57,62 @@ public class PanelIniciarSesion extends JPanel {
 		this.add(btnRegistrar);
 
 	}
+
+	public JLabel getLblFondo() {
+		return lblFondo;
+	}
+
+	public void setLblFondo(JLabel lblFondo) {
+		this.lblFondo = lblFondo;
+	}
+
+	public JTextField getTxtEmail() {
+		return txtEmail;
+	}
+
+	public void setTxtEmail(JTextField txtEmail) {
+		this.txtEmail = txtEmail;
+	}
+
+	public JPasswordField getJpfContrasenia() {
+		return jpfContrasenia;
+	}
+
+	public void setJpfContrasenia(JPasswordField jpfContrasenia) {
+		this.jpfContrasenia = jpfContrasenia;
+	}
+
+	public JLabel getLblEmail() {
+		return lblEmail;
+	}
+
+	public void setLblEmail(JLabel lblEmail) {
+		this.lblEmail = lblEmail;
+	}
+
+	public JLabel getLblContrasenia() {
+		return lblContrasenia;
+	}
+
+	public void setLblContrasenia(JLabel lblContrasenia) {
+		this.lblContrasenia = lblContrasenia;
+	}
+
+	public JButton getBtnIniciarSesion() {
+		return btnIniciarSesion;
+	}
+
+	public void setBtnIniciarSesion(JButton btnIniciarSesion) {
+		this.btnIniciarSesion = btnIniciarSesion;
+	}
+
+	public JButton getBtnRegistrar() {
+		return btnRegistrar;
+	}
+
+	public void setBtnRegistrar(JButton btnRegistrar) {
+		this.btnRegistrar = btnRegistrar;
+	}
+	
+	
 }
