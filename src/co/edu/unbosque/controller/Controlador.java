@@ -4,10 +4,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Properties;
 
+import javax.swing.JOptionPane;
+
+import co.edu.unbosque.model.HombreDTO;
 import co.edu.unbosque.model.ModelFacade;
+import co.edu.unbosque.model.MujerDTO;
 import co.edu.unbosque.model.persistence.FileHandler;
 import co.edu.unbosque.view.ViewFacade;
 
@@ -22,7 +27,7 @@ public class Controlador implements ActionListener {
 		mf = new ModelFacade();
 		vf = new ViewFacade();
 		propConfig = FileHandler.cargarArchivoDePropiedades("config.properties");
-		// FileHandler.cargarArchivoDePropiedades(propConfig.getProperty("proyectoFinalSemestre2.idioma"));
+		FileHandler.cargarArchivoDePropiedades(propConfig.getProperty("proyectoFinalSemestre2.idioma"));
 		inicializarOyentes();
 		inicializarConfig();
 	}
@@ -123,7 +128,39 @@ public class Controlador implements ActionListener {
 	}
 
 	public void iniciarSesion() {
+		String correo = vf.getpInic().getTxtEmail().getText();
+		String contrasenia = vf.getpInic().getJpfContrasenia().getText();
 
+		ArrayList<MujerDTO> mujeres = mf.getMujerDao().getLista();
+		ArrayList<HombreDTO> hombres = mf.getHombreDao().getLista();
+
+		boolean sesionExitosa = false;
+
+		for (HombreDTO dto : hombres) {
+			if (dto.getCorreo().equals(correo) && dto.getContrasenia().equals(contrasenia)) {
+				sesionExitosa = true;
+				break;
+			}
+		}
+
+		if (!sesionExitosa) {
+			for (MujerDTO dto : mujeres) {
+				if (dto.getCorreo().equals(correo) && dto.getContrasenia().equals(contrasenia)) {
+					sesionExitosa = true;
+					break;
+				}
+			}
+		}
+
+		if (sesionExitosa) {
+			JOptionPane.showMessageDialog(vf.getVen(), "¡El inicio de sesión ha sido exitoso!",
+					"Inicio de sesión exitoso", JOptionPane.INFORMATION_MESSAGE);
+
+		} else {
+			JOptionPane.showMessageDialog(vf.getVen(), "La contraseña o el correo son incorrectos",
+					"Inicio de sesión fallido", JOptionPane.ERROR_MESSAGE);
+
+		}
 	}
 
 	public void registrarse() {
@@ -168,6 +205,7 @@ public class Controlador implements ActionListener {
 		// Panel Iniciar Sesion
 		vf.getpInic().getBtnIniciarSesion().addActionListener(this);
 		vf.getpInic().getBtnIniciarSesion().setActionCommand("iniciar sesion");
+
 		vf.getpInic().getBtnIniciarSesion().addActionListener(this);
 		vf.getpInic().getBtnIniciarSesion().setActionCommand("registrarse");
 
