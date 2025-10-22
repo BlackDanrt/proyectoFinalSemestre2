@@ -57,4 +57,10 @@ public class MujerDAO implements DAO<MujerDTO> {
 
 	}
 
+	@Override
+	public ArrayList<MujerDTO> getLista() {
+		ArrayList<MujerDTO> dtoList = DataMapper.convertirListaMujeraMujerDTO(listaMujeres);
+		return dtoList;
+	}
+
 }
