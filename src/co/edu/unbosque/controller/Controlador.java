@@ -28,6 +28,7 @@ public class Controlador implements ActionListener {
 		vf = new ViewFacade();
 		propConfig = FileHandler.cargarArchivoDePropiedades("config.properties");
 		FileHandler.cargarArchivoDePropiedades(propConfig.getProperty("proyectoFinalSemestre2.idioma"));
+		vf.getpBan().getCmbIdioma().setSelectedItem(propConfig.getProperty("proyectoFinalSemestre2.idioma"));
 		inicializarOyentes();
 		inicializarConfig();
 	}
@@ -78,6 +79,10 @@ public class Controlador implements ActionListener {
 		}
 	}
 
+	/*
+	 * NO SE ESTAN LEYENDO BIEN LOS SIGUIENTES ALL ESPANOL E INGLES POR SUS
+	 * CARACTERES
+	 */
 	public void idioma() {
 
 		String idioma = String.valueOf(vf.getpBan().getCmbIdioma().getSelectedItem());
@@ -124,6 +129,7 @@ public class Controlador implements ActionListener {
 			} catch (InputMismatchException | IOException e) {
 			}
 		}
+		vf.getpBan().getCmbIdioma().setSelectedItem(idioma);
 		vf.refrescarVista();
 	}
 
@@ -199,8 +205,8 @@ public class Controlador implements ActionListener {
 		// Panel Banner
 		vf.getpBan().getBtnModoOscuro().addActionListener(this);
 		vf.getpBan().getBtnModoOscuro().setActionCommand("modo oscuro");
-		// vf.getpBan().getCmbIdioma().addActionListener(this);
-		// vf.getpBan().getCmbIdioma().setActionCommand("idioma");
+		vf.getpBan().getCmbIdioma().addActionListener(this);
+		vf.getpBan().getCmbIdioma().setActionCommand("idioma");
 
 		// Panel Iniciar Sesion
 		vf.getpInic().getBtnIniciarSesion().addActionListener(this);
