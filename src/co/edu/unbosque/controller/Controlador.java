@@ -17,7 +17,7 @@ import co.edu.unbosque.model.persistence.FileHandler;
 import co.edu.unbosque.view.ViewFacade;
 
 public class Controlador implements ActionListener {
-
+	
 	private ModelFacade mf;
 	private ViewFacade vf;
 	private Properties propIdioma;

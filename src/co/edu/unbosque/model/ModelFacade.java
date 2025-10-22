@@ -1,15 +1,19 @@
 package co.edu.unbosque.model;
 
 import co.edu.unbosque.model.persistence.HombreDAO;
+import co.edu.unbosque.model.persistence.MensajeDAO;
 import co.edu.unbosque.model.persistence.MujerDAO;
 
 public class ModelFacade {
 
 	private HombreDAO hombreDao;
 	private MujerDAO mujerDao;
+	private MensajeDAO mensajeDao;
 
 	public ModelFacade() {
-		// TODO Auto-generated constructor stub
+		hombreDao = new HombreDAO();
+		mujerDao = new MujerDAO();
+		mensajeDao = new MensajeDAO();
 	}
 
 	public HombreDAO getHombreDao() {
@@ -26,6 +30,14 @@ public class ModelFacade {
 
 	public void setMujerDao(MujerDAO mujerDao) {
 		this.mujerDao = mujerDao;
+	}
+
+	public MensajeDAO getMensajeDao() {
+		return mensajeDao;
+	}
+
+	public void setMensajeDao(MensajeDAO mensajeDao) {
+		this.mensajeDao = mensajeDao;
 	}
 
 }
