@@ -10,6 +10,6 @@ public interface DAO<E> {
 
 	public void cargarDesdeArchivoSerializado(String url);
 
-	public void cargarDesdeArchivoSerializado();
+	public void escribirEnArchivoSerializado();
 
 }

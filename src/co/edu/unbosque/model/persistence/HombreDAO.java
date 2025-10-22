@@ -19,22 +19,34 @@ public class HombreDAO implements DAO<HombreDTO> {
 	public void crear(HombreDTO datoNuevo) {
 		Hombre entity = DataMapper.convertirHombreDTOaHombre(datoNuevo);
 		listaHombres.add(entity);
+		escribirEnArchivoSerializado();
 	}
 
 	@Override
 	public boolean eliminar(int indice) {
-		// TODO Auto-generated method stub
-		return false;
+		if (indice < 0 || indice > listaHombres.size()) {
+			return false;
+		} else {
+			listaHombres.remove(indice);
+			escribirEnArchivoSerializado();
+			return true;
+		}
 	}
 
 	@Override
 	public boolean actualizar(int indice, HombreDTO datoActualizado) {
-		// TODO Auto-generated method stub
-		return false;
+		Hombre entity = DataMapper.convertirHombreDTOaHombre(datoActualizado);
+		if (indice < 0 || indice > listaHombres.size()) {
+			return false;
+		} else {
+			listaHombres.set(indice, entity);
+			escribirEnArchivoSerializado();
+			return true;
+		}
 	}
 
 	@Override
-	public void cargarDesdeArchivoSerializado() {
+	public void escribirEnArchivoSerializado() {
 		FileHandler.escribirEnArchivoSerializado(SERIAL_FILE_NAME, listaHombres);
 
 	}
