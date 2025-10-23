@@ -8,12 +8,10 @@ public class ModelFacade {
 
 	private HombreDAO hombreDao;
 	private MujerDAO mujerDao;
-	private MensajeDAO mensajeDao;
 
 	public ModelFacade() {
 		hombreDao = new HombreDAO();
 		mujerDao = new MujerDAO();
-		mensajeDao = new MensajeDAO();
 	}
 
 	public HombreDAO getHombreDao() {
@@ -30,14 +28,6 @@ public class ModelFacade {
 
 	public void setMujerDao(MujerDAO mujerDao) {
 		this.mujerDao = mujerDao;
-	}
-
-	public MensajeDAO getMensajeDao() {
-		return mensajeDao;
-	}
-
-	public void setMensajeDao(MensajeDAO mensajeDao) {
-		this.mensajeDao = mensajeDao;
 	}
 
 }
