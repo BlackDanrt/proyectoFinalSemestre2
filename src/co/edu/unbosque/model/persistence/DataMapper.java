@@ -4,8 +4,6 @@ import java.util.ArrayList;
 
 import co.edu.unbosque.model.Hombre;
 import co.edu.unbosque.model.HombreDTO;
-import co.edu.unbosque.model.Mensaje;
-import co.edu.unbosque.model.MensajeDTO;
 import co.edu.unbosque.model.Mujer;
 import co.edu.unbosque.model.MujerDTO;
 
@@ -61,25 +59,6 @@ public class DataMapper {
 		return entityList;
 	}
 
-	public static ArrayList<MensajeDTO> convertirListaMensajeaMensajeDTO(ArrayList<Mensaje> entityList) {
-		ArrayList<MensajeDTO> dtoList = new ArrayList<MensajeDTO>();
-		for (Mensaje entity : entityList) {
-			dtoList.add(new MensajeDTO(entity.getEmisor(), entity.getReceptor(), entity.getCuerpoMensaje(),
-					entity.getHoraEnvio()));
-		}
-
-		return dtoList;
-	}
-
-	public static ArrayList<Mensaje> convertirListaMensajeDTOaMensaje(ArrayList<MensajeDTO> dtoList) {
-		ArrayList<Mensaje> entityList = new ArrayList<Mensaje>();
-		for (MensajeDTO dto : dtoList) {
-			entityList.add(new Mensaje(dto.getEmisor(), dto.getReceptor(), dto.getCuerpoMensaje(), dto.getHoraEnvio()));
-		}
-
-		return entityList;
-	}
-
 	public static HombreDTO convertirHombreaHombreDTO(Hombre entity) {
 		HombreDTO dto = new HombreDTO(entity.getNombre(), entity.getApellido(), entity.getAlias(), entity.getEdad(),
 				entity.getCorreo(), entity.getContrasenia(), entity.getFoto(), entity.getCantLike(),
@@ -114,18 +93,6 @@ public class DataMapper {
 				dto.getEstatura());
 
 		return entity;
-	}
-
-	public static Mensaje convertirMensajeDTOaMensaje(MensajeDTO dto) {
-		Mensaje entity = new Mensaje(dto.getEmisor(), dto.getReceptor(), dto.getCuerpoMensaje(), dto.getHoraEnvio());
-		return entity;
-	}
-
-	public static MensajeDTO convertirMensajeaMensajeDTO(Mensaje entity) {
-		MensajeDTO dto = new MensajeDTO(entity.getEmisor(), entity.getReceptor(), entity.getCuerpoMensaje(),
-				entity.getHoraEnvio());
-		return dto;
-
 	}
 
 }
