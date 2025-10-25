@@ -1,7 +1,6 @@
 package co.edu.unbosque.model;
 
 import co.edu.unbosque.model.persistence.HombreDAO;
-import co.edu.unbosque.model.persistence.MensajeDAO;
 import co.edu.unbosque.model.persistence.MujerDAO;
 
 public class ModelFacade {
