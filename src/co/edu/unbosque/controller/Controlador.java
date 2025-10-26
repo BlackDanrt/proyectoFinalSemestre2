@@ -2,12 +2,17 @@ package co.edu.unbosque.controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Properties;
+import java.util.UUID;
 
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
 import co.edu.unbosque.model.HombreDTO;
@@ -17,7 +22,7 @@ import co.edu.unbosque.model.persistence.FileHandler;
 import co.edu.unbosque.view.ViewFacade;
 
 public class Controlador implements ActionListener {
-	
+
 	private ModelFacade mf;
 	private ViewFacade vf;
 	private Properties propIdioma;
@@ -83,6 +88,7 @@ public class Controlador implements ActionListener {
 	 * NO SE ESTAN LEYENDO BIEN LOS SIGUIENTES ALL ESPANOL E INGLES POR SUS
 	 * CARACTERES
 	 */
+
 	public void idioma() {
 
 		String idioma = String.valueOf(vf.getpBan().getCmbIdioma().getSelectedItem());
@@ -170,7 +176,77 @@ public class Controlador implements ActionListener {
 	}
 
 	public void registrarse() {
+		/*
+		 * String nombre; String apellido; String alias; int edad; String correo; String
+		 * contrasenia; String foto; int cantLike; boolean esVisiblePefil; long
+		 * edadMinima; long edadMaxima; boolean estaVerificado;
+		 */
 
+		try {
+			/*
+			 * String id = UUID.randomUUID().toString(); String nombre = vf ;
+			 * LanzadorDeExcepcion.verificarString(nombre); String apellido = vf ;
+			 * LanzadorDeExcepcion.verificarString(apellido); String alias = vf ;
+			 * LanzadorDeExcepcion.verificarAliasExistente(alias);
+			 * 
+			 * String fechaNacimiento = vf ; 
+			 * int edad = LanzadorDeExcepcion.verificarFechaNacimiento(fechaNacimiento);
+			 * 
+			 * String correo = vf ; LanzadorDeExcepcion.verificarCorreoInvalido(correo);
+			 * LanzadorDeExcepcion.verificarCorreoExistente(correo);
+			 * 
+			 * String ruta = tomarRutaFoto;
+			 * String contrasenia = vf ;
+			 *ACORDARME DE CREAR UN VERIFICADOR DE FOTALEZA DE CONTRASENIA
+			 *int edadMinima = 0;
+			 *int edadMaxima = 0;
+			 *boolean estVerificado = false;
+			 */
+			
+
+		} catch (InputMismatchException e) {
+
+		}
+
+	}
+
+	public String tomarRutaFoto() {
+
+		JFileChooser fileChooser = new JFileChooser();
+		fileChooser.setDialogTitle("Selecciona tu foto de perfil");
+
+		// Solo permitir imágenes
+		fileChooser.setFileFilter(
+				new javax.swing.filechooser.FileNameExtensionFilter("Imágenes (JPG, PNG, JPEG)", "jpg", "jpeg", "png"));
+
+		int resultado = fileChooser.showOpenDialog(null);
+
+		if (resultado == JFileChooser.APPROVE_OPTION) {
+			File archivoSeleccionado = fileChooser.getSelectedFile();
+
+			try {
+				// Carpeta de destino (ya existente)
+				File carpetaFiles = new File("files");
+
+				// Crear archivo de destino dentro de esa carpeta
+				String nombreArchivo = archivoSeleccionado.getName();
+				File destino = new File(carpetaFiles, nombreArchivo);
+
+				// Copiar imagen seleccionada a la carpeta files
+				Files.copy(archivoSeleccionado.toPath(), destino.toPath(), StandardCopyOption.REPLACE_EXISTING);
+
+				// Ruta relativa (adaptada al proyecto)
+				return "files/" + nombreArchivo;
+
+			} catch (IOException e) {
+				JOptionPane.showMessageDialog(null, "Error al copiar la imagen: " + e.getMessage());
+				// Si ocurre un error, también devolvemos la imagen por defecto
+				return "files/default.png";
+			}
+		} else {
+			// Si no se seleccionó nada, devolvemos la imagen por defecto
+			return "files/default.png";
+		}
 	}
 
 	@Override

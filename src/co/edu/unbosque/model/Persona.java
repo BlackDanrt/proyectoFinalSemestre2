@@ -9,6 +9,7 @@ public class Persona implements Serializable {
 	 */
 	private static final long serialVersionUID = 2605090105710016709L;
 
+	private String id;
 	private String nombre;
 	private String apellido;
 	private String alias;
@@ -26,10 +27,11 @@ public class Persona implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Persona(String nombre, String apellido, String alias, int edad, String correo, String contrasenia,
+	public Persona(String id, String nombre, String apellido, String alias, int edad, String correo, String contrasenia,
 			String foto, int cantLike, boolean esVisiblePefil, long edadMinima, long edadMaxima,
 			boolean estaVerificado) {
 		super();
+		this.id = id;
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.alias = alias;
@@ -42,6 +44,14 @@ public class Persona implements Serializable {
 		this.edadMinima = edadMinima;
 		this.edadMaxima = edadMaxima;
 		this.estaVerificado = estaVerificado;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	public String getNombre() {
@@ -146,10 +156,10 @@ public class Persona implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Persona [nombre=" + nombre + ", apellido=" + apellido + ", alias=" + alias + ", edad=" + edad
-				+ ", correo=" + correo + ", contrasenia=" + contrasenia + ", foto=" + foto + ", cantLike=" + cantLike
-				+ ", esVisiblePefil=" + esVisiblePefil + ", edadMinima=" + edadMinima + ", edadMaxima=" + edadMaxima
-				+ "]";
+		return "Persona [id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + ", alias=" + alias + ", edad="
+				+ edad + ", correo=" + correo + ", contrasenia=" + contrasenia + ", foto=" + foto + ", cantLike="
+				+ cantLike + ", esVisiblePefil=" + esVisiblePefil + ", edadMinima=" + edadMinima + ", edadMaxima="
+				+ edadMaxima + ", estaVerificado=" + estaVerificado + "]";
 	}
 
 }

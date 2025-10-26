@@ -14,15 +14,12 @@ package co.edu.unbosque.model;
  * datos personales junto con sus preferencias.
  * </p>
  * 
- * @author Juan Martinez
+ * @author Juan
  * @version 1.0
  */
 public class Mujer extends Persona {
 
 	private static final long serialVersionUID = 4376781876057227158L;
-
-	/** Identificador único de la mujer. */
-	private String id;
 
 	/** Indica si la mujer es divorciada. */
 	private boolean esDivorciada;
@@ -30,7 +27,7 @@ public class Mujer extends Persona {
 	/** Estatura ideal de la pareja que busca, en centímetros. */
 	private int estaturaIdeal;
 
-	/** Estatura de la mujer en centímetros. */
+	/** Estatura actual de la mujer en centímetros. */
 	private int estatura;
 
 	/**
@@ -44,14 +41,12 @@ public class Mujer extends Persona {
 	/**
 	 * Crea un objeto {@code Mujer} con los atributos específicos.
 	 * 
-	 * @param id            Identificador único de la mujer.
 	 * @param esDivorciada  Indica si la mujer es divorciada.
 	 * @param estaturaIdeal Estatura ideal de la pareja que busca, en centímetros.
-	 * @param estatura      Estatura de la mujer en centímetros.
+	 * @param estatura      Estatura actual de la mujer, en centímetros.
 	 */
-	public Mujer(String id, boolean esDivorciada, int estaturaIdeal, int estatura) {
+	public Mujer(boolean esDivorciada, int estaturaIdeal, int estatura) {
 		super();
-		this.id = id;
 		this.esDivorciada = esDivorciada;
 		this.estaturaIdeal = estaturaIdeal;
 		this.estatura = estatura;
@@ -61,6 +56,7 @@ public class Mujer extends Persona {
 	 * Crea un objeto {@code Mujer} con los atributos heredados de {@link Persona} y
 	 * los específicos de la clase {@code Mujer}.
 	 * 
+	 * @param id             Identificador único del perfil.
 	 * @param nombre         Nombre de la mujer.
 	 * @param apellido       Apellido de la mujer.
 	 * @param alias          Alias del perfil.
@@ -73,25 +69,25 @@ public class Mujer extends Persona {
 	 * @param edadMinima     Edad mínima de preferencia de pareja.
 	 * @param edadMaxima     Edad máxima de preferencia de pareja.
 	 * @param estaVerificado Indica si el perfil está verificado.
-	 * @param id             Identificador único.
 	 * @param esDivorciada   Indica si la mujer es divorciada.
 	 * @param estaturaIdeal  Estatura ideal de la pareja, en centímetros.
 	 * @param estatura       Estatura actual de la mujer, en centímetros.
 	 */
-	public Mujer(String nombre, String apellido, String alias, int edad, String correo, String contrasenia, String foto,
-			int cantLike, boolean esVisiblePefil, long edadMinima, long edadMaxima, boolean estaVerificado, String id,
+	public Mujer(String id, String nombre, String apellido, String alias, int edad, String correo, String contrasenia,
+			String foto, int cantLike, boolean esVisiblePefil, long edadMinima, long edadMaxima, boolean estaVerificado,
 			boolean esDivorciada, int estaturaIdeal, int estatura) {
-		super(nombre, apellido, alias, edad, correo, contrasenia, foto, cantLike, esVisiblePefil, edadMinima,
+		super(id, nombre, apellido, alias, edad, correo, contrasenia, foto, cantLike, esVisiblePefil, edadMinima,
 				edadMaxima, estaVerificado);
-		this.id = id;
 		this.esDivorciada = esDivorciada;
 		this.estaturaIdeal = estaturaIdeal;
 		this.estatura = estatura;
 	}
 
 	/**
-	 * Crea un objeto {@code Mujer} con los atributos heredados de {@link Persona}.
+	 * Crea un objeto {@code Mujer} solo con los atributos heredados de
+	 * {@link Persona}.
 	 * 
+	 * @param id             Identificador único del perfil.
 	 * @param nombre         Nombre de la mujer.
 	 * @param apellido       Apellido de la mujer.
 	 * @param alias          Alias del perfil.
@@ -105,20 +101,11 @@ public class Mujer extends Persona {
 	 * @param edadMaxima     Edad máxima de preferencia de pareja.
 	 * @param estaVerificado Indica si el perfil está verificado.
 	 */
-	public Mujer(String nombre, String apellido, String alias, int edad, String correo, String contrasenia, String foto,
-			int cantLike, boolean esVisiblePefil, long edadMinima, long edadMaxima, boolean estaVerificado) {
-		super(nombre, apellido, alias, edad, correo, contrasenia, foto, cantLike, esVisiblePefil, edadMinima,
+	public Mujer(String id, String nombre, String apellido, String alias, int edad, String correo, String contrasenia,
+			String foto, int cantLike, boolean esVisiblePefil, long edadMinima, long edadMaxima,
+			boolean estaVerificado) {
+		super(id, nombre, apellido, alias, edad, correo, contrasenia, foto, cantLike, esVisiblePefil, edadMinima,
 				edadMaxima, estaVerificado);
-	}
-
-	/** @return el identificador único de la mujer. */
-	public String getId() {
-		return id;
-	}
-
-	/** @param id el identificador único a establecer. */
-	public void setId(String id) {
-		this.id = id;
 	}
 
 	/**
@@ -161,7 +148,8 @@ public class Mujer extends Persona {
 	 */
 	@Override
 	public String toString() {
-		return "Mujer [id=" + id + ", esDivorciada=" + esDivorciada + ", estaturaIdeal=" + estaturaIdeal + ", estatura="
-				+ estatura + "]";
+		return "Mujer [esDivorciada=" + esDivorciada + ", estaturaIdeal=" + estaturaIdeal + ", estatura=" + estatura
+				+ "]";
 	}
+
 }

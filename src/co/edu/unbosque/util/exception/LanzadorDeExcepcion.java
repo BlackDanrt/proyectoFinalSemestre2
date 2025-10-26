@@ -41,7 +41,7 @@ public class LanzadorDeExcepcion {
 		}
 	}
 
-	public void verificarFechaNacimiento(String fecha) throws FechaNacimientoInvalidaException {
+	public int verificarFechaNacimiento(String fecha) throws FechaNacimientoInvalidaException {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
 		LocalDate fechaNacimiento = LocalDate.parse(fecha, formatter);
@@ -51,6 +51,8 @@ public class LanzadorDeExcepcion {
 		if (edad < 18) {
 			throw new FechaNacimientoInvalidaException();
 		}
+
+		return edad;
 	}
 
 	public void verificarAliasExistente(String alias) throws AliasExistenteException {
@@ -67,6 +69,15 @@ public class LanzadorDeExcepcion {
 		for (MujerDTO dto : mujeres) {
 			if (dto.getAlias().equals(alias)) {
 				throw new AliasExistenteException();
+			}
+		}
+	}
+
+	public static void verificarString(String texto) throws StringInvalidoException {
+
+		for (int i = 0; i < texto.length(); i++) {
+			if (!Character.isLetter(texto.charAt(i))) {
+				throw new StringInvalidoException();
 			}
 		}
 	}

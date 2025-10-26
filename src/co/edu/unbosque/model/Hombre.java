@@ -4,19 +4,16 @@ package co.edu.unbosque.model;
  * Representa a un hombre dentro del sistema, extendiendo la clase
  * {@link Persona}.
  * <p>
- * Incluye información adicional como el identificador, ingreso mensual,
- * preferencia sobre el divorcio y la estatura.
+ * Incluye información adicional como el ingreso mensual, la preferencia sobre
+ * el divorcio y la estatura.
  * </p>
  * 
- * @author Juan Martinez
+ * @author Juan
  * @version 1.0
  */
 public class Hombre extends Persona {
 
 	private static final long serialVersionUID = 1962898026481141517L;
-
-	/** Identificador único del hombre. */
-	private String id;
 
 	/** Ingreso mensual del hombre en pesos. */
 	private long ingresoMensual;
@@ -38,14 +35,12 @@ public class Hombre extends Persona {
 	/**
 	 * Crea un objeto {@code Hombre} con los atributos específicos.
 	 * 
-	 * @param id                  Identificador único del hombre.
 	 * @param ingresoMensual      Ingreso mensual en pesos.
 	 * @param preferenciaDivorcio Preferencia sobre el divorcio.
 	 * @param estatura            Estatura en centímetros.
 	 */
-	public Hombre(String id, long ingresoMensual, boolean preferenciaDivorcio, int estatura) {
+	public Hombre(long ingresoMensual, boolean preferenciaDivorcio, int estatura) {
 		super();
-		this.id = id;
 		this.ingresoMensual = ingresoMensual;
 		this.preferenciaDivorcio = preferenciaDivorcio;
 		this.estatura = estatura;
@@ -55,6 +50,7 @@ public class Hombre extends Persona {
 	 * Crea un objeto {@code Hombre} con los atributos heredados de {@link Persona}
 	 * y los específicos de la clase.
 	 * 
+	 * @param id                  Identificador único del perfil.
 	 * @param nombre              Nombre del hombre.
 	 * @param apellido            Apellido del hombre.
 	 * @param alias               Alias del perfil.
@@ -67,25 +63,25 @@ public class Hombre extends Persona {
 	 * @param edadMinima          Edad mínima de preferencia de pareja.
 	 * @param edadMaxima          Edad máxima de preferencia de pareja.
 	 * @param estaVerificado      Indica si el perfil está verificado.
-	 * @param id                  Identificador único.
-	 * @param ingresoMensual      Ingreso mensual.
+	 * @param ingresoMensual      Ingreso mensual en pesos.
 	 * @param preferenciaDivorcio Preferencia sobre el divorcio.
 	 * @param estatura            Estatura en centímetros.
 	 */
-	public Hombre(String nombre, String apellido, String alias, int edad, String correo, String contrasenia,
+	public Hombre(String id, String nombre, String apellido, String alias, int edad, String correo, String contrasenia,
 			String foto, int cantLike, boolean esVisiblePefil, long edadMinima, long edadMaxima, boolean estaVerificado,
-			String id, long ingresoMensual, boolean preferenciaDivorcio, int estatura) {
-		super(nombre, apellido, alias, edad, correo, contrasenia, foto, cantLike, esVisiblePefil, edadMinima,
+			long ingresoMensual, boolean preferenciaDivorcio, int estatura) {
+		super(id, nombre, apellido, alias, edad, correo, contrasenia, foto, cantLike, esVisiblePefil, edadMinima,
 				edadMaxima, estaVerificado);
-		this.id = id;
 		this.ingresoMensual = ingresoMensual;
 		this.preferenciaDivorcio = preferenciaDivorcio;
 		this.estatura = estatura;
 	}
 
 	/**
-	 * Crea un objeto {@code Hombre} con los atributos heredados de {@link Persona}.
+	 * Crea un objeto {@code Hombre} solo con los atributos heredados de
+	 * {@link Persona}.
 	 * 
+	 * @param id             Identificador único del perfil.
 	 * @param nombre         Nombre del hombre.
 	 * @param apellido       Apellido del hombre.
 	 * @param alias          Alias del perfil.
@@ -99,21 +95,11 @@ public class Hombre extends Persona {
 	 * @param edadMaxima     Edad máxima de preferencia de pareja.
 	 * @param estaVerificado Indica si el perfil está verificado.
 	 */
-	public Hombre(String nombre, String apellido, String alias, int edad, String correo, String contrasenia,
+	public Hombre(String id, String nombre, String apellido, String alias, int edad, String correo, String contrasenia,
 			String foto, int cantLike, boolean esVisiblePefil, long edadMinima, long edadMaxima,
 			boolean estaVerificado) {
-		super(nombre, apellido, alias, edad, correo, contrasenia, foto, cantLike, esVisiblePefil, edadMinima,
+		super(id, nombre, apellido, alias, edad, correo, contrasenia, foto, cantLike, esVisiblePefil, edadMinima,
 				edadMaxima, estaVerificado);
-	}
-
-	/** @return el identificador único del hombre. */
-	public String getId() {
-		return id;
-	}
-
-	/** @param id el identificador único a establecer. */
-	public void setId(String id) {
-		this.id = id;
 	}
 
 	/** @return el ingreso mensual del hombre. */
@@ -159,7 +145,7 @@ public class Hombre extends Persona {
 	 */
 	@Override
 	public String toString() {
-		return "Hombre [id=" + id + ", ingresoMensual=" + ingresoMensual + ", preferenciaDivorcio="
-				+ preferenciaDivorcio + ", estatura=" + estatura + "]";
+		return "Hombre [ingresoMensual=" + ingresoMensual + ", preferenciaDivorcio=" + preferenciaDivorcio
+				+ ", estatura=" + estatura + "]";
 	}
 }
