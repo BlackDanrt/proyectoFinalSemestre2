@@ -13,7 +13,7 @@ import co.edu.unbosque.model.MujerDTO;
 
 public class LanzadorDeExcepcion {
 
-	public void verificarCorreoExistente(String correo) throws CorreoExistenteException {
+	public static void verificarCorreoExistente(String correo) throws CorreoExistenteException {
 		ModelFacade mf = new ModelFacade();
 		ArrayList<MujerDTO> mujeres = mf.getMujerDao().getLista();
 		ArrayList<HombreDTO> hombres = mf.getHombreDao().getLista();
@@ -31,7 +31,7 @@ public class LanzadorDeExcepcion {
 		}
 	}
 
-	public void verificarCorreoInvalido(String correo) throws CorreoInvalidoException {
+	public static void verificarCorreoInvalido(String correo) throws CorreoInvalidoException {
 		String regex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
 		Pattern pattern = Pattern.compile(regex);
 		Matcher matcher = pattern.matcher(correo);
@@ -41,7 +41,7 @@ public class LanzadorDeExcepcion {
 		}
 	}
 
-	public int verificarFechaNacimiento(String fecha) throws FechaNacimientoInvalidaException {
+	public static int verificarFechaNacimiento(String fecha) throws FechaNacimientoInvalidaException {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
 		LocalDate fechaNacimiento = LocalDate.parse(fecha, formatter);
@@ -55,7 +55,7 @@ public class LanzadorDeExcepcion {
 		return edad;
 	}
 
-	public void verificarAliasExistente(String alias) throws AliasExistenteException {
+	public static void verificarAliasExistente(String alias) throws AliasExistenteException {
 		ModelFacade mf = new ModelFacade();
 		ArrayList<MujerDTO> mujeres = mf.getMujerDao().getLista();
 		ArrayList<HombreDTO> hombres = mf.getHombreDao().getLista();

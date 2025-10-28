@@ -7,6 +7,7 @@ public class PanelRegistro extends JPanel {
 
     private JLabel lblFondo;
     private JTextField txtNombre;
+    private JTextField txtApellido;
     private JTextField txtAlias;
     private JTextField txtEmail;
     private JPasswordField jpfContrasenia;
@@ -240,4 +241,14 @@ public class PanelRegistro extends JPanel {
     public void setGrupoGenero(ButtonGroup grupoGenero) {
         this.grupoGenero = grupoGenero;
     }
+
+	public JTextField getTxtApellido() {
+		return txtApellido;
+	}
+
+	public void setTxtApellido(JTextField txtApellido) {
+		this.txtApellido = txtApellido;
+	}
+    
+    
 }

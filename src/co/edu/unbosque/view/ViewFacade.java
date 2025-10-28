@@ -11,11 +11,13 @@ public class ViewFacade {
 	private Ventana ven;
 	private PanelBanner pBan;
 	private PanelIniciarSesion pInic;
+	private PanelRegistro pReg;
 
 	public ViewFacade() {
 		ven = new Ventana();
 		pBan = new PanelBanner();
 		pInic = new PanelIniciarSesion();
+		pReg = new PanelRegistro();
 	}
 
 	public Ventana getVen() {
@@ -44,6 +46,14 @@ public class ViewFacade {
 
 	public void setpInic(PanelIniciarSesion pInic) {
 		this.pInic = pInic;
+	}
+
+	public PanelRegistro getpReg() {
+		return pReg;
+	}
+
+	public void setpReg(PanelRegistro pReg) {
+		this.pReg = pReg;
 	}
 
 	private void cambiarIconoModo(String ruta) {
