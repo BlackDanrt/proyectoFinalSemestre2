@@ -15,7 +15,7 @@ public class PanelSeleccionarGenero extends JPanel {
 
 	public PanelSeleccionarGenero() {
 		this.setLayout(null);
-		this.setSize(560, 620);
+		this.setSize(1280, 780);
 		this.setBackground(Color.decode("#BB82CF"));
 		this.setVisible(true);
 		inicializarComponentes();
@@ -23,31 +23,31 @@ public class PanelSeleccionarGenero extends JPanel {
 	}
 
 	public void inicializarComponentes() {
-		lblTitulo = new JLabel();
-		lblTitulo.setBounds(194, 69, 412, 50);
+		lblTitulo = new JLabel("Registrarse como: ");
+		lblTitulo.setBounds(326, 120, 628, 69);
 
 		btnHombre = new JButton();
-		btnHombre.setBounds(194, 169, 171, 176);
+		btnHombre.setBounds(326, 256, 261, 240);
 
 		ImageIcon iconoHombre = new ImageIcon("files/hombre.png");
 		Image imgHombre = iconoHombre.getImage().getScaledInstance(171, 176, Image.SCALE_SMOOTH);
 		btnHombre.setIcon(new ImageIcon(imgHombre));
 
 		btnMujer = new JButton();
-		btnMujer.setBounds(435, 171, 169, 176);
+		btnMujer.setBounds(693, 256, 261, 240);
 
 		ImageIcon iconoMujer = new ImageIcon("files/mujer.png");
 		Image imgMujer = iconoMujer.getImage().getScaledInstance(169, 176, Image.SCALE_SMOOTH);
 		btnMujer.setIcon(new ImageIcon(imgMujer));
 
 		btnVolver = new JButton("Volver");
-		btnVolver.setBounds(35, 512, 90, 25);
+		btnVolver.setBounds(71, 750, 90, 25);
 
-		lblHombre = new JLabel();
-		lblHombre.setBounds(230, 363, 100, 25);
+		lblHombre = new JLabel("Hombre");
+		lblHombre.setBounds(379, 521, 153, 35);
 
-		lblMujer = new JLabel();
-		lblMujer.setBounds(470, 363, 100, 25);
+		lblMujer = new JLabel("Mujer");
+		lblMujer.setBounds(747, 521, 153, 35);
 
 		this.add(lblTitulo);
 		this.add(btnHombre);

@@ -59,6 +59,14 @@ public class Controlador implements ActionListener {
 
 		vf.refrescarVista();
 		vf.getVen().setVisible(true);
+
+		// Panel registrarse
+		vf.getpGen().setBounds(0, 0, 1280, 860);
+		vf.getVen().add(vf.getpGen());
+		vf.getpGen().setVisible(false);
+
+		// Panel seleccionar genero
+
 	}
 
 	public void inicializarConfig() {
@@ -324,20 +332,24 @@ public class Controlador implements ActionListener {
 			iniciarSesion();
 			break;
 		}
-		case "registrase": {
-
+		case "registrarse": {
+			vf.getpInic().setVisible(false);
+			vf.getpGen().setVisible(true);
+			vf.refrescarVista();
 			break;
 		}
 		case "panel registrarse hombre": {
-
+			vf.refrescarVista();
 			break;
 		}
 		case "panel registrarse mujer": {
-
+			vf.refrescarVista();
 			break;
 		}
-		case "volver inicio sesion ": {
-
+		case "volver inicio sesion": {
+			vf.getpGen().setVisible(false);
+			vf.getpInic().setVisible(true);
+			vf.refrescarVista();
 			break;
 		}
 
@@ -357,8 +369,8 @@ public class Controlador implements ActionListener {
 		vf.getpInic().getBtnIniciarSesion().addActionListener(this);
 		vf.getpInic().getBtnIniciarSesion().setActionCommand("iniciar sesion");
 
-		vf.getpInic().getBtnIniciarSesion().addActionListener(this);
-		vf.getpInic().getBtnIniciarSesion().setActionCommand("registrarse");
+		vf.getpInic().getBtnRegistrar().addActionListener(this);
+		vf.getpInic().getBtnRegistrar().setActionCommand("registrarse");
 
 		// Panel Seleccionar Genero
 		vf.getpGen().getBtnHombre().addActionListener(this);
