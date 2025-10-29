@@ -15,7 +15,7 @@ public class PanelSeleccionarGenero extends JPanel {
 
 	public PanelSeleccionarGenero() {
 		this.setLayout(null);
-		this.setSize(1280, 780);
+		this.setSize(1280, 860);
 		this.setBackground(Color.decode("#BB82CF"));
 		this.setVisible(true);
 		inicializarComponentes();
