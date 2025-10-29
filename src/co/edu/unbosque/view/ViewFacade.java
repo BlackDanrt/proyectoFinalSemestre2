@@ -12,12 +12,14 @@ public class ViewFacade {
 	private PanelBanner pBan;
 	private PanelIniciarSesion pInic;
 	private PanelRegistro pReg;
+	private PanelSeleccionarGenero pGen;
 
 	public ViewFacade() {
 		ven = new Ventana();
 		pBan = new PanelBanner();
 		pInic = new PanelIniciarSesion();
 		pReg = new PanelRegistro();
+		pGen = new PanelSeleccionarGenero();
 	}
 
 	public Ventana getVen() {
@@ -54,6 +56,14 @@ public class ViewFacade {
 
 	public void setpReg(PanelRegistro pReg) {
 		this.pReg = pReg;
+	}
+
+	public PanelSeleccionarGenero getpGen() {
+		return pGen;
+	}
+
+	public void setpGen(PanelSeleccionarGenero pGen) {
+		this.pGen = pGen;
 	}
 
 	private void cambiarIconoModo(String ruta) {

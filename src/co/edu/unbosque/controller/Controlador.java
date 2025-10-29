@@ -304,12 +304,16 @@ public class Controlador implements ActionListener {
 
 			break;
 		}
-		case "registrarse hombre": {
-			registrarse(true);
+		case "panel registrarse hombre": {
+
 			break;
 		}
-		case "registrarse mujer": {
-			registrarse(false);
+		case "panel registrarse mujer": {
+
+			break;
+		}
+		case "volver inicio sesion ": {
+
 			break;
 		}
 
@@ -331,6 +335,16 @@ public class Controlador implements ActionListener {
 
 		vf.getpInic().getBtnIniciarSesion().addActionListener(this);
 		vf.getpInic().getBtnIniciarSesion().setActionCommand("registrarse");
+
+		// Panel Seleccionar Genero
+		vf.getpGen().getBtnHombre().addActionListener(this);
+		vf.getpGen().getBtnHombre().setActionCommand("registrarse hombre");
+
+		vf.getpGen().getBtnMujer().addActionListener(this);
+		vf.getpGen().getBtnMujer().setActionCommand("registrarse mujer");
+
+		vf.getpGen().getBtnVolver().addActionListener(this);
+		vf.getpGen().getBtnVolver().setActionCommand("volver inicio sesion");
 
 	}
 
