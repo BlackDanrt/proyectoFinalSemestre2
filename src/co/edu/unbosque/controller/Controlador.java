@@ -12,6 +12,7 @@ import java.util.InputMismatchException;
 import java.util.Properties;
 import java.util.UUID;
 
+import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
@@ -42,6 +43,7 @@ public class Controlador implements ActionListener {
 		vf.getpBan().getCmbIdioma().setSelectedItem(propConfig.getProperty("proyectoFinalSemestre2.idioma"));
 		inicializarOyentes();
 		inicializarConfig();
+		idioma();
 	}
 
 	public void runGUI() {
@@ -68,6 +70,28 @@ public class Controlador implements ActionListener {
 			vf.modoClaro();
 			vf.refrescarVista();
 		}
+
+		String idiomaGuardado = propConfig.getProperty("proyectoFinalSemestre2.idioma");
+		if (idiomaGuardado.equals("ES")) {
+			vf.getpBan().getCmbIdioma().setSelectedItem("Español ES");
+
+		} else if (idiomaGuardado.equals("US")) {
+			vf.getpBan().getCmbIdioma().setSelectedItem("English US");
+
+		} else if (idiomaGuardado.equals("BR")) {
+			vf.getpBan().getCmbIdioma().setSelectedItem("Portugués BR");
+
+		} else if (idiomaGuardado.equals("RU")) {
+			vf.getpBan().getCmbIdioma().setSelectedItem("русский RU");
+
+		} else if (idiomaGuardado.equals("CN")) {
+			vf.getpBan().getCmbIdioma().setSelectedItem("中文 CN");
+
+		} else if (idiomaGuardado.equals("IL")) {
+			vf.getpBan().getCmbIdioma().setSelectedItem("עברית IL");
+
+		}
+
 	}
 
 	public void modoOscuro() {
@@ -101,42 +125,42 @@ public class Controlador implements ActionListener {
 		if (idioma.equals("Español ES")) {
 			propIdioma = FileHandler.cargarArchivoDePropiedades("ES.properties");
 			try {
-				propConfig.setProperty("proyectoFinalSemestre2.idioma", "Español ES");
+				propConfig.setProperty("proyectoFinalSemestre2.idioma", "ES");
 				propConfig.store(new FileWriter("config.properties"), null);
 			} catch (InputMismatchException | IOException e) {
 			}
 		} else if (idioma.equals("English US")) {
 			try {
 				propIdioma = FileHandler.cargarArchivoDePropiedades("US.properties");
-				propConfig.setProperty("proyectoFinalSemestre2.idioma", "English US");
+				propConfig.setProperty("proyectoFinalSemestre2.idioma", "US");
 				propConfig.store(new FileWriter("config.properties"), null);
 			} catch (InputMismatchException | IOException e) {
 			}
 		} else if (idioma.equals("Portugués BR")) {
 			try {
 				propIdioma = FileHandler.cargarArchivoDePropiedades("BR.properties");
-				propConfig.setProperty("proyectoFinalSemestre2.idioma", "Portugués BR");
+				propConfig.setProperty("proyectoFinalSemestre2.idioma", "BR");
 				propConfig.store(new FileWriter("config.properties"), null);
 			} catch (InputMismatchException | IOException e) {
 			}
 		} else if (idioma.equals("русский RU")) {
 			try {
 				propIdioma = FileHandler.cargarArchivoDePropiedades("RU.properties");
-				propConfig.setProperty("proyectoFinalSemestre2.idioma", "русский RU");
+				propConfig.setProperty("proyectoFinalSemestre2.idioma", "RU");
 				propConfig.store(new FileWriter("config.properties"), null);
 			} catch (InputMismatchException | IOException e) {
 			}
 		} else if (idioma.equals("中文 CN")) {
 			try {
 				propIdioma = FileHandler.cargarArchivoDePropiedades("CN.properties");
-				propConfig.setProperty("proyectoFinalSemestre2.idioma", "中文 CN");
+				propConfig.setProperty("proyectoFinalSemestre2.idioma", "CN");
 				propConfig.store(new FileWriter("config.properties"), null);
 			} catch (InputMismatchException | IOException e) {
 			}
 		} else if (idioma.equals("עברית IL")) {
 			try {
 				propIdioma = FileHandler.cargarArchivoDePropiedades("IL.properties");
-				propConfig.setProperty("proyectoFinalSemestre2.idioma", "עברית IL");
+				propConfig.setProperty("proyectoFinalSemestre2.idioma", "IL");
 				propConfig.store(new FileWriter("config.properties"), null);
 			} catch (InputMismatchException | IOException e) {
 			}

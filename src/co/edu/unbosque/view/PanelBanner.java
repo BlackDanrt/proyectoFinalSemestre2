@@ -26,6 +26,7 @@ public class PanelBanner extends JPanel {
 		 * Español: español, Inglés: English, Portugués: português Ruso: русский Chino:
 		 * 中文 Hebreo: עברית
 		 */
+		
 		cmbIdioma = new JComboBox<String>();
 		cmbIdioma.addItem("Español ES");
 		cmbIdioma.addItem("English US");
