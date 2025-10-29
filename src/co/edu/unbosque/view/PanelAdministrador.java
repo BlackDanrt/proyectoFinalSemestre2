@@ -5,7 +5,8 @@ import javax.swing.*;
 
 public class PanelAdministrador extends JPanel {
 	private JLabel lblFondo;
-	private JComboBox<String> cmbUss;
+	private JComboBox<String> cmbUssHombre;
+	private JComboBox<String> cmbUssMujer;
 	private JButton btnElimUss;
 	private JButton btnDescargarPdf;
 	
@@ -23,9 +24,12 @@ public class PanelAdministrador extends JPanel {
 
 		btnDescargarPdf = new JButton("Descargar PDF");
 		btnDescargarPdf.setBounds(70, 470, 140, 35);
+	
+		cmbUssHombre = new JComboBox<String>();
+		//cmbUssHombre.add();
 		
-		cmbUss = new JComboBox<String>();
-		cmbUss.addItem("Usuarios*");
+		cmbUssMujer = new JComboBox<String>();
+		//cmbUssMujer.add();
 		
 		btnElimUss = new JButton("Desactivar Cuenta");
 		btnDescargarPdf.setBounds(70, 470, 140, 35);
@@ -33,7 +37,8 @@ public class PanelAdministrador extends JPanel {
 
 		this.add(lblFondo);
 		this.add(btnDescargarPdf);
-		this.add(cmbUss);
+		this.add(cmbUssHombre);
+		this.add(cmbUssMujer);
 		this.add(btnElimUss);
 		
 	}
@@ -46,12 +51,20 @@ public class PanelAdministrador extends JPanel {
 		this.lblFondo = lblFondo;
 	}
 
-	public JComboBox<String> getCmbUss() {
-		return cmbUss;
+	public JComboBox<String> getCmbUssHombre() {
+		return cmbUssHombre;
 	}
 
-	public void setCmbUss(JComboBox<String> cmbUss) {
-		this.cmbUss = cmbUss;
+	public void setCmbUssHombre(JComboBox<String> cmbUssHombre) {
+		this.cmbUssHombre = cmbUssHombre;
+	}
+
+	public JComboBox<String> getCmbUssMujer() {
+		return cmbUssMujer;
+	}
+
+	public void setCmbUssMujer(JComboBox<String> cmbUssMujer) {
+		this.cmbUssMujer = cmbUssMujer;
 	}
 
 	public JButton getBtnElimUss() {
@@ -69,5 +82,6 @@ public class PanelAdministrador extends JPanel {
 	public void setBtnDescargarPdf(JButton btnDescargarPdf) {
 		this.btnDescargarPdf = btnDescargarPdf;
 	}
+
 
 }
