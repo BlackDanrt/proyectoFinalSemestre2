@@ -2,6 +2,8 @@ package co.edu.unbosque.model.persistence;
 
 import java.util.ArrayList;
 
+import co.edu.unbosque.model.Dislike;
+import co.edu.unbosque.model.DislikeDTO;
 import co.edu.unbosque.model.Hombre;
 import co.edu.unbosque.model.HombreDTO;
 import co.edu.unbosque.model.Mujer;
@@ -93,6 +95,32 @@ public class DataMapper {
 				dto.getEstaturaIdeal(), dto.getEstatura());
 
 		return entity;
+	}
+
+	public static Dislike convertirDislikeDTOaDislike(DislikeDTO dto) {
+		Dislike entity = new Dislike(dto.getIdEmisor(), dto.getIdReceptor());
+		return entity;
+	}
+
+	public static DislikeDTO convertirDislikeDTOaDislike(Dislike entity) {
+		DislikeDTO dto = new DislikeDTO(entity.getIdEmisor(), entity.getIdReceptor());
+		return dto;
+	}
+
+	public static ArrayList<Dislike> convertirListaDislikeDTOaListaDislike(ArrayList<DislikeDTO> dtoList) {
+		ArrayList<Dislike> entityList = new ArrayList<Dislike>();
+		for (DislikeDTO dto : dtoList) {
+			entityList.add(new Dislike(dto.getIdEmisor(), dto.getIdReceptor()));
+		}
+		return entityList;
+	}
+
+	public static ArrayList<DislikeDTO> convertirListaDislikeaListaDislikeDTO(ArrayList<Dislike> entityList) {
+		ArrayList<DislikeDTO> dtoList = new ArrayList<DislikeDTO>();
+		for (Dislike entity : entityList) {
+			dtoList.add(new DislikeDTO(entity.getIdEmisor(), entity.getIdReceptor()));
+		}
+		return dtoList;
 	}
 
 }

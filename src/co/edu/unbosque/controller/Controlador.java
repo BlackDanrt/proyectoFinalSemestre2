@@ -19,6 +19,12 @@ import co.edu.unbosque.model.HombreDTO;
 import co.edu.unbosque.model.ModelFacade;
 import co.edu.unbosque.model.MujerDTO;
 import co.edu.unbosque.model.persistence.FileHandler;
+import co.edu.unbosque.util.exception.AliasExistenteException;
+import co.edu.unbosque.util.exception.CorreoExistenteException;
+import co.edu.unbosque.util.exception.CorreoInvalidoException;
+import co.edu.unbosque.util.exception.FechaNacimientoInvalidaException;
+import co.edu.unbosque.util.exception.LanzadorDeExcepcion;
+import co.edu.unbosque.util.exception.StringInvalidoException;
 import co.edu.unbosque.view.ViewFacade;
 
 public class Controlador implements ActionListener {
@@ -175,7 +181,7 @@ public class Controlador implements ActionListener {
 		}
 	}
 
-	public void registrarse() {
+	public void registrarse(boolean esHombre) {
 		/*
 		 * String nombre; String apellido; String alias; int edad; String correo; String
 		 * contrasenia; String foto; int cantLike; boolean esVisiblePefil; long
@@ -183,29 +189,56 @@ public class Controlador implements ActionListener {
 		 */
 
 		try {
-			/*
-			 * String id = UUID.randomUUID().toString(); String nombre = vf ;
-			 * LanzadorDeExcepcion.verificarString(nombre); String apellido = vf ;
-			 * LanzadorDeExcepcion.verificarString(apellido); String alias = vf ;
-			 * LanzadorDeExcepcion.verificarAliasExistente(alias);
-			 * 
-			 * String fechaNacimiento = vf ; 
-			 * int edad = LanzadorDeExcepcion.verificarFechaNacimiento(fechaNacimiento);
-			 * 
-			 * String correo = vf ; LanzadorDeExcepcion.verificarCorreoInvalido(correo);
-			 * LanzadorDeExcepcion.verificarCorreoExistente(correo);
-			 * 
-			 * String ruta = tomarRutaFoto;
-			 * String contrasenia = vf ;
-			 *ACORDARME DE CREAR UN VERIFICADOR DE FOTALEZA DE CONTRASENIA
-			 *int edadMinima = 0;
-			 *int edadMaxima = 0;
-			 *boolean estVerificado = false;
+
+			String id = UUID.randomUUID().toString();
+			String nombre = vf.getpReg().getTxtNombre().getText();
+			LanzadorDeExcepcion.verificarString(nombre);
+
+			String apellido = vf.getpReg().getTxtApellido().getText();
+			LanzadorDeExcepcion.verificarString(apellido);
+
+			String alias = vf.getpReg().getTxtAlias().getText();
+			LanzadorDeExcepcion.verificarAliasExistente(alias);
+
+			String fechaNacimiento = vf.getpReg().getTxtFechaNacimiento().getText();
+			int edad = LanzadorDeExcepcion.verificarFechaNacimiento(fechaNacimiento);
+
+			String correo = vf.getpReg().getTxtEmail().getText();
+			LanzadorDeExcepcion.verificarCorreoInvalido(correo);
+			LanzadorDeExcepcion.verificarCorreoExistente(correo);
+
+			String foto = tomarRutaFoto();
+			String contrasenia = vf.getpReg().getJpfContrasenia().getText();
+			String confirmarContrasenia = vf.getpReg().getJpfContrasenia().getText();
+			// ACORDARME DE CREAR UN VERIFICADOR DE FOTALEZA DE CONTRASENIA
+			while (!contrasenia.equals(confirmarContrasenia)) {
+				// Mostrar JPanel para decir que hay error
+			}
+			String contraseniaAprobada = contrasenia;
+
+			int cantLike = 0;
+			int edadMinima = 0;
+			int edadMaxima = 0;
+			boolean esVisible = false;
+			boolean estaVerificado = false;
+			/**
+			 * if (esHombre) { long ingresoMensual = 0; boolean preferenciaDivorcio = false;
+			 * int estatura = 0; HombreDTO temp = new HombreDTO(id, nombre, apellido, alias,
+			 * edad, correo, contraseniaAprobada, foto, cantLike, esVisible, edadMinima,
+			 * edadMaxima, estaVerificado, ingresoMensual, preferenciaDivorcio, estatura);
+			 * mf.getHombreDao().crear(temp); } else { boolean esDivorciada = false; int
+			 * estaturaIdeal = 0; int estatura = 0; MujerDTO temp = new MujerDTO(id, nombre,
+			 * apellido, alias, edad, correo, contraseniaAprobada, foto, cantLike,
+			 * esVisible, edadMinima, edadMaxima, estaVerificado, esDivorciada,
+			 * estaturaIdeal, estatura); mf.getMujerDao().crear(temp); }
 			 */
-			
 
 		} catch (InputMismatchException e) {
-
+		} catch (FechaNacimientoInvalidaException e) {
+		} catch (StringInvalidoException e) {
+		} catch (CorreoInvalidoException e) {
+		} catch (CorreoExistenteException e) {
+		} catch (AliasExistenteException e) {
 		}
 
 	}
@@ -267,8 +300,20 @@ public class Controlador implements ActionListener {
 			iniciarSesion();
 			break;
 		}
-		case "registrarse": {
-			registrarse();
+		case "registrase": {
+
+			break;
+		}
+		case "panel registrarse hombre": {
+
+			break;
+		}
+		case "panel registrarse mujer": {
+
+			break;
+		}
+		case "volver inicio sesion ": {
+
 			break;
 		}
 
@@ -290,6 +335,16 @@ public class Controlador implements ActionListener {
 
 		vf.getpInic().getBtnIniciarSesion().addActionListener(this);
 		vf.getpInic().getBtnIniciarSesion().setActionCommand("registrarse");
+
+		// Panel Seleccionar Genero
+		vf.getpGen().getBtnHombre().addActionListener(this);
+		vf.getpGen().getBtnHombre().setActionCommand("registrarse hombre");
+
+		vf.getpGen().getBtnMujer().addActionListener(this);
+		vf.getpGen().getBtnMujer().setActionCommand("registrarse mujer");
+
+		vf.getpGen().getBtnVolver().addActionListener(this);
+		vf.getpGen().getBtnVolver().setActionCommand("volver inicio sesion");
 
 	}
 

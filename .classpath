@@ -8,5 +8,6 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="pfp"/>
 	<classpathentry kind="src" path="files"/>
+	<classpathentry kind="lib" path="E:/Semestre II/proyectoFinalSemestre2/lib/jakarta.mail-2.0.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
