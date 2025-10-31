@@ -14,7 +14,7 @@ package co.edu.unbosque.model;
  * datos personales junto con sus preferencias.
  * </p>
  * 
- * @author Juan
+ * @author Juan Martinez
  * @version 1.0
  */
 public class Mujer extends Persona {

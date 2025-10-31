@@ -10,7 +10,7 @@ package co.edu.unbosque.model;
  * persistencia y la capa de negocio) sin exponer la lógica interna.
  * </p>
  * 
- * @author Juan
+ * @author Juan Martinez
  * @version 1.0
  */
 public class HombreDTO extends Persona {

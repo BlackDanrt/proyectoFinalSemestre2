@@ -12,10 +12,10 @@ import java.util.InputMismatchException;
 import java.util.Properties;
 import java.util.UUID;
 
-import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
+import co.edu.unbosque.model.CorreoDTO;
 import co.edu.unbosque.model.HombreDTO;
 import co.edu.unbosque.model.ModelFacade;
 import co.edu.unbosque.model.MujerDTO;
@@ -255,17 +255,32 @@ public class Controlador implements ActionListener {
 			int edadMaxima = 0;
 			boolean esVisible = false;
 			boolean estaVerificado = false;
-			/**
-			 * if (esHombre) { long ingresoMensual = 0; boolean preferenciaDivorcio = false;
-			 * int estatura = 0; HombreDTO temp = new HombreDTO(id, nombre, apellido, alias,
-			 * edad, correo, contraseniaAprobada, foto, cantLike, esVisible, edadMinima,
-			 * edadMaxima, estaVerificado, ingresoMensual, preferenciaDivorcio, estatura);
-			 * mf.getHombreDao().crear(temp); } else { boolean esDivorciada = false; int
-			 * estaturaIdeal = 0; int estatura = 0; MujerDTO temp = new MujerDTO(id, nombre,
-			 * apellido, alias, edad, correo, contraseniaAprobada, foto, cantLike,
-			 * esVisible, edadMinima, edadMaxima, estaVerificado, esDivorciada,
-			 * estaturaIdeal, estatura); mf.getMujerDao().crear(temp); }
-			 */
+
+			CorreoDTO tempCorreo = new CorreoDTO(correo, alias, 0);
+
+			if (mf.getCorreoDao().enviarRegistroExitoso(tempCorreo)) {
+
+				if (esHombre) {
+					long ingresoMensual = 0;
+					boolean preferenciaDivorcio = false;
+					int estatura = 0;
+					HombreDTO temp = new HombreDTO(id, nombre, apellido, alias, edad, correo, contraseniaAprobada, foto,
+							cantLike, esVisible, edadMinima, edadMaxima, estaVerificado, ingresoMensual,
+							preferenciaDivorcio, estatura);
+					mf.getHombreDao().crear(temp);
+				} else {
+					boolean esDivorciada = false;
+					int estaturaIdeal = 0;
+					int estatura = 0;
+					MujerDTO temp = new MujerDTO(id, nombre, apellido, alias, edad, correo, contraseniaAprobada, foto,
+							cantLike, esVisible, edadMinima, edadMaxima, estaVerificado, esDivorciada, estaturaIdeal,
+							estatura);
+					mf.getMujerDao().crear(temp);
+				}
+
+			} else {
+				// JPanel de error
+			}
 
 		} catch (InputMismatchException e) {
 		} catch (FechaNacimientoInvalidaException e) {

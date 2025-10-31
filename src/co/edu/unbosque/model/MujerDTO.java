@@ -15,7 +15,7 @@ package co.edu.unbosque.model;
  * perfiles.
  * </p>
  * 
- * @author Juan
+ * @author Juan Martinez
  * @version 1.0
  */
 public class MujerDTO extends Persona {

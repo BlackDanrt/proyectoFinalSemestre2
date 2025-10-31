@@ -1,18 +1,22 @@
 package co.edu.unbosque.model;
 
 /**
- * Representa un correo dentro del sistema.
+ * Representa un objeto de transferencia de datos (DTO) para {@link Correo}.
  * <p>
- * Esta clase almacena la información básica de un correo, incluyendo el
- * destinatario, el alias y un código de verificación o identificación asociado.
- * Puede utilizarse para modelar el envío, registro o validación de correos
- * electrónicos en diferentes contextos del sistema.
+ * Esta clase se utiliza para transportar información del correo entre distintas
+ * capas del sistema (por ejemplo, entre la capa lógica y la capa de
+ * presentación) sin exponer la lógica interna del modelo.
+ * </p>
+ * 
+ * <p>
+ * Contiene los mismos atributos que la clase {@code Correo}: el destinatario,
+ * el alias y el código de verificación o identificación.
  * </p>
  * 
  * @author Juan Martinez
  * @version 1.0
  */
-public class Correo {
+public class CorreoDTO {
 
 	/**
 	 * Dirección del destinatario del correo.
@@ -31,23 +35,23 @@ public class Correo {
 	private int codigo;
 
 	/**
-	 * Crea un objeto {@code Correo} vacío.
+	 * Crea un objeto {@code CorreoDTO} vacío.
 	 * <p>
 	 * Este constructor no inicializa ningún atributo.
 	 * </p>
 	 */
-	public Correo() {
+	public CorreoDTO() {
 		// Constructor por defecto
 	}
 
 	/**
-	 * Crea un objeto {@code Correo} con todos sus atributos inicializados.
+	 * Crea un objeto {@code CorreoDTO} con todos sus atributos inicializados.
 	 * 
 	 * @param destinatario la dirección de correo del destinatario
 	 * @param alias        el alias o nombre identificador
 	 * @param codigo       el código numérico asociado al correo
 	 */
-	public Correo(String destinatario, String alias, int codigo) {
+	public CorreoDTO(String destinatario, String alias, int codigo) {
 		this.destinatario = destinatario;
 		this.alias = alias;
 		this.codigo = codigo;
@@ -108,15 +112,15 @@ public class Correo {
 	}
 
 	/**
-	 * Devuelve una representación en texto del objeto {@code Correo}.
+	 * Devuelve una representación en texto del objeto {@code CorreoDTO}.
 	 * <p>
 	 * El formato incluye los valores de todos los atributos de la clase.
 	 * </p>
 	 * 
-	 * @return una cadena con los datos del correo
+	 * @return una cadena con los datos del DTO
 	 */
 	@Override
 	public String toString() {
-		return "Correo [destinatario=" + destinatario + ", alias=" + alias + ", codigo=" + codigo + "]";
+		return "CorreoDTO [destinatario=" + destinatario + ", alias=" + alias + ", codigo=" + codigo + "]";
 	}
 }

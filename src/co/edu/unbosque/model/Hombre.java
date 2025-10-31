@@ -8,7 +8,7 @@ package co.edu.unbosque.model;
  * el divorcio y la estatura.
  * </p>
  * 
- * @author Juan
+ * @author Juan Martinez
  * @version 1.0
  */
 public class Hombre extends Persona {

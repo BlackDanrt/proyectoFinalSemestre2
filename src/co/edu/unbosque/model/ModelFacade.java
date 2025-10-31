@@ -1,5 +1,6 @@
 package co.edu.unbosque.model;
 
+import co.edu.unbosque.model.persistence.CorreoDAO;
 import co.edu.unbosque.model.persistence.HombreDAO;
 import co.edu.unbosque.model.persistence.MujerDAO;
 
@@ -7,10 +8,20 @@ public class ModelFacade {
 
 	private HombreDAO hombreDao;
 	private MujerDAO mujerDao;
+	private CorreoDAO correoDao;
 
 	public ModelFacade() {
 		hombreDao = new HombreDAO();
 		mujerDao = new MujerDAO();
+		correoDao = new CorreoDAO();
+	}
+
+	public CorreoDAO getCorreoDao() {
+		return correoDao;
+	}
+
+	public void setCorreoDao(CorreoDAO correoDao) {
+		this.correoDao = correoDao;
 	}
 
 	public HombreDAO getHombreDao() {
