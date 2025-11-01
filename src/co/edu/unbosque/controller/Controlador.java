@@ -521,6 +521,14 @@ public class Controlador implements ActionListener {
 		vf.getpReg().setBtnTextoRegistrar(propIdioma.getProperty("reg.btn.registrar"));
 		vf.getpReg().setBtnTextoCancelar(propIdioma.getProperty("reg.btn.cancelar"));
 		
+		vf.getpScr().setLblTextoAlias(null);
+		vf.getpScr().setLblTextoEdad(null);
+		vf.getpScr().setLblTextoEstatura(null);
+		vf.getpScr().setLblTextoIngresos(null);
+		vf.getpScr().setLblTextoDivorcios(null);
+		vf.getpScr().setBtnTextoSmash("<3");
+		vf.getpScr().setBtnTextoPass("X");
+		
 		vf.getpGen().setLblTextoTitulo(propIdioma.getProperty("gen.lbl.titulo"));
 		vf.getpGen().setLblTextoHombre(propIdioma.getProperty("gen.lbl.hombre"));
 		vf.getpGen().setLblTextoMujer(propIdioma.getProperty("gen.lbl.mujer"));
