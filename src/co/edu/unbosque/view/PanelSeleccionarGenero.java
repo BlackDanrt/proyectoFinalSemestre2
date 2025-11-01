@@ -23,7 +23,7 @@ public class PanelSeleccionarGenero extends JPanel {
 	}
 
 	public void inicializarComponentes() {
-		lblTitulo = new JLabel("Registrarse como: ");
+		lblTitulo = new JLabel();
 		lblTitulo.setBounds(326, 120, 628, 69);
 
 		btnHombre = new JButton();
@@ -40,13 +40,13 @@ public class PanelSeleccionarGenero extends JPanel {
 		Image imgMujer = iconoMujer.getImage().getScaledInstance(169, 176, Image.SCALE_SMOOTH);
 		btnMujer.setIcon(new ImageIcon(imgMujer));
 
-		btnVolver = new JButton("Volver");
+		btnVolver = new JButton();
 		btnVolver.setBounds(71, 750, 90, 25);
 
-		lblHombre = new JLabel("Hombre");
+		lblHombre = new JLabel();
 		lblHombre.setBounds(379, 521, 153, 35);
 
-		lblMujer = new JLabel("Mujer");
+		lblMujer = new JLabel();
 		lblMujer.setBounds(747, 521, 153, 35);
 
 		this.add(lblTitulo);
@@ -65,12 +65,20 @@ public class PanelSeleccionarGenero extends JPanel {
 		this.btnHombre = btnHombre;
 	}
 
+	public void setBtnTextoHombre(String texto) {
+		btnHombre.setText(texto);
+	}
+
 	public JButton getBtnMujer() {
 		return btnMujer;
 	}
 
 	public void setBtnMujer(JButton btnMujer) {
 		this.btnMujer = btnMujer;
+	}
+
+	public void setBtnTextoMujer(String texto) {
+		btnMujer.setText(texto);
 	}
 
 	public JButton getBtnVolver() {
@@ -81,12 +89,20 @@ public class PanelSeleccionarGenero extends JPanel {
 		this.btnVolver = btnVolver;
 	}
 
+	public void setBtnTextoVolver(String texto) {
+		btnVolver.setText(texto);
+	}
+
 	public JLabel getLblTitulo() {
 		return lblTitulo;
 	}
 
 	public void setLblTitulo(JLabel lblTitulo) {
 		this.lblTitulo = lblTitulo;
+	}
+
+	public void setLblTextoTitulo(String texto) {
+		lblTitulo.setText(texto);
 	}
 
 	public JLabel getLblHombre() {
@@ -97,12 +113,20 @@ public class PanelSeleccionarGenero extends JPanel {
 		this.lblHombre = lblHombre;
 	}
 
+	public void setLblTextoHombre(String texto) {
+		lblHombre.setText(texto);
+	}
+
 	public JLabel getLblMujer() {
 		return lblMujer;
 	}
 
 	public void setLblMujer(JLabel lblMujer) {
 		this.lblMujer = lblMujer;
+	}
+
+	public void setLblTextoMujer(String texto) {
+		lblMujer.setText(texto);
 	}
 
 }

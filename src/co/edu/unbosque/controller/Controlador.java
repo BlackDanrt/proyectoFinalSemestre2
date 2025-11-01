@@ -26,6 +26,7 @@ import co.edu.unbosque.util.exception.ContraseniaDiferenteException;
 import co.edu.unbosque.util.exception.CorreoExistenteException;
 import co.edu.unbosque.util.exception.CorreoInvalidoException;
 import co.edu.unbosque.util.exception.FechaNacimientoInvalidaException;
+import co.edu.unbosque.util.exception.IntInvalidoException;
 import co.edu.unbosque.util.exception.LanzadorDeExcepcion;
 import co.edu.unbosque.util.exception.StringInvalidoException;
 import co.edu.unbosque.view.ViewFacade;
@@ -479,6 +480,52 @@ public class Controlador implements ActionListener {
 
 		vf.getpCV().getBtnVerificar().addActionListener(this);
 		vf.getpCV().getBtnVerificar().setActionCommand("verificar");
+	}
+	
+	public void cadenasTextoPaneles() {
+		vf.getpAdmin().setBtnTextoDescPdf(propIdioma.getProperty("admin.btn.descPdf"));
+		vf.getpAdmin().setBtnTextoElimUss(propIdioma.getProperty("admin.btn.elimUss"));
+		
+		vf.getpCV().setLabelTextoTitulo(propIdioma.getProperty("cv.lbl.titulo"));
+		vf.getpCV().setBtnTextoCerrarSesion(propIdioma.getProperty("cv.btn.cerrarSesion"));
+		vf.getpCV().setBtnTextoVerificar(propIdioma.getProperty("cv.btn.verificar"));
+				
+		vf.getpInic().setLblTextoEmail(propIdioma.getProperty("inic.lbl.email"));
+		vf.getpInic().setLblTextoContra(propIdioma.getProperty("inic.lbl.contra"));
+		vf.getpInic().setBtnTextoIniciarSesion(propIdioma.getProperty("inic.btn.iniciarSesion"));
+		vf.getpInic().setBtnTextoRegistrar(propIdioma.getProperty("inic.btn.registrar"));
+		
+		vf.getpPerfil().setLblTextoTitulo(propIdioma.getProperty("perfil.lbl.titulo"));
+		vf.getpPerfil().setLblTextoFotoPerf(propIdioma.getProperty("perfil.lbl.fotoPerf"));
+		vf.getpPerfil().setLblTextoNombre(propIdioma.getProperty("perfil.lbl.nombre"));
+		vf.getpPerfil().setLblTextoApellido(propIdioma.getProperty("perfil.lbl.apellido"));
+		vf.getpPerfil().setLblTextoAlias(propIdioma.getProperty("perfil.lbl.alias"));
+		vf.getpPerfil().setLblTextoEstatura(propIdioma.getProperty("perfil.lbl.estatura"));
+		vf.getpPerfil().setLblTextoVisible(propIdioma.getProperty("perfil.lbl.visible"));
+		vf.getpPerfil().setLblTextoEstaIdeal(propIdioma.getProperty("perfil.lbl.estaIdeal"));
+		vf.getpPerfil().setLblTextoEdadMinima(propIdioma.getProperty("perfil.lbl.edadMinima"));
+		vf.getpPerfil().setLblTextoEdadMaxima(propIdioma.getProperty("perfil.lbl.edadMaxima"));
+		vf.getpPerfil().setLblTextoIngresos(propIdioma.getProperty("perfil.lbl.ingresos"));
+		vf.getpPerfil().setLblTextoDivorcio(propIdioma.getProperty("perfil.lbl.divorcio"));
+		
+		vf.getpReg().setLblTextoNombre(propIdioma.getProperty("reg.lbl.nombre"));
+		vf.getpReg().setLblTextoApellido(propIdioma.getProperty("reg.lbl.apellido"));
+		vf.getpReg().setLblTextoAlias(propIdioma.getProperty("reg.lbl.alias"));
+		vf.getpReg().setLblTextoEmail(propIdioma.getProperty("reg.lbl.email"));
+		vf.getpReg().setLblTextoFechaNacimiento(propIdioma.getProperty("reg.lbl.fechaNac"));
+		vf.getpReg().setLblTextoContra(propIdioma.getProperty("reg.lbl.contra"));
+		vf.getpReg().setLblTextoConfirContra(propIdioma.getProperty("reg.lbl.confirContra"));
+		vf.getpReg().setLblTextoEstatura(propIdioma.getProperty("reg.lbl.estatura"));
+		vf.getpReg().setLblTextoIngresosMensuales(propIdioma.getProperty("reg.lbl.ingresosMensuales"));
+		vf.getpReg().setChkTextoDivorciada(propIdioma.getProperty("reg.chk.divorciada"));
+		vf.getpReg().setBtnTextoRegistrar(propIdioma.getProperty("reg.btn.registrar"));
+		vf.getpReg().setBtnTextoCancelar(propIdioma.getProperty("reg.btn.cancelar"));
+		
+		vf.getpGen().setLblTextoTitulo(propIdioma.getProperty("gen.lbl.titulo"));
+		vf.getpGen().setLblTextoHombre(propIdioma.getProperty("gen.lbl.hombre"));
+		vf.getpGen().setLblTextoMujer(propIdioma.getProperty("gen.lbl.mujer"));
+		vf.getpGen().setBtnTextoVolver(propIdioma.getProperty("gen.btn.volver"));
+			
 	}
 
 }

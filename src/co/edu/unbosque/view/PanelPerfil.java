@@ -31,7 +31,7 @@ public class PanelPerfil extends JPanel {
 	public void inicializarComponentes() {
 
 		// Propios
-		lblTitulo = new JLabel("Perfil");
+		lblTitulo = new JLabel();
 		lblTitulo.setBounds(ALLBITS, ABORT, WIDTH, HEIGHT);
 
 		lblFotoPerfil = new JLabel();
@@ -43,13 +43,13 @@ public class PanelPerfil extends JPanel {
 		lblApellido = new JLabel();
 		lblApellido.setBounds(ALLBITS, ABORT, WIDTH, HEIGHT);
 
-		lblAlias = new JLabel("Alias");
+		lblAlias = new JLabel();
 		lblAlias.setBounds(ALLBITS, ABORT, WIDTH, HEIGHT);
 
-		lblEstatura = new JLabel("Estatura");
+		lblEstatura = new JLabel();
 		lblEstatura.setBounds(ALLBITS, ABORT, WIDTH, HEIGHT);
 
-		lblEsVisible = new JLabel("Visibilidad");
+		lblEsVisible = new JLabel();
 		lblEsVisible.setBounds(ALLBITS, ABORT, WIDTH, HEIGHT);
 
 		cmbEsVisible = new JComboBox<String>();
@@ -58,13 +58,13 @@ public class PanelPerfil extends JPanel {
 		cmbEsVisible.setLightWeightPopupEnabled(false);
 
 		// Gustos
-		lblEstaturaIdeal = new JLabel("Estatura ideal");
+		lblEstaturaIdeal = new JLabel();
 		lblEstaturaIdeal.setBounds(ALLBITS, ABORT, WIDTH, HEIGHT);
 
-		lblEdadMinima = new JLabel("Edad minima");
+		lblEdadMinima = new JLabel();
 		lblEdadMinima.setBounds(ALLBITS, ABORT, WIDTH, HEIGHT);
 
-		lblEdadMaxima = new JLabel("Edad Maxima");
+		lblEdadMaxima = new JLabel();
 		lblEdadMaxima.setBounds(ALLBITS, ABORT, WIDTH, HEIGHT);
 
 		cmbCantidadDeDivorcio = new JComboBox<String>();
@@ -73,9 +73,9 @@ public class PanelPerfil extends JPanel {
 
 		cmbCantidadDeDivorcio.setLightWeightPopupEnabled(false);
 
-		lblIngresos = new JLabel("Ingresos mensuales");
+		lblIngresos = new JLabel();
 
-		lblCantidadDeDivorcio = new JLabel("Cantidad de Divorcios");
+		lblCantidadDeDivorcio = new JLabel();
 
 		btnActualizar = new JButton();
 		btnActualizar.setBounds(ALLBITS, ABORT, WIDTH, HEIGHT);
@@ -117,6 +117,10 @@ public class PanelPerfil extends JPanel {
 	public void setBtnActualizar(JButton btnActualizar) {
 		this.btnActualizar = btnActualizar;
 	}
+	
+	public void setBtnTextoActualizar(String texto) {
+		btnActualizar.setText(texto);
+	}
 
 	public JButton getBtnCerrarSesion() {
 		return btnCerrarSesion;
@@ -125,6 +129,10 @@ public class PanelPerfil extends JPanel {
 	public void setBtnCerrarSesion(JButton btnCerrarSesion) {
 		this.btnCerrarSesion = btnCerrarSesion;
 	}
+	
+	public void setBtnTextoCerrarSesion(String texto) {
+		btnCerrarSesion.setText(texto);
+	}
 
 	public JButton getBtnEliminarCuenta() {
 		return btnEliminarCuenta;
@@ -132,6 +140,10 @@ public class PanelPerfil extends JPanel {
 
 	public void setBtnEliminarCuenta(JButton btnEliminarCuenta) {
 		this.btnEliminarCuenta = btnEliminarCuenta;
+	}
+	
+	public void setBtnTextoElimCuenta(String texto) {
+		btnEliminarCuenta.setText(texto);
 	}
 
 	public JComboBox<String> getCmbEsVisible() {
@@ -205,6 +217,10 @@ public class PanelPerfil extends JPanel {
 	public void setLblTitulo(JLabel lblTitulo) {
 		this.lblTitulo = lblTitulo;
 	}
+	
+	public void setLblTextoTitulo(String texto) {
+		lblTitulo.setText(texto);
+	}
 
 	public JLabel getLblFotoPerfil() {
 		return lblFotoPerfil;
@@ -212,6 +228,10 @@ public class PanelPerfil extends JPanel {
 
 	public void setLblFotoPerfil(JLabel lblFotoPerfil) {
 		this.lblFotoPerfil = lblFotoPerfil;
+	}
+	
+	public void setLblTextoFotoPerf(String texto) {
+		lblFotoPerfil.setText(texto);
 	}
 
 	public JLabel getLblNombre() {
@@ -221,6 +241,10 @@ public class PanelPerfil extends JPanel {
 	public void setLblNombre(JLabel lblNombre) {
 		this.lblNombre = lblNombre;
 	}
+	
+	public void setLblTextoNombre(String texto) {
+		lblNombre.setText(texto);
+	}
 
 	public JLabel getLblApellido() {
 		return lblApellido;
@@ -228,6 +252,10 @@ public class PanelPerfil extends JPanel {
 
 	public void setLblApellido(JLabel lblApellido) {
 		this.lblApellido = lblApellido;
+	}
+	
+	public void setLblTextoApellido(String texto) {
+		lblApellido.setText(texto);
 	}
 
 	public JLabel getLblAlias() {
@@ -237,6 +265,10 @@ public class PanelPerfil extends JPanel {
 	public void setLblAlias(JLabel lblAlias) {
 		this.lblAlias = lblAlias;
 	}
+	
+	public void setLblTextoAlias(String texto) {
+		lblAlias.setText(texto);
+	}
 
 	public JLabel getLblIngresos() {
 		return lblIngresos;
@@ -244,6 +276,10 @@ public class PanelPerfil extends JPanel {
 
 	public void setLblIngresos(JLabel lblIngresos) {
 		this.lblIngresos = lblIngresos;
+	}
+	
+	public void setLblTextoIngresos(String texto) {
+		lblIngresos.setText(texto);
 	}
 
 	public JLabel getLblEstatura() {
@@ -253,6 +289,10 @@ public class PanelPerfil extends JPanel {
 	public void setLblEstatura(JLabel lblEstatura) {
 		this.lblEstatura = lblEstatura;
 	}
+	
+	public void setLblTextoEstatura(String texto) {
+		lblEstatura.setText(texto);
+	}
 
 	public JLabel getLblEstaturaIdeal() {
 		return lblEstaturaIdeal;
@@ -260,6 +300,10 @@ public class PanelPerfil extends JPanel {
 
 	public void setLblEstaturaIdeal(JLabel lblEstaturaIdeal) {
 		this.lblEstaturaIdeal = lblEstaturaIdeal;
+	}
+	
+	public void setLblTextoEstaIdeal(String texto) {
+		lblEstaturaIdeal.setText(texto);
 	}
 
 	public JLabel getLblCantidadDeDivorcio() {
@@ -269,6 +313,10 @@ public class PanelPerfil extends JPanel {
 	public void setLblCantidadDeDivorcio(JLabel lblCantidadDeDivorcio) {
 		this.lblCantidadDeDivorcio = lblCantidadDeDivorcio;
 	}
+	
+	public void setLblTextoDivorcio(String texto) {
+		lblCantidadDeDivorcio.setText(texto);
+	}
 
 	public JLabel getLblEdadMinima() {
 		return lblEdadMinima;
@@ -276,6 +324,10 @@ public class PanelPerfil extends JPanel {
 
 	public void setLblEdadMinima(JLabel lblEdadMinima) {
 		this.lblEdadMinima = lblEdadMinima;
+	}
+	
+	public void setLblTextoEdadMinima(String texto) {
+		lblEdadMinima.setText(texto);
 	}
 
 	public JLabel getLblEdadMaxima() {
@@ -285,6 +337,10 @@ public class PanelPerfil extends JPanel {
 	public void setLblEdadMaxima(JLabel lblEdadMaxima) {
 		this.lblEdadMaxima = lblEdadMaxima;
 	}
+	
+	public void setLblTextoEdadMaxima(String texto) {
+		lblEdadMaxima.setText(texto);
+	}
 
 	public JLabel getLblEsVisible() {
 		return lblEsVisible;
@@ -292,6 +348,10 @@ public class PanelPerfil extends JPanel {
 
 	public void setLblEsVisible(JLabel lblEsVisible) {
 		this.lblEsVisible = lblEsVisible;
+	}
+	
+	public void setLblTextoVisible(String texto) {
+		lblEsVisible.setText(texto);
 	}
 
 }

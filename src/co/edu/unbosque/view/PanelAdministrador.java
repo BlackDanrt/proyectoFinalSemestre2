@@ -9,7 +9,7 @@ public class PanelAdministrador extends JPanel {
 	private JComboBox<String> cmbUssMujer;
 	private JButton btnElimUss;
 	private JButton btnDescargarPdf;
-	
+
 	public PanelAdministrador() {
 		this.setLayout(null);
 		this.setSize(560, 620);
@@ -22,25 +22,24 @@ public class PanelAdministrador extends JPanel {
 		lblFondo = new JLabel();
 		lblFondo.setBounds(70, 40, 450, 170);
 
-		btnDescargarPdf = new JButton("Descargar PDF");
+		btnDescargarPdf = new JButton();
 		btnDescargarPdf.setBounds(70, 470, 140, 35);
-	
+
 		cmbUssHombre = new JComboBox<String>();
-		//cmbUssHombre.add();
-		
+		// cmbUssHombre.add();
+
 		cmbUssMujer = new JComboBox<String>();
-		//cmbUssMujer.add();
-		
-		btnElimUss = new JButton("Desactivar Cuenta");
+		// cmbUssMujer.add();
+
+		btnElimUss = new JButton();
 		btnDescargarPdf.setBounds(70, 470, 140, 35);
-		
 
 		this.add(lblFondo);
 		this.add(btnDescargarPdf);
 		this.add(cmbUssHombre);
 		this.add(cmbUssMujer);
 		this.add(btnElimUss);
-		
+
 	}
 
 	public JLabel getLblFondo() {
@@ -75,6 +74,10 @@ public class PanelAdministrador extends JPanel {
 		this.btnElimUss = btnElimUss;
 	}
 
+	public void setBtnTextoElimUss(String texto) {
+		btnElimUss.setText(texto);
+	}
+
 	public JButton getBtnDescargarPdf() {
 		return btnDescargarPdf;
 	}
@@ -82,6 +85,9 @@ public class PanelAdministrador extends JPanel {
 	public void setBtnDescargarPdf(JButton btnDescargarPdf) {
 		this.btnDescargarPdf = btnDescargarPdf;
 	}
-
+	
+	public void setBtnTextoDescPdf(String texto) {
+		btnDescargarPdf.setText(texto);
+	}
 
 }

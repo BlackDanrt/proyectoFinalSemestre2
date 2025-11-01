@@ -1,6 +1,7 @@
 package co.edu.unbosque.view;
 
 import java.awt.Color;
+import java.awt.Font;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -44,16 +45,19 @@ public class PanelScroll extends JPanel{
 		lblDivorcios = new JLabel();
 		lblDivorcios.setBounds(70, 250, 340, 20);
 		
-		//Recordar volver circulo (Preguntar a Davincho si se le olvido mencionarlo)
-		btnPass = new JButton("X");
+		Font currentFont = btnPass.getFont();
+		Font boldFont = new Font(currentFont.getName(), Font.BOLD, currentFont.getSize());
+		btnPass = new JButton();
 		btnPass.setBackground(Color.decode("#F23C29"));
 		btnPass.setForeground(Color.white);
+		btnPass.setFont(boldFont);
 		btnPass.setBounds(230, 720, 140, 35);
 		
-		btnSmash = new JButton("<3");
+		btnSmash = new JButton();
 		btnSmash.setBackground(Color.decode("#44F533"));
 		btnPass.setForeground(Color.white);
-		btnSmash.setBounds(230, 720, 140, 35);
+		btnPass.setFont(boldFont);
+		btnSmash.setBounds(230, 720, 140, 35);	
 		
 		this.add(lblFondo);
 		this.add(lblAlias);
@@ -81,6 +85,10 @@ public class PanelScroll extends JPanel{
 	public void setLblAlias(JLabel lblAlias) {
 		this.lblAlias = lblAlias;
 	}
+	
+	public void setLblTextoAlias(String texto) {
+		lblAlias.setText(texto);
+	}
 
 	public JLabel getLblEdad() {
 		return lblEdad;
@@ -88,6 +96,10 @@ public class PanelScroll extends JPanel{
 
 	public void setLblEdad(JLabel lblEdad) {
 		this.lblEdad = lblEdad;
+	}
+	
+	public void setLblTextoEdad(String texto) {
+		lblEdad.setText(texto);
 	}
 
 	public JLabel getLblEstatura() {
@@ -97,6 +109,10 @@ public class PanelScroll extends JPanel{
 	public void setLblEstatura(JLabel lblEstatura) {
 		this.lblEstatura = lblEstatura;
 	}
+	
+	public void setLblTextoEstatura(String texto) {
+		lblEstatura.setText(texto);
+	}
 
 	public JLabel getLblIngresos() {
 		return lblIngresos;
@@ -104,6 +120,10 @@ public class PanelScroll extends JPanel{
 
 	public void setLblIngresos(JLabel lblIngresos) {
 		this.lblIngresos = lblIngresos;
+	}
+	
+	public void setLblTextoIngresos(String texto) {
+		lblIngresos.setText(texto);
 	}
 
 	public JLabel getLblDivorcios() {
@@ -113,6 +133,10 @@ public class PanelScroll extends JPanel{
 	public void setLblDivorcios(JLabel lblDivorcios) {
 		this.lblDivorcios = lblDivorcios;
 	}
+	
+	public void setLblTextoDivorcios(String texto) {
+		lblDivorcios.setText(texto);
+	}
 
 	public JButton getBtnSmash() {
 		return btnSmash;
@@ -121,6 +145,10 @@ public class PanelScroll extends JPanel{
 	public void setBtnSmash(JButton btnSmash) {
 		this.btnSmash = btnSmash;
 	}
+	
+	public void setBtnTextoSmash(String texto) {
+		btnSmash.setText(texto);
+	}
 
 	public JButton getBtnPass() {
 		return btnPass;
@@ -128,6 +156,10 @@ public class PanelScroll extends JPanel{
 
 	public void setBtnPass(JButton btnPass) {
 		this.btnPass = btnPass;
+	}
+	
+	public void setBtnTextoPass(String texto) {
+		btnPass.setText(texto);
 	}
 
 }

@@ -23,7 +23,7 @@ public class PanelCodigoVerificacion extends JPanel {
 
 	public void inicializarComponentes() {
 
-		lbltitulo = new JLabel("Ingrese el codigo de verificacion enviado a su correo");
+		lbltitulo = new JLabel();
 		lbltitulo.setBounds(270, 120, 739, 127);
 
 		txtfnum1 = new JTextField();
@@ -44,10 +44,10 @@ public class PanelCodigoVerificacion extends JPanel {
 		txtfnum6 = new JTextField();
 		txtfnum6.setBounds(1078, 310, 133, 181);
 
-		btnCerrarSesion = new JButton("Cerrar Sesion");
+		btnCerrarSesion = new JButton();
 		btnCerrarSesion.setBounds(54, 714, 160, 50);
 
-		btnVerificar = new JButton("Verificar");
+		btnVerificar = new JButton();
 		btnVerificar.setBounds(560, 570, 160, 50);
 
 		this.add(lbltitulo);
@@ -116,6 +116,10 @@ public class PanelCodigoVerificacion extends JPanel {
 	public void setBtnVerificar(JButton btnVerificar) {
 		this.btnVerificar = btnVerificar;
 	}
+	
+	public void setBtnTextoVerificar(String texto) {
+		btnVerificar.setText(texto);
+	}
 
 	public JButton getBtnCerrarSesion() {
 		return btnCerrarSesion;
@@ -124,6 +128,10 @@ public class PanelCodigoVerificacion extends JPanel {
 	public void setBtnCerrarSesion(JButton btnCerrarSesion) {
 		this.btnCerrarSesion = btnCerrarSesion;
 	}
+	
+	public void setBtnTextoCerrarSesion(String texto) {
+		btnCerrarSesion.setText(texto);
+	}
 
 	public JLabel getLbltitulo() {
 		return lbltitulo;
@@ -131,6 +139,10 @@ public class PanelCodigoVerificacion extends JPanel {
 
 	public void setLbltitulo(JLabel lbltitulo) {
 		this.lbltitulo = lbltitulo;
+	}
+	
+	public void setLabelTextoTitulo(String texto) {
+		lbltitulo.setText(texto);
 	}
 
 }
