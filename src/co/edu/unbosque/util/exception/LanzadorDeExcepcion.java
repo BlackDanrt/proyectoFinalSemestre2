@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.swing.plaf.FontUIResource;
+
 import co.edu.unbosque.model.HombreDTO;
 import co.edu.unbosque.model.ModelFacade;
 import co.edu.unbosque.model.MujerDTO;
@@ -79,6 +81,31 @@ public class LanzadorDeExcepcion {
 			if (!Character.isLetter(texto.charAt(i))) {
 				throw new StringInvalidoException();
 			}
+		}
+	}
+
+	public static void verificarFortalezaContrasenia(String contrasenia) throws ContraseniaDebilException {
+
+		if (contrasenia.length() < 8) {
+			throw new ContraseniaDebilException();
+		}
+		for (int i = 0; i < contrasenia.length(); i++) {
+
+			if (!Character.isDigit(contrasenia.charAt(i))) {
+				throw new ContraseniaDebilException();
+			}
+
+			if (!Character.isUpperCase(contrasenia.charAt(0))) {
+				throw new ContraseniaDebilException();
+			}
+		}
+
+	}
+
+	public static void verificarContrasenias(String c1, String c2) throws ContraseniaDiferenteException {
+		if (c1.equals(c2)) {
+		} else {
+			throw new ContraseniaDiferenteException();
 		}
 	}
 

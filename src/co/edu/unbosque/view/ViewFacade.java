@@ -13,6 +13,7 @@ public class ViewFacade {
 	private PanelIniciarSesion pInic;
 	private PanelRegistro pReg;
 	private PanelSeleccionarGenero pGen;
+	private PanelCodigoVerificacion pCV;
 
 	public ViewFacade() {
 		ven = new Ventana();
@@ -20,6 +21,7 @@ public class ViewFacade {
 		pInic = new PanelIniciarSesion();
 		pReg = new PanelRegistro();
 		pGen = new PanelSeleccionarGenero();
+		pCV = new PanelCodigoVerificacion();
 	}
 
 	public Ventana getVen() {
@@ -64,6 +66,14 @@ public class ViewFacade {
 
 	public void setpGen(PanelSeleccionarGenero pGen) {
 		this.pGen = pGen;
+	}
+
+	public PanelCodigoVerificacion getpCV() {
+		return pCV;
+	}
+
+	public void setpCV(PanelCodigoVerificacion pCV) {
+		this.pCV = pCV;
 	}
 
 	private void cambiarIconoModo(String ruta) {

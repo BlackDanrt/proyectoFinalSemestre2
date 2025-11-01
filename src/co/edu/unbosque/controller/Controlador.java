@@ -21,6 +21,8 @@ import co.edu.unbosque.model.ModelFacade;
 import co.edu.unbosque.model.MujerDTO;
 import co.edu.unbosque.model.persistence.FileHandler;
 import co.edu.unbosque.util.exception.AliasExistenteException;
+import co.edu.unbosque.util.exception.ContraseniaDebilException;
+import co.edu.unbosque.util.exception.ContraseniaDiferenteException;
 import co.edu.unbosque.util.exception.CorreoExistenteException;
 import co.edu.unbosque.util.exception.CorreoInvalidoException;
 import co.edu.unbosque.util.exception.FechaNacimientoInvalidaException;
@@ -69,6 +71,11 @@ public class Controlador implements ActionListener {
 		vf.getpReg().setBounds(0, 0, 1280, 800);
 		vf.getVen().add(vf.getpReg());
 		vf.getpReg().setVisible(false);
+
+		// Panel Codigo Verificacion
+		vf.getpCV().setBounds(0, 0, 1280, 800);
+		vf.getVen().add(vf.getpCV());
+		vf.getpCV().setVisible(false);
 	}
 
 	public void inicializarConfig() {
@@ -123,11 +130,6 @@ public class Controlador implements ActionListener {
 			e.printStackTrace();
 		}
 	}
-
-	/*
-	 * NO SE ESTAN LEYENDO BIEN LOS SIGUIENTES ALL ESPANOL E INGLES POR SUS
-	 * CARACTERES
-	 */
 
 	public void idioma() {
 
@@ -186,11 +188,15 @@ public class Controlador implements ActionListener {
 		ArrayList<MujerDTO> mujeres = mf.getMujerDao().getLista();
 		ArrayList<HombreDTO> hombres = mf.getHombreDao().getLista();
 
+		String alias = "";
+		String id = "";
 		boolean sesionExitosa = false;
-
+		boolean esHombre = true;
 		for (HombreDTO dto : hombres) {
 			if (dto.getCorreo().equals(correo) && dto.getContrasenia().equals(contrasenia)) {
 				sesionExitosa = true;
+				alias = dto.getAlias();
+				id = dto.getId();
 				break;
 			}
 		}
@@ -199,6 +205,9 @@ public class Controlador implements ActionListener {
 			for (MujerDTO dto : mujeres) {
 				if (dto.getCorreo().equals(correo) && dto.getContrasenia().equals(contrasenia)) {
 					sesionExitosa = true;
+					alias = dto.getId();
+					id = dto.getId();
+					esHombre = false;
 					break;
 				}
 			}
@@ -207,6 +216,34 @@ public class Controlador implements ActionListener {
 		if (sesionExitosa) {
 			JOptionPane.showMessageDialog(vf.getVen(), "¡El inicio de sesión ha sido exitoso!",
 					"Inicio de sesión exitoso", JOptionPane.INFORMATION_MESSAGE);
+
+			boolean estaVerificado = false;
+			if (esHombre) {
+				HombreDTO hombre = mf.getHombreDao().buscarId(id);
+				estaVerificado = hombre.isEstaVerificado();
+			} else {
+				MujerDTO mujer = mf.getMujerDao().buscarId(id);
+				estaVerificado = mujer.isEstaVerificado();
+			}
+
+			if (estaVerificado) {
+			} else {
+				int codigoVerificacion = (int) (Math.random() * 900000) + 100000;
+
+				CorreoDTO dto = new CorreoDTO(correo, alias, codigoVerificacion);
+				mf.getCorreoDao().enviarCodigoVerificacion(dto);
+				try {
+					propConfig.setProperty("proyectoFinalSemestre2.cddvf", "" + codigoVerificacion + "");
+					propConfig.store(new FileWriter("config.properties"), null);
+				} catch (IOException e) {
+				}
+			}
+
+			try {
+				propConfig.setProperty("proyectoFinalSemestre2.id", "" + id + "");
+				propConfig.store(new FileWriter("config.properties"), null);
+			} catch (IOException e) {
+			}
 
 		} else {
 			JOptionPane.showMessageDialog(vf.getVen(), "La contraseña o el correo son incorrectos",
@@ -244,11 +281,9 @@ public class Controlador implements ActionListener {
 			String foto = tomarRutaFoto();
 			String contrasenia = vf.getpReg().getJpfContrasenia().getText();
 			String confirmarContrasenia = vf.getpReg().getJpfContrasenia().getText();
-			// ACORDARME DE CREAR UN VERIFICADOR DE FOTALEZA DE CONTRASENIA
-			while (!contrasenia.equals(confirmarContrasenia)) {
-				// Mostrar JPanel para decir que hay error
-			}
+			LanzadorDeExcepcion.verificarContrasenias(contrasenia, confirmarContrasenia);
 			String contraseniaAprobada = contrasenia;
+			LanzadorDeExcepcion.verificarFortalezaContrasenia(contraseniaAprobada);
 
 			int cantLike = 0;
 			int edadMinima = 0;
@@ -288,6 +323,8 @@ public class Controlador implements ActionListener {
 		} catch (CorreoInvalidoException e) {
 		} catch (CorreoExistenteException e) {
 		} catch (AliasExistenteException e) {
+		} catch (ContraseniaDiferenteException e) {
+		} catch (ContraseniaDebilException e) {
 		}
 
 	}
@@ -328,6 +365,23 @@ public class Controlador implements ActionListener {
 		} else {
 			// Si no se seleccionó nada, devolvemos la imagen por defecto
 			return "files/default.png";
+		}
+	}
+
+	public void verificarCodigo() {
+		String codigo = propConfig.getProperty("proyectoFInalSemestre2.cddvf");
+		StringBuilder sb = new StringBuilder();
+		sb.append(vf.getpCV().getTxtfnum1().getText());
+		sb.append(vf.getpCV().getTxtfnum2().getText());
+		sb.append(vf.getpCV().getTxtfnum3().getText());
+		sb.append(vf.getpCV().getTxtfnum4().getText());
+		sb.append(vf.getpCV().getTxtfnum5().getText());
+		sb.append(vf.getpCV().getTxtfnum6().getText());
+
+		if (!codigo.equals(sb.toString())) {
+			// Tirar error
+		} else {
+			// Tirar aprobacion
 		}
 	}
 
@@ -379,8 +433,14 @@ public class Controlador implements ActionListener {
 			vf.refrescarVista();
 			break;
 		}
+		case "cerrar sesion": {
+			vf.getpCV().setVisible(false);
+			vf.getpInic().setVisible(true);
+			vf.refrescarVista();
+			break;
+		}
 
-		// Fin casos swtich
+		// Fin casos switch
 		}
 		// Fin switch
 	}
@@ -412,6 +472,13 @@ public class Controlador implements ActionListener {
 		// Panel registrarse
 		vf.getpReg().getBtnCancelar().addActionListener(this);
 		vf.getpReg().getBtnCancelar().setActionCommand("volver seleccionar genero");
+
+		// Panel Codigo Verificacion
+		vf.getpCV().getBtnCerrarSesion().addActionListener(this);
+		vf.getpCV().getBtnCerrarSesion().setActionCommand("cerrar sesion");
+
+		vf.getpCV().getBtnVerificar().addActionListener(this);
+		vf.getpCV().getBtnVerificar().setActionCommand("verificar");
 	}
 
 }
