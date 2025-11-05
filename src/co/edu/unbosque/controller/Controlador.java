@@ -26,7 +26,6 @@ import co.edu.unbosque.util.exception.ContraseniaDiferenteException;
 import co.edu.unbosque.util.exception.CorreoExistenteException;
 import co.edu.unbosque.util.exception.CorreoInvalidoException;
 import co.edu.unbosque.util.exception.FechaNacimientoInvalidaException;
-import co.edu.unbosque.util.exception.IntInvalidoException;
 import co.edu.unbosque.util.exception.LanzadorDeExcepcion;
 import co.edu.unbosque.util.exception.StringInvalidoException;
 import co.edu.unbosque.view.ViewFacade;

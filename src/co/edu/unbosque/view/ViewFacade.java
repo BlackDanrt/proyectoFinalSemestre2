@@ -30,113 +30,81 @@ public class ViewFacade {
 		pScr = new PanelScroll();
 	}
 
+	public void refrescarVista() {
+		pBan.repaint();
+	}
+
 	public Ventana getVen() {
 		return ven;
 	}
-
-
 
 	public void setVen(Ventana ven) {
 		this.ven = ven;
 	}
 
-
-
 	public PanelBanner getpBan() {
 		return pBan;
 	}
-
-
 
 	public void setpBan(PanelBanner pBan) {
 		this.pBan = pBan;
 	}
 
-
-
 	public PanelIniciarSesion getpInic() {
 		return pInic;
 	}
-
-
 
 	public void setpInic(PanelIniciarSesion pInic) {
 		this.pInic = pInic;
 	}
 
-
-
 	public PanelRegistro getpReg() {
 		return pReg;
 	}
-
-
 
 	public void setpReg(PanelRegistro pReg) {
 		this.pReg = pReg;
 	}
 
-
-
 	public PanelSeleccionarGenero getpGen() {
 		return pGen;
 	}
-
-
 
 	public void setpGen(PanelSeleccionarGenero pGen) {
 		this.pGen = pGen;
 	}
 
-
-
 	public PanelCodigoVerificacion getpCV() {
 		return pCV;
 	}
-
-
 
 	public void setpCV(PanelCodigoVerificacion pCV) {
 		this.pCV = pCV;
 	}
 
-
-
 	public PanelAdministrador getpAdmin() {
 		return pAdmin;
 	}
-
-
 
 	public void setpAdmin(PanelAdministrador pAdmin) {
 		this.pAdmin = pAdmin;
 	}
 
-
-
 	public PanelPerfil getpPerfil() {
 		return pPerfil;
 	}
-
-
 
 	public void setpPerfil(PanelPerfil pPerfil) {
 		this.pPerfil = pPerfil;
 	}
 
-
-
 	public PanelScroll getpScr() {
 		return pScr;
 	}
 
-
-
 	public void setpScr(PanelScroll pScr) {
 		this.pScr = pScr;
 	}
-
-
 
 	private void cambiarIconoModo(String ruta) {
 		ImageIcon iconoOriginal = new ImageIcon(ruta);
