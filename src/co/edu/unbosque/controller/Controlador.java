@@ -403,23 +403,43 @@ public class Controlador implements ActionListener {
 	public void mostrarPersona(int indice) {
 
 		if (mf.getHombreDao().buscarId(propConfig.getProperty("proyectoFinalSemestre2.id")) == null) {
-			HombreDTO dto = mf.getHombreDao().getLista().get(indice);
-			// 450 170
-			ImageIcon img = new ImageIcon(dto.getFoto());
-			Image redimension = img.getImage();
-			Image imgRedimensionada = redimension.getScaledInstance(170, 450, Image.SCALE_SMOOTH);
-			vf.getpScr().getLblFondo().setIcon(new ImageIcon(imgRedimensionada));
-			vf.getpScr().getLblAlias().setText(dto.getAlias());
-			vf.getpScr().getLblEdad().setText(String.valueOf(dto.getEdad()));
-			vf.getpScr().getLblEstatura().setText(String.valueOf(dto.getEstatura()));
-			long ingresos = mf.getConDiv().convertirAIdioma(dto.getIngresoMensual(),
-					propConfig.getProperty("proyectoFinalSemestre2.idioma"));
-			vf.getpScr().getLblIngresos().setText(String.valueOf(ingresos));
+			MujerDTO temp = mf.getMujerDao().buscarId("proyectoFinalSemestre2.id");
+			if (mf.getDisDao().buscarDislike(temp.getId(), mf.getHombreDao().getLista().get(indice).getId())) {
+				int contador = Integer.parseInt(propConfig.getProperty("proyectoFinalSemestre2.indiceMostrar"));
+				aumentarContador();
+			} else {
 
+				HombreDTO dto = mf.getHombreDao().getLista().get(indice);
+				// 450 170
+				ImageIcon img = new ImageIcon(dto.getFoto());
+				Image redimension = img.getImage();
+				Image imgRedimensionada = redimension.getScaledInstance(170, 450, Image.SCALE_SMOOTH);
+				vf.getpScr().getLblFondo().setIcon(new ImageIcon(imgRedimensionada));
+				vf.getpScr().getLblAlias().setText(dto.getAlias());
+				vf.getpScr().getLblEdad().setText(String.valueOf(dto.getEdad()));
+				vf.getpScr().getLblEstatura().setText(String.valueOf(dto.getEstatura()));
+				long ingresos = mf.getConDiv().convertirAIdioma(dto.getIngresoMensual(),
+						propConfig.getProperty("proyectoFinalSemestre2.idioma"));
+				vf.getpScr().getLblIngresos().setText(String.valueOf(ingresos));
+			}
 		} else {
-			MujerDTO dto = mf.getMujerDao().getLista().get(indice);
-
+			HombreDTO temp = mf.getHombreDao().buscarId(propConfig.getProperty("proyectoFinalSemestre2.id"));
+			if (mf.getDisDao().buscarDislike(temp.getId(), mf.getMujerDao().getLista().get(indice).getId())) {
+				int contador = Integer.parseInt(propConfig.getProperty("proyectoFinalSemestre2.indiceMostrar"));
+				aumentarContador();
+			} else {
+				MujerDTO dto = mf.getMujerDao().getLista().get(indice);
+				// 450 170
+				ImageIcon img = new ImageIcon(dto.getFoto());
+				Image redimension = img.getImage();
+				Image imgRedimensionada = redimension.getScaledInstance(170, 450, Image.SCALE_SMOOTH);
+				vf.getpScr().getLblFondo().setIcon(new ImageIcon(imgRedimensionada));
+				vf.getpScr().getLblAlias().setText(dto.getAlias());
+				vf.getpScr().getLblEdad().setText(String.valueOf(dto.getEdad()));
+				vf.getpScr().getLblEdad().setText(String.valueOf(dto.isEsDivorciada()));
+			}
 		}
+		vf.refrescarVista();
 	}
 
 	public void smash() {
@@ -432,12 +452,7 @@ public class Controlador implements ActionListener {
 			int cantLike = mf.getHombreDao().getLista().get(contador).getCantLike() + 1;
 			mf.getHombreDao().getLista().get(contador).setCantLike(cantLike);
 		}
-		contador++;
-		propConfig.setProperty("proyectoFinalSemestre2.indiceMostrar", "" + contador + "");
-		try {
-			propConfig.store(new FileWriter("config.properties"), null);
-		} catch (IOException e) {
-		}
+		aumentarContador();
 	}
 
 	public void pass() {
@@ -453,6 +468,11 @@ public class Controlador implements ActionListener {
 			mf.getDisDao().crear(dto);
 
 		}
+		aumentarContador();
+	}
+
+	public void aumentarContador() {
+		int contador = Integer.parseInt(propConfig.getProperty("proyectoFinalSemestre2.indiceMostrar"));
 		contador++;
 		propConfig.setProperty("proyectoFinalSemestre2.indiceMostrar", "" + contador + "");
 		try {

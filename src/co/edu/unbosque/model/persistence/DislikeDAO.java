@@ -102,6 +102,16 @@ public class DislikeDAO {
 		SERIAL_FILE_NAME = sERIAL_FILE_NAME;
 	}
 
+	public boolean buscarDislike(String idEmisor, String idReceptor) {
+
+		for (Dislike dis : listaDislikes) {
+			if (dis.getIdEmisor().equals(idEmisor) && dis.getIdReceptor().equals(idReceptor)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	/**
 	 * Obtiene la lista actual de dislikes almacenados en memoria.
 	 * 
