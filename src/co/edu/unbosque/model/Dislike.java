@@ -1,5 +1,7 @@
 package co.edu.unbosque.model;
 
+import java.io.Serializable;
+
 /**
  * Representa una acción de "dislike" (no me gusta) entre dos usuarios del
  * sistema.
@@ -17,7 +19,12 @@ package co.edu.unbosque.model;
  * @author Juan Martinez
  * @version 1.0
  */
-public class Dislike {
+public class Dislike implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4361939945668893449L;
 
 	/**
 	 * Identificador del usuario que emite el dislike.

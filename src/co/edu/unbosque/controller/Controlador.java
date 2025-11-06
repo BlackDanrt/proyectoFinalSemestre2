@@ -1,5 +1,6 @@
 package co.edu.unbosque.controller;
 
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -12,10 +13,12 @@ import java.util.InputMismatchException;
 import java.util.Properties;
 import java.util.UUID;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
 import co.edu.unbosque.model.CorreoDTO;
+import co.edu.unbosque.model.DislikeDTO;
 import co.edu.unbosque.model.HombreDTO;
 import co.edu.unbosque.model.ModelFacade;
 import co.edu.unbosque.model.MujerDTO;
@@ -109,6 +112,12 @@ public class Controlador implements ActionListener {
 
 		}
 
+		propConfig.setProperty("proyectoFinalSemestre2.indiceMostrar", "0");
+		try {
+			propConfig.store(new FileWriter("config.properties"), null);
+		} catch (IOException e) {
+		}
+
 	}
 
 	public void modoOscuro() {
@@ -185,69 +194,75 @@ public class Controlador implements ActionListener {
 		String correo = vf.getpInic().getTxtEmail().getText();
 		String contrasenia = vf.getpInic().getJpfContrasenia().getText();
 
-		ArrayList<MujerDTO> mujeres = mf.getMujerDao().getLista();
-		ArrayList<HombreDTO> hombres = mf.getHombreDao().getLista();
+		if (correo.equals(mf.getAdmin().getCorreoAdmin()) && contrasenia.equals(mf.getAdmin().getContraseniaAdmin())) {
 
-		String alias = "";
-		String id = "";
-		boolean sesionExitosa = false;
-		boolean esHombre = true;
-		for (HombreDTO dto : hombres) {
-			if (dto.getCorreo().equals(correo) && dto.getContrasenia().equals(contrasenia)) {
-				sesionExitosa = true;
-				alias = dto.getAlias();
-				id = dto.getId();
-				break;
-			}
-		}
+		} else {
 
-		if (!sesionExitosa) {
-			for (MujerDTO dto : mujeres) {
+			ArrayList<MujerDTO> mujeres = mf.getMujerDao().getLista();
+			ArrayList<HombreDTO> hombres = mf.getHombreDao().getLista();
+
+			String alias = "";
+			String id = "";
+			boolean sesionExitosa = false;
+			boolean esHombre = true;
+			for (HombreDTO dto : hombres) {
 				if (dto.getCorreo().equals(correo) && dto.getContrasenia().equals(contrasenia)) {
 					sesionExitosa = true;
-					alias = dto.getId();
+					alias = dto.getAlias();
 					id = dto.getId();
-					esHombre = false;
 					break;
 				}
 			}
-		}
 
-		if (sesionExitosa) {
-			JOptionPane.showMessageDialog(vf.getVen(), "¡El inicio de sesión ha sido exitoso!",
-					"Inicio de sesión exitoso", JOptionPane.INFORMATION_MESSAGE);
-
-			boolean estaVerificado = false;
-			if (esHombre) {
-				HombreDTO hombre = mf.getHombreDao().buscarId(id);
-				estaVerificado = hombre.isEstaVerificado();
-			} else {
-				MujerDTO mujer = mf.getMujerDao().buscarId(id);
-				estaVerificado = mujer.isEstaVerificado();
-			}
-
-			if (estaVerificado) {
-			} else {
-				int codigoVerificacion = (int) (Math.random() * 900000) + 100000;
-
-				CorreoDTO dto = new CorreoDTO(correo, alias, codigoVerificacion);
-				mf.getCorreoDao().enviarCodigoVerificacion(dto);
-				try {
-					propConfig.setProperty("proyectoFinalSemestre2.cddvf", "" + codigoVerificacion + "");
-					propConfig.store(new FileWriter("config.properties"), null);
-				} catch (IOException e) {
+			if (!sesionExitosa) {
+				for (MujerDTO dto : mujeres) {
+					if (dto.getCorreo().equals(correo) && dto.getContrasenia().equals(contrasenia)) {
+						sesionExitosa = true;
+						alias = dto.getId();
+						id = dto.getId();
+						esHombre = false;
+						break;
+					}
 				}
 			}
 
-			try {
-				propConfig.setProperty("proyectoFinalSemestre2.id", "" + id + "");
-				propConfig.store(new FileWriter("config.properties"), null);
-			} catch (IOException e) {
-			}
+			if (sesionExitosa) {
+				JOptionPane.showMessageDialog(vf.getVen(), "¡El inicio de sesión ha sido exitoso!",
+						"Inicio de sesión exitoso", JOptionPane.INFORMATION_MESSAGE);
 
-		} else {
-			JOptionPane.showMessageDialog(vf.getVen(), "La contraseña o el correo son incorrectos",
-					"Inicio de sesión fallido", JOptionPane.ERROR_MESSAGE);
+				boolean estaVerificado = false;
+				if (esHombre) {
+					HombreDTO hombre = mf.getHombreDao().buscarId(id);
+					estaVerificado = hombre.isEstaVerificado();
+				} else {
+					MujerDTO mujer = mf.getMujerDao().buscarId(id);
+					estaVerificado = mujer.isEstaVerificado();
+				}
+
+				if (estaVerificado) {
+				} else {
+					int codigoVerificacion = (int) (Math.random() * 900000) + 100000;
+
+					CorreoDTO dto = new CorreoDTO(correo, alias, codigoVerificacion);
+					mf.getCorreoDao().enviarCodigoVerificacion(dto);
+					try {
+						propConfig.setProperty("proyectoFinalSemestre2.cddvf", "" + codigoVerificacion + "");
+						propConfig.store(new FileWriter("config.properties"), null);
+					} catch (IOException e) {
+					}
+				}
+
+				try {
+					propConfig.setProperty("proyectoFinalSemestre2.id", "" + id + "");
+					propConfig.store(new FileWriter("config.properties"), null);
+				} catch (IOException e) {
+				}
+
+			} else {
+				JOptionPane.showMessageDialog(vf.getVen(), "La contraseña o el correo son incorrectos",
+						"Inicio de sesión fallido", JOptionPane.ERROR_MESSAGE);
+
+			}
 
 		}
 	}
@@ -369,7 +384,7 @@ public class Controlador implements ActionListener {
 	}
 
 	public void verificarCodigo() {
-		String codigo = propConfig.getProperty("proyectoFInalSemestre2.cddvf");
+		String codigo = propConfig.getProperty("proyectoFinalSemestre2.cddvf");
 		StringBuilder sb = new StringBuilder();
 		sb.append(vf.getpCV().getTxtfnum1().getText());
 		sb.append(vf.getpCV().getTxtfnum2().getText());
@@ -382,6 +397,67 @@ public class Controlador implements ActionListener {
 			// Tirar error
 		} else {
 			// Tirar aprobacion
+		}
+	}
+
+	public void mostrarPersona(int indice) {
+
+		if (mf.getHombreDao().buscarId(propConfig.getProperty("proyectoFinalSemestre2.id")) == null) {
+			HombreDTO dto = mf.getHombreDao().getLista().get(indice);
+			// 450 170
+			ImageIcon img = new ImageIcon(dto.getFoto());
+			Image redimension = img.getImage();
+			Image imgRedimensionada = redimension.getScaledInstance(170, 450, Image.SCALE_SMOOTH);
+			vf.getpScr().getLblFondo().setIcon(new ImageIcon(imgRedimensionada));
+			vf.getpScr().getLblAlias().setText(dto.getAlias());
+			vf.getpScr().getLblEdad().setText(String.valueOf(dto.getEdad()));
+			vf.getpScr().getLblEstatura().setText(String.valueOf(dto.getEstatura()));
+			long ingresos = mf.getConDiv().convertirAIdioma(dto.getIngresoMensual(),
+					propConfig.getProperty("proyectoFinalSemestre2.idioma"));
+			vf.getpScr().getLblIngresos().setText(String.valueOf(ingresos));
+
+		} else {
+			MujerDTO dto = mf.getMujerDao().getLista().get(indice);
+
+		}
+	}
+
+	public void smash() {
+		int contador = Integer.parseInt(propConfig.getProperty("proyectoFinalSemestre2.indiceMostrar"));
+
+		if (mf.getHombreDao().buscarId(propConfig.getProperty("proyectoFinalSemestre2.id")) == null) {
+			int cantLike = mf.getMujerDao().getLista().get(contador).getCantLike() + 1;
+			mf.getMujerDao().getLista().get(contador).setCantLike(cantLike);
+		} else {
+			int cantLike = mf.getHombreDao().getLista().get(contador).getCantLike() + 1;
+			mf.getHombreDao().getLista().get(contador).setCantLike(cantLike);
+		}
+		contador++;
+		propConfig.setProperty("proyectoFinalSemestre2.indiceMostrar", "" + contador + "");
+		try {
+			propConfig.store(new FileWriter("config.properties"), null);
+		} catch (IOException e) {
+		}
+	}
+
+	public void pass() {
+		int contador = Integer.parseInt(propConfig.getProperty("proyectoFinalSemestre2.indiceMostrar"));
+
+		if (mf.getHombreDao().buscarId(propConfig.getProperty("proyectoFinalSemestre2.id")) == null) {
+			String idReceptor = mf.getMujerDao().getLista().get(contador).getId();
+			DislikeDTO dto = new DislikeDTO(propConfig.getProperty("proyectoFinalSemestre2.id"), idReceptor);
+			mf.getDisDao().crear(dto);
+		} else {
+			String idReceptor = mf.getHombreDao().getLista().get(contador).getId();
+			DislikeDTO dto = new DislikeDTO(propConfig.getProperty("proyectoFinalSemestre2.id"), idReceptor);
+			mf.getDisDao().crear(dto);
+
+		}
+		contador++;
+		propConfig.setProperty("proyectoFinalSemestre2.indiceMostrar", "" + contador + "");
+		try {
+			propConfig.store(new FileWriter("config.properties"), null);
+		} catch (IOException e) {
 		}
 	}
 
@@ -439,6 +515,18 @@ public class Controlador implements ActionListener {
 			vf.refrescarVista();
 			break;
 		}
+		case "smash": {
+			smash();
+			mostrarPersona(Integer.parseInt(propConfig.getProperty("proyectoFinalSemestre2.indiceMostrar")));
+			vf.refrescarVista();
+			break;
+		}
+		case "pass": {
+			pass();
+			mostrarPersona(Integer.parseInt(propConfig.getProperty("proyectoFinalSemestre2.indiceMostrar")));
+			vf.refrescarVista();
+			break;
+		}
 
 		// Fin casos switch
 		}
@@ -479,21 +567,29 @@ public class Controlador implements ActionListener {
 
 		vf.getpCV().getBtnVerificar().addActionListener(this);
 		vf.getpCV().getBtnVerificar().setActionCommand("verificar");
+
+		// Panel Principal (Panel Scroll)
+		vf.getpScr().getBtnSmash().addActionListener(this);
+		vf.getpScr().getBtnSmash().setActionCommand("smash");
+
+		vf.getpScr().getBtnPass().addActionListener(this);
+		vf.getpScr().getBtnPass().setActionCommand("pass");
+
 	}
-	
+
 	public void cadenasTextoPaneles() {
 		vf.getpAdmin().setBtnTextoDescPdf(propIdioma.getProperty("admin.btn.descPdf"));
 		vf.getpAdmin().setBtnTextoElimUss(propIdioma.getProperty("admin.btn.elimUss"));
-		
+
 		vf.getpCV().setLabelTextoTitulo(propIdioma.getProperty("cv.lbl.titulo"));
 		vf.getpCV().setBtnTextoCerrarSesion(propIdioma.getProperty("cv.btn.cerrarSesion"));
 		vf.getpCV().setBtnTextoVerificar(propIdioma.getProperty("cv.btn.verificar"));
-				
+
 		vf.getpInic().setLblTextoEmail(propIdioma.getProperty("inic.lbl.email"));
 		vf.getpInic().setLblTextoContra(propIdioma.getProperty("inic.lbl.contra"));
 		vf.getpInic().setBtnTextoIniciarSesion(propIdioma.getProperty("inic.btn.iniciarSesion"));
 		vf.getpInic().setBtnTextoRegistrar(propIdioma.getProperty("inic.btn.registrar"));
-		
+
 		vf.getpPerfil().setLblTextoTitulo(propIdioma.getProperty("perfil.lbl.titulo"));
 		vf.getpPerfil().setLblTextoFotoPerf(propIdioma.getProperty("perfil.lbl.fotoPerf"));
 		vf.getpPerfil().setLblTextoNombre(propIdioma.getProperty("perfil.lbl.nombre"));
@@ -506,7 +602,7 @@ public class Controlador implements ActionListener {
 		vf.getpPerfil().setLblTextoEdadMaxima(propIdioma.getProperty("perfil.lbl.edadMaxima"));
 		vf.getpPerfil().setLblTextoIngresos(propIdioma.getProperty("perfil.lbl.ingresos"));
 		vf.getpPerfil().setLblTextoDivorcio(propIdioma.getProperty("perfil.lbl.divorcio"));
-		
+
 		vf.getpReg().setLblTextoNombre(propIdioma.getProperty("reg.lbl.nombre"));
 		vf.getpReg().setLblTextoApellido(propIdioma.getProperty("reg.lbl.apellido"));
 		vf.getpReg().setLblTextoAlias(propIdioma.getProperty("reg.lbl.alias"));
@@ -519,7 +615,7 @@ public class Controlador implements ActionListener {
 		vf.getpReg().setChkTextoDivorciada(propIdioma.getProperty("reg.chk.divorciada"));
 		vf.getpReg().setBtnTextoRegistrar(propIdioma.getProperty("reg.btn.registrar"));
 		vf.getpReg().setBtnTextoCancelar(propIdioma.getProperty("reg.btn.cancelar"));
-		
+
 		vf.getpScr().setLblTextoAlias(null);
 		vf.getpScr().setLblTextoEdad(null);
 		vf.getpScr().setLblTextoEstatura(null);
@@ -527,12 +623,12 @@ public class Controlador implements ActionListener {
 		vf.getpScr().setLblTextoDivorcios(null);
 		vf.getpScr().setBtnTextoSmash("<3");
 		vf.getpScr().setBtnTextoPass("X");
-		
+
 		vf.getpGen().setLblTextoTitulo(propIdioma.getProperty("gen.lbl.titulo"));
 		vf.getpGen().setLblTextoHombre(propIdioma.getProperty("gen.lbl.hombre"));
 		vf.getpGen().setLblTextoMujer(propIdioma.getProperty("gen.lbl.mujer"));
 		vf.getpGen().setBtnTextoVolver(propIdioma.getProperty("gen.btn.volver"));
-			
+
 	}
 
 }

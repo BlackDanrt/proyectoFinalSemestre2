@@ -1,5 +1,7 @@
 package co.edu.unbosque.model;
 
+import java.io.Serializable;
+
 /**
  * Representa un objeto de transferencia de datos (DTO) para {@link Dislike}.
  * <p>
@@ -16,7 +18,12 @@ package co.edu.unbosque.model;
  * @author Juan Martinez
  * @version 1.0
  */
-public class DislikeDTO {
+public class DislikeDTO implements Serializable {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2967971724589805754L;
 
 	/**
 	 * Identificador del usuario que emite el dislike.

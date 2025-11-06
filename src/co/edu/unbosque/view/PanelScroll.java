@@ -28,7 +28,7 @@ public class PanelScroll extends JPanel{
 	
 	private void inicializarComponentes() {
 		lblFondo = new JLabel();
-		lblFondo.setBounds(70, 40, 450, 170);
+		lblFondo.setBounds(70, 40, 170, 450);
 		
 		lblAlias = new JLabel();
 		lblAlias.setBounds(70, 250, 340, 20);
