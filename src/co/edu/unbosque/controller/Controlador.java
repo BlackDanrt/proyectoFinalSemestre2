@@ -552,7 +552,7 @@ public class Controlador implements ActionListener {
 	}
 
 	public void generoSeleccionadoHombre(boolean esHombre) {
-		propConfig.setProperty("proyectoFinalSemestre2.indiceMostrar", "" + esHombre + "");
+		propConfig.setProperty("proyectoFinalSemestre2.generoHombre", "" + esHombre + "");
 		try {
 			propConfig.store(new FileWriter("config.properties"), null);
 		} catch (IOException e) {
@@ -579,7 +579,7 @@ public class Controlador implements ActionListener {
 		MujerDTO dto = mf.getMujerDao().buscarId(propConfig.getProperty("proyectoFinalSemestre2.id"));
 		vf.getpPM().getLblNombreUsuario().setText(dto.getNombre());
 		vf.getpPM().getLblApellidoUsuario().setText(dto.getApellido());
-		vf.getpPM().getLblAlias().setText(dto.getAlias());
+		vf.getpPM().getTxtAlias().setText(dto.getAlias());
 		vf.getpPM().getLblEmailUsuario().setText(dto.getCorreo());
 		vf.getpPM().getLblEdadUsuario().setText("" + dto.getEdad());
 		vf.getpPM().getJpfContrasenia().setText(dto.getContrasenia());
