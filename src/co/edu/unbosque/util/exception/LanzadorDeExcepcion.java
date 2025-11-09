@@ -106,4 +106,35 @@ public class LanzadorDeExcepcion {
 			throw new ContraseniaDiferenteException();
 		}
 	}
+
+	public static void verificarNumero(long numero) throws NumeroInvalidoException {
+		String num = String.valueOf(numero);
+
+		for (int i = 0; i < num.length(); i++) {
+			if (!Character.isDigit(num.charAt(i))) {
+				throw new NumeroInvalidoException();
+			}
+		}
+		if (numero < 0) {
+			throw new NumeroInvalidoException();
+		}
+	}
+
+	public static void verificarAliasExistenteActualizado(String aliasPrevio, String aliasNuevo, ModelFacade mf)
+			throws AliasExistenteActualizadoException {
+		ArrayList<MujerDTO> mujeres = mf.getMujerDao().getLista();
+		ArrayList<HombreDTO> hombres = mf.getHombreDao().getLista();
+
+		for (HombreDTO dto : hombres) {
+			if (dto.getAlias().equals(aliasNuevo) && !dto.getAlias().equals(aliasPrevio)) {
+				throw new AliasExistenteActualizadoException();
+			}
+		}
+
+		for (MujerDTO dto : mujeres) {
+			if (dto.getAlias().equals(aliasNuevo) && !dto.getAlias().equals(aliasPrevio)) {
+				throw new AliasExistenteActualizadoException();
+			}
+		}
+	}
 }

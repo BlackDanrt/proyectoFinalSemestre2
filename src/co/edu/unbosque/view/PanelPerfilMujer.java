@@ -2,11 +2,22 @@ package co.edu.unbosque.view;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import javax.imageio.ImageIO;
 
 public class PanelPerfilMujer extends JPanel {
 
 	// Componentes de visualización
 	private JLabel lblFondo;
+
+	// NUEVOS: Componentes para foto de perfil
+	private JLabel lblFotoPerfil;
+	private JButton btnSeleccionarFoto;
+	private File archivoImagenSeleccionada;
+	private BufferedImage imagenActual;
 
 	// Columna Izquierda - Información personal
 	private JLabel lblNombre;
@@ -60,9 +71,42 @@ public class PanelPerfilMujer extends JPanel {
 		lblFondo = new JLabel();
 		lblFondo.setBounds(440, 30, 400, 150);
 		lblFondo.setHorizontalAlignment(SwingConstants.CENTER);
-		lblFondo.setText("PERFIL MUJER"); // Texto temporal
+		lblFondo.setText("PERFIL MUJER");
 		lblFondo.setFont(new Font("Arial", Font.BOLD, 32));
 		lblFondo.setForeground(Color.WHITE);
+
+		// ============ FOTO DE PERFIL (ARRIBA A LA IZQUIERDA) ============
+
+		// Label para mostrar la foto
+		lblFotoPerfil = new JLabel();
+		lblFotoPerfil.setBounds(50, 30, 120, 120);
+		lblFotoPerfil.setHorizontalAlignment(SwingConstants.CENTER);
+		lblFotoPerfil.setVerticalAlignment(SwingConstants.CENTER);
+		lblFotoPerfil.setText("<html><center>Click para<br>seleccionar<br>foto</center></html>");
+		lblFotoPerfil.setFont(new Font("Arial", Font.PLAIN, 11));
+		lblFotoPerfil.setForeground(Color.WHITE);
+		lblFotoPerfil.setOpaque(true);
+		lblFotoPerfil.setBackground(new Color(255, 255, 255, 100));
+		lblFotoPerfil.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2));
+		lblFotoPerfil.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
+		// Hacer el label clickeable
+		lblFotoPerfil.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				seleccionarImagen();
+			}
+		});
+
+		// Botón para seleccionar foto
+		btnSeleccionarFoto = new JButton("Cambiar Foto");
+		btnSeleccionarFoto.setBounds(50, 160, 120, 30);
+		btnSeleccionarFoto.setFont(new Font("Arial", Font.PLAIN, 12));
+		btnSeleccionarFoto.setBackground(Color.decode("#9B59B6"));
+		btnSeleccionarFoto.setForeground(Color.WHITE);
+		btnSeleccionarFoto.setFocusPainted(false);
+		btnSeleccionarFoto.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		btnSeleccionarFoto.addActionListener(e -> seleccionarImagen());
 
 		// ============ COLUMNA IZQUIERDA ============
 
@@ -207,7 +251,7 @@ public class PanelPerfilMujer extends JPanel {
 		chkVisibilidad.setOpaque(false);
 		chkVisibilidad.setFont(new Font("Arial", Font.BOLD, 14));
 		chkVisibilidad.setForeground(Color.WHITE);
-		chkVisibilidad.setSelected(true); // Por defecto visible
+		chkVisibilidad.setSelected(true);
 
 		// ============ BOTONES CENTRADOS ============
 
@@ -235,6 +279,10 @@ public class PanelPerfilMujer extends JPanel {
 		// ============ AGREGAR COMPONENTES AL PANEL ============
 
 		this.add(lblFondo);
+
+		// Foto de perfil
+		this.add(lblFotoPerfil);
+		this.add(btnSeleccionarFoto);
 
 		// Columna Izquierda
 		this.add(lblNombre);
@@ -269,7 +317,83 @@ public class PanelPerfilMujer extends JPanel {
 		this.add(btnCancelar);
 	}
 
+	// ============ MÉTODO PARA SELECCIONAR IMAGEN ============
+
+	private void seleccionarImagen() {
+		int resultado = fileChooser.showOpenDialog(this);
+
+		if (resultado == JFileChooser.APPROVE_OPTION) {
+			archivoImagenSeleccionada = fileChooser.getSelectedFile();
+			cargarVistaPrevia(archivoImagenSeleccionada);
+		}
+	}
+
+	private void cargarVistaPrevia(File archivo) {
+		try {
+			imagenActual = ImageIO.read(archivo);
+
+			if (imagenActual != null) {
+				// Escalar la imagen para que quepa en el label (120x120)
+				Image imagenEscalada = escalarImagen(imagenActual, 120, 120);
+				lblFotoPerfil.setIcon(new ImageIcon(imagenEscalada));
+				lblFotoPerfil.setText("");
+			} else {
+				JOptionPane.showMessageDialog(this, "No se pudo cargar la imagen", "Error", JOptionPane.ERROR_MESSAGE);
+			}
+		} catch (Exception ex) {
+			JOptionPane.showMessageDialog(this, "Error al cargar la imagen: " + ex.getMessage(), "Error",
+					JOptionPane.ERROR_MESSAGE);
+		}
+	}
+
+	private Image escalarImagen(BufferedImage img, int maxWidth, int maxHeight) {
+		int width = img.getWidth();
+		int height = img.getHeight();
+
+		// Calcular proporción manteniendo aspecto
+		double ratio = Math.min((double) maxWidth / width, (double) maxHeight / height);
+
+		int newWidth = (int) (width * ratio);
+		int newHeight = (int) (height * ratio);
+
+		return img.getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH);
+	}
+
 	// ============ GETTERS Y SETTERS ============
+
+	// NUEVOS getters para la imagen
+	public File getArchivoImagenSeleccionada() {
+		return archivoImagenSeleccionada;
+	}
+
+	public BufferedImage getImagenActual() {
+		return imagenActual;
+	}
+
+	public JLabel getLblFotoPerfil() {
+		return lblFotoPerfil;
+	}
+
+	public JButton getBtnSeleccionarFoto() {
+		return btnSeleccionarFoto;
+	}
+
+	// Setters para cargar imagen desde el controlador
+	public void setArchivoImagenSeleccionada(File archivo) {
+		this.archivoImagenSeleccionada = archivo;
+		if (archivo != null) {
+			cargarVistaPrevia(archivo);
+		}
+	}
+
+	public void setImagenPerfil(BufferedImage imagen) {
+		if (imagen != null) {
+			this.imagenActual = imagen;
+			Image imagenEscalada = escalarImagen(imagen, 120, 120);
+			lblFotoPerfil.setIcon(new ImageIcon(imagenEscalada));
+			lblFotoPerfil.setText("");
+		}
+	}
 
 	public JLabel getLblFondo() {
 		return lblFondo;

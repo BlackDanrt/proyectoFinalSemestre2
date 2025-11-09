@@ -2,11 +2,22 @@ package co.edu.unbosque.view;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import javax.imageio.ImageIO;
 
 public class PanelPerfilHombre extends JPanel {
 
 	// Componentes de visualización
 	private JLabel lblFondo;
+
+	// NUEVOS: Componentes para foto de perfil
+	private JLabel lblFotoPerfil;
+	private JButton btnSeleccionarFoto;
+	private File archivoImagenSeleccionada;
+	private BufferedImage imagenActual;
 
 	// Columna Izquierda - Información personal
 	private JLabel lblNombre;
@@ -38,6 +49,7 @@ public class PanelPerfilHombre extends JPanel {
 
 	// Checkboxes
 	private JCheckBox chkVisibilidad;
+	private JCheckBox chkDivorcioPreferencia;
 
 	// Botones
 	private JButton btnActualizar;
@@ -59,9 +71,42 @@ public class PanelPerfilHombre extends JPanel {
 		lblFondo = new JLabel();
 		lblFondo.setBounds(440, 30, 400, 150);
 		lblFondo.setHorizontalAlignment(SwingConstants.CENTER);
-		lblFondo.setText("PERFIL HOMBRE"); // Texto temporal
+		lblFondo.setText("PERFIL HOMBRE");
 		lblFondo.setFont(new Font("Arial", Font.BOLD, 32));
 		lblFondo.setForeground(Color.WHITE);
+
+		// ============ FOTO DE PERFIL (ARRIBA A LA IZQUIERDA) ============
+
+		// Label para mostrar la foto
+		lblFotoPerfil = new JLabel();
+		lblFotoPerfil.setBounds(50, 30, 120, 120);
+		lblFotoPerfil.setHorizontalAlignment(SwingConstants.CENTER);
+		lblFotoPerfil.setVerticalAlignment(SwingConstants.CENTER);
+		lblFotoPerfil.setText("<html><center>Click para<br>seleccionar<br>foto</center></html>");
+		lblFotoPerfil.setFont(new Font("Arial", Font.PLAIN, 11));
+		lblFotoPerfil.setForeground(Color.WHITE);
+		lblFotoPerfil.setOpaque(true);
+		lblFotoPerfil.setBackground(new Color(255, 255, 255, 100));
+		lblFotoPerfil.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2));
+		lblFotoPerfil.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
+		// Hacer el label clickeable
+		lblFotoPerfil.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				seleccionarImagen();
+			}
+		});
+
+		// Botón para seleccionar foto
+		btnSeleccionarFoto = new JButton("Cambiar Foto");
+		btnSeleccionarFoto.setBounds(50, 160, 120, 30);
+		btnSeleccionarFoto.setFont(new Font("Arial", Font.PLAIN, 12));
+		btnSeleccionarFoto.setBackground(Color.decode("#9B59B6"));
+		btnSeleccionarFoto.setForeground(Color.WHITE);
+		btnSeleccionarFoto.setFocusPainted(false);
+		btnSeleccionarFoto.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		btnSeleccionarFoto.addActionListener(e -> seleccionarImagen());
 
 		// ============ COLUMNA IZQUIERDA ============
 
@@ -199,7 +244,12 @@ public class PanelPerfilHombre extends JPanel {
 		chkVisibilidad.setOpaque(false);
 		chkVisibilidad.setFont(new Font("Arial", Font.BOLD, 14));
 		chkVisibilidad.setForeground(Color.WHITE);
-		chkVisibilidad.setSelected(true); // Por defecto visible
+
+		chkDivorcioPreferencia = new JCheckBox("Divorciadas");
+		chkDivorcioPreferencia.setBounds(740, 560, 340, 30);
+		chkDivorcioPreferencia.setOpaque(false);
+		chkDivorcioPreferencia.setFont(new Font("Arial", Font.BOLD, 14));
+		chkDivorcioPreferencia.setForeground(Color.WHITE);
 
 		// ============ BOTONES CENTRADOS ============
 
@@ -228,6 +278,10 @@ public class PanelPerfilHombre extends JPanel {
 
 		this.add(lblFondo);
 
+		// Foto de perfil
+		this.add(lblFotoPerfil);
+		this.add(btnSeleccionarFoto);
+
 		// Columna Izquierda
 		this.add(lblNombre);
 		this.add(lblNombreUsuario);
@@ -254,16 +308,97 @@ public class PanelPerfilHombre extends JPanel {
 		this.add(lblEdadMaxima);
 		this.add(txtEdadMaxima);
 		this.add(chkVisibilidad);
+		this.add(chkDivorcioPreferencia);
 
 		// Botones
 		this.add(btnActualizar);
 		this.add(btnCancelar);
 	}
 
+	// ============ MÉTODO PARA SELECCIONAR IMAGEN ============
+
+	private void seleccionarImagen() {
+		int resultado = fileChooser.showOpenDialog(this);
+
+		if (resultado == JFileChooser.APPROVE_OPTION) {
+			archivoImagenSeleccionada = fileChooser.getSelectedFile();
+			cargarVistaPrevia(archivoImagenSeleccionada);
+		}
+	}
+
+	private void cargarVistaPrevia(File archivo) {
+		try {
+			imagenActual = ImageIO.read(archivo);
+
+			if (imagenActual != null) {
+				// Escalar la imagen para que quepa en el label (120x120)
+				Image imagenEscalada = escalarImagen(imagenActual, 120, 120);
+				lblFotoPerfil.setIcon(new ImageIcon(imagenEscalada));
+				lblFotoPerfil.setText("");
+			} else {
+				JOptionPane.showMessageDialog(this, "No se pudo cargar la imagen", "Error", JOptionPane.ERROR_MESSAGE);
+			}
+		} catch (Exception ex) {
+			JOptionPane.showMessageDialog(this, "Error al cargar la imagen: " + ex.getMessage(), "Error",
+					JOptionPane.ERROR_MESSAGE);
+		}
+	}
+
+	private Image escalarImagen(BufferedImage img, int maxWidth, int maxHeight) {
+		int width = img.getWidth();
+		int height = img.getHeight();
+
+		// Calcular proporción manteniendo aspecto
+		double ratio = Math.min((double) maxWidth / width, (double) maxHeight / height);
+
+		int newWidth = (int) (width * ratio);
+		int newHeight = (int) (height * ratio);
+
+		return img.getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH);
+	}
+
 	// ============ GETTERS Y SETTERS ============
+
+	// NUEVOS getters para la imagen
+	public File getArchivoImagenSeleccionada() {
+		return archivoImagenSeleccionada;
+	}
+
+	public BufferedImage getImagenActual() {
+		return imagenActual;
+	}
+
+	public JLabel getLblFotoPerfil() {
+		return lblFotoPerfil;
+	}
+
+	public JButton getBtnSeleccionarFoto() {
+		return btnSeleccionarFoto;
+	}
+
+	// Setters para cargar imagen desde el controlador
+	public void setArchivoImagenSeleccionada(File archivo) {
+		this.archivoImagenSeleccionada = archivo;
+		if (archivo != null) {
+			cargarVistaPrevia(archivo);
+		}
+	}
+
+	public void setImagenPerfil(BufferedImage imagen) {
+		if (imagen != null) {
+			this.imagenActual = imagen;
+			Image imagenEscalada = escalarImagen(imagen, 120, 120);
+			lblFotoPerfil.setIcon(new ImageIcon(imagenEscalada));
+			lblFotoPerfil.setText("");
+		}
+	}
 
 	public JLabel getLblFondo() {
 		return lblFondo;
+	}
+
+	public void setLblFondo(JLabel lblFondo) {
+		this.lblFondo = lblFondo;
 	}
 
 	public JLabel getLblNombre() {
@@ -274,12 +409,28 @@ public class PanelPerfilHombre extends JPanel {
 		this.lblNombre = lblNombre;
 	}
 
+	public JLabel getLblNombreUsuario() {
+		return lblNombreUsuario;
+	}
+
+	public void setLblNombreUsuario(JLabel lblNombreUsuario) {
+		this.lblNombreUsuario = lblNombreUsuario;
+	}
+
 	public JLabel getLblApellido() {
 		return lblApellido;
 	}
 
 	public void setLblApellido(JLabel lblApellido) {
 		this.lblApellido = lblApellido;
+	}
+
+	public JLabel getLblApellidoUsuario() {
+		return lblApellidoUsuario;
+	}
+
+	public void setLblApellidoUsuario(JLabel lblApellidoUsuario) {
+		this.lblApellidoUsuario = lblApellidoUsuario;
 	}
 
 	public JLabel getLblAlias() {
@@ -298,12 +449,28 @@ public class PanelPerfilHombre extends JPanel {
 		this.lblEmail = lblEmail;
 	}
 
+	public JLabel getLblEmailUsuario() {
+		return lblEmailUsuario;
+	}
+
+	public void setLblEmailUsuario(JLabel lblEmailUsuario) {
+		this.lblEmailUsuario = lblEmailUsuario;
+	}
+
 	public JLabel getLblEdad() {
 		return lblEdad;
 	}
 
 	public void setLblEdad(JLabel lblEdad) {
 		this.lblEdad = lblEdad;
+	}
+
+	public JLabel getLblEdadUsuario() {
+		return lblEdadUsuario;
+	}
+
+	public void setLblEdadUsuario(JLabel lblEdadUsuario) {
+		this.lblEdadUsuario = lblEdadUsuario;
 	}
 
 	public JLabel getLblContrasenia() {
@@ -354,127 +521,112 @@ public class PanelPerfilHombre extends JPanel {
 		this.lblEdadMaxima = lblEdadMaxima;
 	}
 
-	public void setLblFondo(JLabel lblFondo) {
-		this.lblFondo = lblFondo;
-	}
-
-	public void setLblNombreUsuario(JLabel lblNombreUsuario) {
-		this.lblNombreUsuario = lblNombreUsuario;
-	}
-
-	public void setLblApellidoUsuario(JLabel lblApellidoUsuario) {
-		this.lblApellidoUsuario = lblApellidoUsuario;
-	}
-
-	public void setLblEmailUsuario(JLabel lblEmailUsuario) {
-		this.lblEmailUsuario = lblEmailUsuario;
-	}
-
-	public void setLblEdadUsuario(JLabel lblEdadUsuario) {
-		this.lblEdadUsuario = lblEdadUsuario;
+	public JTextField getTxtAlias() {
+		return txtAlias;
 	}
 
 	public void setTxtAlias(JTextField txtAlias) {
 		this.txtAlias = txtAlias;
 	}
 
-	public void setJpfContrasenia(JPasswordField jpfContrasenia) {
-		this.jpfContrasenia = jpfContrasenia;
-	}
-
-	public void setJpfConfirmarContrasenia(JPasswordField jpfConfirmarContrasenia) {
-		this.jpfConfirmarContrasenia = jpfConfirmarContrasenia;
-	}
-
-	public void setTxtEstatura(JTextField txtEstatura) {
-		this.txtEstatura = txtEstatura;
-	}
-
-	public void setTxtIngresosMensuales(JTextField txtIngresosMensuales) {
-		this.txtIngresosMensuales = txtIngresosMensuales;
-	}
-
-	public void setTxtEdadMinima(JTextField txtEdadMinima) {
-		this.txtEdadMinima = txtEdadMinima;
-	}
-
-	public void setTxtEdadMaxima(JTextField txtEdadMaxima) {
-		this.txtEdadMaxima = txtEdadMaxima;
-	}
-
-	public void setChkVisibilidad(JCheckBox chkVisibilidad) {
-		this.chkVisibilidad = chkVisibilidad;
-	}
-
-	public void setBtnActualizar(JButton btnActualizar) {
-		this.btnActualizar = btnActualizar;
-	}
-
-	public void setBtnCancelar(JButton btnCancelar) {
-		this.btnCancelar = btnCancelar;
-	}
-
-	public void setFileChooser(JFileChooser fileChooser) {
-		this.fileChooser = fileChooser;
-	}
-
-	public JTextField getTxtAlias() {
-		return txtAlias;
-	}
-
 	public JPasswordField getJpfContrasenia() {
 		return jpfContrasenia;
+	}
+
+	public void setJpfContrasenia(JPasswordField jpfContrasenia) {
+		this.jpfContrasenia = jpfContrasenia;
 	}
 
 	public JPasswordField getJpfConfirmarContrasenia() {
 		return jpfConfirmarContrasenia;
 	}
 
+	public void setJpfConfirmarContrasenia(JPasswordField jpfConfirmarContrasenia) {
+		this.jpfConfirmarContrasenia = jpfConfirmarContrasenia;
+	}
+
 	public JTextField getTxtEstatura() {
 		return txtEstatura;
+	}
+
+	public void setTxtEstatura(JTextField txtEstatura) {
+		this.txtEstatura = txtEstatura;
 	}
 
 	public JTextField getTxtIngresosMensuales() {
 		return txtIngresosMensuales;
 	}
 
+	public void setTxtIngresosMensuales(JTextField txtIngresosMensuales) {
+		this.txtIngresosMensuales = txtIngresosMensuales;
+	}
+
 	public JTextField getTxtEdadMinima() {
 		return txtEdadMinima;
+	}
+
+	public void setTxtEdadMinima(JTextField txtEdadMinima) {
+		this.txtEdadMinima = txtEdadMinima;
 	}
 
 	public JTextField getTxtEdadMaxima() {
 		return txtEdadMaxima;
 	}
 
+	public void setTxtEdadMaxima(JTextField txtEdadMaxima) {
+		this.txtEdadMaxima = txtEdadMaxima;
+	}
+
 	public JCheckBox getChkVisibilidad() {
 		return chkVisibilidad;
 	}
 
-	public JLabel getLblNombreUsuario() {
-		return lblNombreUsuario;
+	public void setChkVisibilidad(JCheckBox chkVisibilidad) {
+		this.chkVisibilidad = chkVisibilidad;
 	}
 
-	public JLabel getLblApellidoUsuario() {
-		return lblApellidoUsuario;
+	public JCheckBox getChkDivorcioPreferencia() {
+		return chkDivorcioPreferencia;
 	}
 
-	public JLabel getLblEmailUsuario() {
-		return lblEmailUsuario;
-	}
-
-	public JLabel getLblEdadUsuario() {
-		return lblEdadUsuario;
-	}
-
-	public JFileChooser getFileChooser() {
-		return fileChooser;
+	public void setChkDivorcioPreferencia(JCheckBox chkDivorcioPreferencia) {
+		this.chkDivorcioPreferencia = chkDivorcioPreferencia;
 	}
 
 	public JButton getBtnActualizar() {
 		return btnActualizar;
 	}
 
+	public void setBtnActualizar(JButton btnActualizar) {
+		this.btnActualizar = btnActualizar;
+	}
+
 	public JButton getBtnCancelar() {
 		return btnCancelar;
 	}
+
+	public void setBtnCancelar(JButton btnCancelar) {
+		this.btnCancelar = btnCancelar;
+	}
+
+	public JFileChooser getFileChooser() {
+		return fileChooser;
+	}
+
+	public void setFileChooser(JFileChooser fileChooser) {
+		this.fileChooser = fileChooser;
+	}
+
+	public void setLblFotoPerfil(JLabel lblFotoPerfil) {
+		this.lblFotoPerfil = lblFotoPerfil;
+	}
+
+	public void setBtnSeleccionarFoto(JButton btnSeleccionarFoto) {
+		this.btnSeleccionarFoto = btnSeleccionarFoto;
+	}
+
+	public void setImagenActual(BufferedImage imagenActual) {
+		this.imagenActual = imagenActual;
+	}
+
 }

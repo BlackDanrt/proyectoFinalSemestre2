@@ -23,6 +23,7 @@ import co.edu.unbosque.model.HombreDTO;
 import co.edu.unbosque.model.ModelFacade;
 import co.edu.unbosque.model.MujerDTO;
 import co.edu.unbosque.model.persistence.FileHandler;
+import co.edu.unbosque.util.exception.AliasExistenteActualizadoException;
 import co.edu.unbosque.util.exception.AliasExistenteException;
 import co.edu.unbosque.util.exception.ContraseniaDebilException;
 import co.edu.unbosque.util.exception.ContraseniaDiferenteException;
@@ -30,6 +31,7 @@ import co.edu.unbosque.util.exception.CorreoExistenteException;
 import co.edu.unbosque.util.exception.CorreoInvalidoException;
 import co.edu.unbosque.util.exception.FechaNacimientoInvalidaException;
 import co.edu.unbosque.util.exception.LanzadorDeExcepcion;
+import co.edu.unbosque.util.exception.NumeroInvalidoException;
 import co.edu.unbosque.util.exception.StringInvalidoException;
 import co.edu.unbosque.view.ViewFacade;
 
@@ -355,6 +357,11 @@ public class Controlador implements ActionListener {
 							estatura);
 					mf.getMujerDao().crear(temp);
 				}
+				vf.getpReg().setVisible(false);
+				vf.getpInic().setVisible(true);
+				vf.refrescarVista();
+				JOptionPane.showMessageDialog(vf.getVen(), "Proceso exitoso", "Cuenta creada",
+						JOptionPane.INFORMATION_MESSAGE);
 
 			} else {
 				JOptionPane.showMessageDialog(vf.getVen(), "El correo no existe", "Registro fallido",
@@ -400,30 +407,31 @@ public class Controlador implements ActionListener {
 
 	public String tomarRutaFoto() {
 
-		int resultado = vf.getpReg().getFileChooser().showOpenDialog(null);
+		File archivoSeleccionado = vf.getpReg().getArchivoImagenSeleccionada();
 
-		if (resultado == JFileChooser.APPROVE_OPTION) {
-			File archivoSeleccionado = vf.getpReg().getFileChooser().getSelectedFile();
+		// Verificar si hay una imagen seleccionada
+		if (archivoSeleccionado == null) {
+			// No se seleccionó ninguna imagen, retornar default
+			return "files/default.png";
+		}
 
-			try {
-				File carpetaFiles = new File("pfp");
+		try {
+			// Crear carpeta pfp si no existe
+			File carpetaFiles = new File("pfp");
 
-				// Crear archivo de destino dentro de esa carpeta
-				String nombreArchivo = archivoSeleccionado.getName();
-				File destino = new File(carpetaFiles, nombreArchivo);
+			// Crear archivo de destino dentro de esa carpeta
+			String nombreArchivo = archivoSeleccionado.getName();
+			File destino = new File(carpetaFiles, nombreArchivo);
 
-				// Copiar imagen seleccionada a la carpeta files
-				Files.copy(archivoSeleccionado.toPath(), destino.toPath(), StandardCopyOption.REPLACE_EXISTING);
+			// Copiar imagen seleccionada a la carpeta pfp
+			Files.copy(archivoSeleccionado.toPath(), destino.toPath(), StandardCopyOption.REPLACE_EXISTING);
 
-				// Ruta relativa
-				return "pfp/" + nombreArchivo;
+			// Retornar ruta relativa
+			return "pfp/" + nombreArchivo;
 
-			} catch (IOException e) {
-				JOptionPane.showMessageDialog(vf.getVen(), "Error al copiar la imagen", "Error al copiar la imagen",
-						JOptionPane.ERROR_MESSAGE);
-				return "files/default.png";
-			}
-		} else {
+		} catch (IOException e) {
+			JOptionPane.showMessageDialog(vf.getVen(), "Error al copiar la imagen: " + e.getMessage(),
+					"Error al copiar la imagen", JOptionPane.ERROR_MESSAGE);
 			return "files/default.png";
 		}
 	}
@@ -563,7 +571,7 @@ public class Controlador implements ActionListener {
 		HombreDTO dto = mf.getHombreDao().buscarId(propConfig.getProperty("proyectoFinalSemestre2.id"));
 		vf.getpPH().getLblNombreUsuario().setText(dto.getNombre());
 		vf.getpPH().getLblApellidoUsuario().setText(dto.getApellido());
-		vf.getpPH().getLblAlias().setText(dto.getAlias());
+		vf.getpPH().getTxtAlias().setText(dto.getAlias());
 		vf.getpPH().getLblEmailUsuario().setText(dto.getCorreo());
 		vf.getpPH().getLblEdadUsuario().setText("" + dto.getEdad());
 		vf.getpPH().getJpfContrasenia().setText(dto.getContrasenia());
@@ -573,6 +581,10 @@ public class Controlador implements ActionListener {
 		vf.getpPH().getTxtEdadMinima().setText("" + dto.getEdadMinima());
 		vf.getpPH().getTxtEdadMaxima().setText("" + dto.getEdadMaxima());
 		vf.getpPH().getChkVisibilidad().setSelected(dto.isEsVisiblePefil());
+
+		String rutaFoto = dto.getFoto();
+		File archivoImagen = new File(rutaFoto);
+		vf.getpPH().setArchivoImagenSeleccionada(archivoImagen);
 	}
 
 	public void perfilMujer() {
@@ -590,6 +602,225 @@ public class Controlador implements ActionListener {
 		vf.getpPM().getTxtEdadMaxima().setText("" + dto.getEdadMaxima());
 		vf.getpPM().getChkVisibilidad().setSelected(dto.isEsVisiblePefil());
 		vf.getpPM().getChkDivorciada().setSelected(dto.isEsDivorciada());
+
+		String rutaFoto = dto.getFoto();
+		File archivoImagen = new File(rutaFoto);
+		vf.getpPM().setArchivoImagenSeleccionada(archivoImagen);
+	}
+
+	public void actualizarHombre() {
+
+		try {
+			HombreDTO dto = mf.getHombreDao().buscarId(propConfig.getProperty("proyectoFinalSemestre2.id"));
+			int indice = mf.getHombreDao().buscarIdIndice(propConfig.getProperty("proyectoFinalSemestre2.id"));
+
+			String id = dto.getId();
+			String nombre = dto.getNombre();
+			String apellido = dto.getApellido();
+			String correo = dto.getCorreo();
+			int cantLike = dto.getCantLike();
+			boolean estaVerificado = dto.isEstaVerificado();
+
+			String alias = vf.getpPH().getTxtAlias().getText();
+			LanzadorDeExcepcion.verificarAliasExistenteActualizado(dto.getAlias(), alias, this.mf);
+
+			int edad = dto.getEdad();
+
+			String contrasenia = vf.getpPH().getJpfContrasenia().getText();
+			String confirmarContrasenia = vf.getpPH().getJpfContrasenia().getText();
+			LanzadorDeExcepcion.verificarContrasenias(contrasenia, confirmarContrasenia);
+			String contraseniaAprobada = contrasenia;
+			LanzadorDeExcepcion.verificarFortalezaContrasenia(contraseniaAprobada);
+
+			long edadMinima = Integer.parseInt(vf.getpPH().getTxtEdadMinima().getText());
+			LanzadorDeExcepcion.verificarNumero(edadMinima);
+
+			long edadMaxima = Integer.parseInt(vf.getpPH().getTxtEdadMaxima().getText());
+			LanzadorDeExcepcion.verificarNumero(edadMaxima);
+
+			boolean esVisible = vf.getpPH().getChkVisibilidad().isSelected();
+
+			long ingresoMensual = Integer.parseInt(vf.getpPH().getTxtIngresosMensuales().getText());
+			LanzadorDeExcepcion.verificarNumero(ingresoMensual);
+
+			boolean preferenciaDivorcio = vf.getpPH().getChkDivorcioPreferencia().isSelected();
+
+			int estatura = Integer.parseInt(vf.getpPH().getTxtEstatura().getText());
+			LanzadorDeExcepcion.verificarNumero(estatura);
+
+			String foto = tomarRutaFotoHombre();
+
+			HombreDTO dtoActualizado = new HombreDTO(id, nombre, apellido, alias, edad, correo, contraseniaAprobada,
+					foto, cantLike, esVisible, edadMinima, edadMaxima, estaVerificado, ingresoMensual,
+					preferenciaDivorcio, estatura);
+			mf.getHombreDao().actualizar(indice, dtoActualizado);
+
+			vf.getpPH().setVisible(false);
+			vf.getpScr().setVisible(true);
+			vf.refrescarVista();
+			JOptionPane.showMessageDialog(vf.getVen(), "Proceso Exitoso", "Perfil actualizado",
+					JOptionPane.INFORMATION_MESSAGE);
+		} catch (
+
+		InputMismatchException e) {
+			JOptionPane.showMessageDialog(vf.getVen(), "Formato de entrada inválido. Revisa los campos ingresados.",
+					"Error de entrada", JOptionPane.ERROR_MESSAGE);
+
+		} catch (AliasExistenteActualizadoException e) {
+			JOptionPane.showMessageDialog(vf.getVen(), "El alias o nombre de usuario ya está en uso. Intenta con otro.",
+					"Alias existente", JOptionPane.ERROR_MESSAGE);
+
+		} catch (ContraseniaDiferenteException e) {
+			JOptionPane.showMessageDialog(vf.getVen(), "Las contraseñas no coinciden. Verifica e inténtalo de nuevo.",
+					"Contraseña no coincide", JOptionPane.ERROR_MESSAGE);
+
+		} catch (ContraseniaDebilException e) {
+			JOptionPane.showMessageDialog(vf.getVen(),
+					"La contraseña es demasiado débil. Usa al menos 8 caracteres, con mayúsculas, minúsculas y números.",
+					"Contraseña débil", JOptionPane.ERROR_MESSAGE);
+		} catch (NumeroInvalidoException e) {
+			JOptionPane.showMessageDialog(vf.getVen(), "Solo se permiten caracteres numericos",
+					"Valor numerico invalido", JOptionPane.ERROR_MESSAGE);
+		}
+
+	}
+
+	public String tomarRutaFotoHombre() {
+		// Obtener el archivo seleccionado del panel
+		File archivoSeleccionado = vf.getpPH().getArchivoImagenSeleccionada();
+
+		// Verificar si hay una imagen seleccionada
+		if (archivoSeleccionado == null) {
+			// No se seleccionó ninguna imagen, retornar default
+			return "files/default.png";
+		}
+
+		try {
+			// Crear carpeta pfp si no existe
+			File carpetaFiles = new File("pfp");
+
+			// Crear archivo de destino dentro de esa carpeta
+			String nombreArchivo = archivoSeleccionado.getName();
+			File destino = new File(carpetaFiles, nombreArchivo);
+
+			// Copiar imagen seleccionada a la carpeta pfp
+			Files.copy(archivoSeleccionado.toPath(), destino.toPath(), StandardCopyOption.REPLACE_EXISTING);
+
+			// Retornar ruta relativa
+			return "pfp/" + nombreArchivo;
+
+		} catch (IOException e) {
+			JOptionPane.showMessageDialog(vf.getVen(), "Error al copiar la imagen: " + e.getMessage(),
+					"Error al copiar la imagen", JOptionPane.ERROR_MESSAGE);
+			return "files/default.png";
+		}
+	}
+
+	public void actualizarMujer() {
+
+		try {
+			MujerDTO dto = mf.getMujerDao().buscarId(propConfig.getProperty("proyectoFinalSemestre2.id"));
+			int indice = mf.getMujerDao().buscarIdIndice(propConfig.getProperty("proyectoFinalSemestre2.id"));
+
+			String id = dto.getId();
+			String nombre = dto.getNombre();
+			String apellido = dto.getApellido();
+			String correo = dto.getCorreo();
+			int cantLike = dto.getCantLike();
+			boolean estaVerificado = dto.isEstaVerificado();
+
+			String alias = vf.getpPM().getTxtAlias().getText();
+			LanzadorDeExcepcion.verificarAliasExistenteActualizado(dto.getAlias(), alias, this.mf);
+
+			int edad = dto.getEdad();
+
+			String contrasenia = vf.getpPM().getJpfContrasenia().getText();
+			String confirmarContrasenia = vf.getpPM().getJpfContrasenia().getText();
+			LanzadorDeExcepcion.verificarContrasenias(contrasenia, confirmarContrasenia);
+			String contraseniaAprobada = contrasenia;
+			LanzadorDeExcepcion.verificarFortalezaContrasenia(contraseniaAprobada);
+
+			long edadMinima = Integer.parseInt(vf.getpPM().getTxtEdadMinima().getText());
+			LanzadorDeExcepcion.verificarNumero(edadMinima);
+
+			long edadMaxima = Integer.parseInt(vf.getpPM().getTxtEdadMaxima().getText());
+			LanzadorDeExcepcion.verificarNumero(edadMaxima);
+
+			boolean esVisible = vf.getpPM().getChkVisibilidad().isSelected();
+
+			int estaturaIdeal = Integer.parseInt(vf.getpPM().getTxtEstaturaIdeal().getText());
+			LanzadorDeExcepcion.verificarNumero(estaturaIdeal);
+
+			boolean esDivorciada = vf.getpPM().getChkDivorciada().isSelected();
+
+			int estatura = Integer.parseInt(vf.getpPM().getTxtEstatura().getText());
+			LanzadorDeExcepcion.verificarNumero(estatura);
+
+			String foto = tomarRutaFotoMujer();
+
+			MujerDTO dtoActualizado = new MujerDTO(id, nombre, apellido, alias, edad, correo, contraseniaAprobada, foto,
+					cantLike, esVisible, edadMinima, edadMaxima, estaVerificado, esDivorciada, estaturaIdeal, estatura);
+			mf.getMujerDao().actualizar(indice, dtoActualizado);
+
+			vf.getpPM().setVisible(false);
+			vf.getpScr().setVisible(true);
+			vf.refrescarVista();
+			JOptionPane.showMessageDialog(vf.getVen(), "Proceso Exitoso", "Perfil actualizado",
+					JOptionPane.INFORMATION_MESSAGE);
+		} catch (
+
+		InputMismatchException e) {
+			JOptionPane.showMessageDialog(vf.getVen(), "Formato de entrada inválido. Revisa los campos ingresados.",
+					"Error de entrada", JOptionPane.ERROR_MESSAGE);
+
+		} catch (AliasExistenteActualizadoException e) {
+			JOptionPane.showMessageDialog(vf.getVen(), "El alias o nombre de usuario ya está en uso. Intenta con otro.",
+					"Alias existente", JOptionPane.ERROR_MESSAGE);
+
+		} catch (ContraseniaDiferenteException e) {
+			JOptionPane.showMessageDialog(vf.getVen(), "Las contraseñas no coinciden. Verifica e inténtalo de nuevo.",
+					"Contraseña no coincide", JOptionPane.ERROR_MESSAGE);
+
+		} catch (ContraseniaDebilException e) {
+			JOptionPane.showMessageDialog(vf.getVen(),
+					"La contraseña es demasiado débil. Usa al menos 8 caracteres, con mayúsculas, minúsculas y números.",
+					"Contraseña débil", JOptionPane.ERROR_MESSAGE);
+		} catch (NumeroInvalidoException e) {
+			JOptionPane.showMessageDialog(vf.getVen(), "Solo se permiten caracteres numericos",
+					"Valor numerico invalido", JOptionPane.ERROR_MESSAGE);
+		}
+
+	}
+
+	public String tomarRutaFotoMujer() {
+		// Obtener el archivo seleccionado del panel
+		File archivoSeleccionado = vf.getpPM().getArchivoImagenSeleccionada();
+
+		// Verificar si hay una imagen seleccionada
+		if (archivoSeleccionado == null) {
+			// No se seleccionó ninguna imagen, retornar default
+			return "files/default.png";
+		}
+
+		try {
+			// Crear carpeta pfp si no existe
+			File carpetaFiles = new File("pfp");
+
+			// Crear archivo de destino dentro de esa carpeta
+			String nombreArchivo = archivoSeleccionado.getName();
+			File destino = new File(carpetaFiles, nombreArchivo);
+
+			// Copiar imagen seleccionada a la carpeta pfp
+			Files.copy(archivoSeleccionado.toPath(), destino.toPath(), StandardCopyOption.REPLACE_EXISTING);
+
+			// Retornar ruta relativa
+			return "pfp/" + nombreArchivo;
+
+		} catch (IOException e) {
+			JOptionPane.showMessageDialog(vf.getVen(), "Error al copiar la imagen: " + e.getMessage(),
+					"Error al copiar la imagen", JOptionPane.ERROR_MESSAGE);
+			return "files/default.png";
+		}
 	}
 
 	@Override
@@ -701,6 +932,17 @@ public class Controlador implements ActionListener {
 			vf.refrescarVista();
 			break;
 		}
+
+		case "actualizar hombre": {
+			actualizarHombre();
+			break;
+		}
+
+		case "actualizar mujer": {
+			actualizarMujer();
+			break;
+		}
+
 		// Fin casos switch
 		}
 		// Fin switch
@@ -768,6 +1010,7 @@ public class Controlador implements ActionListener {
 
 		vf.getpPM().getBtnCancelar().addActionListener(this);
 		vf.getpPM().getBtnCancelar().setActionCommand("volver panel principal");
+
 	}
 
 	public void cadenasTextoPaneles() {
