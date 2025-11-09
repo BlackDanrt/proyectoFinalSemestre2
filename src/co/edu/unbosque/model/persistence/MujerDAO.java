@@ -40,8 +40,9 @@ public class MujerDAO implements DAO<MujerDTO> {
 	 * lista se inicializa al cargar los datos desde el archivo serializado.
 	 */
 	public MujerDAO() {
-		// Se recomienda llamar a cargarDesdeArchivoSerializado() al inicializar
-		// para evitar listas nulas.
+		listaMujeres = new ArrayList<Mujer>();
+		cargarDesdeArchivoSerializado(SERIAL_FILE_NAME);
+
 	}
 
 	/**
@@ -105,7 +106,7 @@ public class MujerDAO implements DAO<MujerDTO> {
 	@Override
 	public void cargarDesdeArchivoSerializado(String url) {
 		Object contenido = FileHandler.leerDesdeArchivoSerializado(url);
-		if (contenido instanceof ArrayList<?>) {
+		if (contenido != null) {
 			listaMujeres = (ArrayList<Mujer>) contenido;
 		} else {
 			listaMujeres = new ArrayList<Mujer>();
@@ -141,6 +142,16 @@ public class MujerDAO implements DAO<MujerDTO> {
 			}
 		}
 		return null;
+	}
+
+	@Override
+	public int buscarIdIndice(String id) {
+		for (int i = 0; i < listaMujeres.size(); i++) {
+			if (listaMujeres.get(i).getId().equals(id)) {
+				return i;
+			}
+		}
+		return (Integer) null;
 	}
 
 	/**

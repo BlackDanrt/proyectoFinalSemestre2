@@ -122,7 +122,7 @@ public class HombreDAO implements DAO<HombreDTO> {
 	@Override
 	public void cargarDesdeArchivoSerializado(String url) {
 		Object contenido = FileHandler.leerDesdeArchivoSerializado(url);
-		if (contenido instanceof ArrayList<?>) {
+		if (contenido != null) {
 			listaHombres = (ArrayList<Hombre>) contenido;
 		} else {
 			listaHombres = new ArrayList<Hombre>();
@@ -150,6 +150,16 @@ public class HombreDAO implements DAO<HombreDTO> {
 			}
 		}
 		return null;
+	}
+
+	@Override
+	public int buscarIdIndice(String id) {
+		for (int i = 0; i < listaHombres.size(); i++) {
+			if (listaHombres.get(i).getId().equals(id)) {
+				return i;
+			}
+		}
+		return (Integer) null;
 	}
 
 	/**

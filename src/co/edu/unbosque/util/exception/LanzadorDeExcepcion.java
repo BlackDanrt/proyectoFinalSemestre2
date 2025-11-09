@@ -7,16 +7,13 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.swing.plaf.FontUIResource;
-
 import co.edu.unbosque.model.HombreDTO;
 import co.edu.unbosque.model.ModelFacade;
 import co.edu.unbosque.model.MujerDTO;
 
 public class LanzadorDeExcepcion {
 
-	public static void verificarCorreoExistente(String correo) throws CorreoExistenteException {
-		ModelFacade mf = new ModelFacade();
+	public static void verificarCorreoExistente(String correo, ModelFacade mf) throws CorreoExistenteException {
 		ArrayList<MujerDTO> mujeres = mf.getMujerDao().getLista();
 		ArrayList<HombreDTO> hombres = mf.getHombreDao().getLista();
 
@@ -57,8 +54,7 @@ public class LanzadorDeExcepcion {
 		return edad;
 	}
 
-	public static void verificarAliasExistente(String alias) throws AliasExistenteException {
-		ModelFacade mf = new ModelFacade();
+	public static void verificarAliasExistente(String alias, ModelFacade mf) throws AliasExistenteException {
 		ArrayList<MujerDTO> mujeres = mf.getMujerDao().getLista();
 		ArrayList<HombreDTO> hombres = mf.getHombreDao().getLista();
 
@@ -76,7 +72,6 @@ public class LanzadorDeExcepcion {
 	}
 
 	public static void verificarString(String texto) throws StringInvalidoException {
-
 		for (int i = 0; i < texto.length(); i++) {
 			if (!Character.isLetter(texto.charAt(i))) {
 				throw new StringInvalidoException();
@@ -85,28 +80,30 @@ public class LanzadorDeExcepcion {
 	}
 
 	public static void verificarFortalezaContrasenia(String contrasenia) throws ContraseniaDebilException {
-
 		if (contrasenia.length() < 8) {
 			throw new ContraseniaDebilException();
 		}
+
+		boolean tieneMayuscula = false;
+		boolean tieneNumero = false;
+
 		for (int i = 0; i < contrasenia.length(); i++) {
-
-			if (!Character.isDigit(contrasenia.charAt(i))) {
-				throw new ContraseniaDebilException();
+			if (Character.isUpperCase(contrasenia.charAt(i))) {
+				tieneMayuscula = true;
 			}
-
-			if (!Character.isUpperCase(contrasenia.charAt(0))) {
-				throw new ContraseniaDebilException();
+			if (Character.isDigit(contrasenia.charAt(i))) {
+				tieneNumero = true;
 			}
 		}
 
+		if (!tieneMayuscula || !tieneNumero) {
+			throw new ContraseniaDebilException();
+		}
 	}
 
 	public static void verificarContrasenias(String c1, String c2) throws ContraseniaDiferenteException {
-		if (c1.equals(c2)) {
-		} else {
+		if (!c1.equals(c2)) {
 			throw new ContraseniaDiferenteException();
 		}
 	}
-
 }

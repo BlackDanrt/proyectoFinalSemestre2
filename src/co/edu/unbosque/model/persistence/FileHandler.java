@@ -1,5 +1,6 @@
 package co.edu.unbosque.model.persistence;
 
+import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -172,11 +173,12 @@ public class FileHandler {
 	 * @return El objeto leído desde el archivo, o {@code null} si ocurre un error.
 	 */
 	public static Object leerDesdeArchivoSerializado(String url) {
-		try {
-			archivo = new File(url);
+		File archivo = new File(url);
 
-			if (!archivo.exists()) {
-				archivo.createNewFile();
+		try {
+			// Si el archivo no existe o está vacío, no intentamos leer
+			if (!archivo.exists() || archivo.length() == 0) {
+				return null;
 			}
 
 			fis = new FileInputStream(archivo);
@@ -184,19 +186,20 @@ public class FileHandler {
 			Object contenido = ois.readObject();
 			ois.close();
 			fis.close();
-
 			return contenido;
 
-		} catch (IOException e) {
-			System.out.println("Error al leer el archivo serializado");
-			System.out.println(e.getMessage());
-			e.printStackTrace();
+		} catch (EOFException e) {
+			System.out.println("Archivo vacío o final de archivo alcanzado: " + url);
+			return null;
 		} catch (ClassNotFoundException e) {
 			System.out.println("Error al deserializar los datos del archivo serializado");
 			e.printStackTrace();
+			return null;
+		} catch (IOException e) {
+			System.out.println("Error al leer el archivo serializado: " + url);
+			e.printStackTrace();
+			return null;
 		}
-
-		return null;
 	}
 
 	// =====================================================

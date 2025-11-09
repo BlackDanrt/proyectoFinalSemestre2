@@ -80,6 +80,8 @@ public interface DAO<E> {
 	 */
 	public Object buscarId(String id);
 
+	public int buscarIdIndice(String id);
+
 	/**
 	 * Obtiene la lista completa de elementos gestionados por el DAO.
 	 * 

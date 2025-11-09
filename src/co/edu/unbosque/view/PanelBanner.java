@@ -1,14 +1,17 @@
 package co.edu.unbosque.view;
 
 import java.awt.Color;
+import java.awt.Image;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
 
 public class PanelBanner extends JPanel {
 
+	private JButton btnPerfil;
 	private JButton btnModoOscuro;
 	private JComboBox<String> cmbIdioma;
 
@@ -26,7 +29,7 @@ public class PanelBanner extends JPanel {
 		 * Español: español, Inglés: English, Portugués: português Ruso: русский Chino:
 		 * 中文 Hebreo: עברית
 		 */
-		
+
 		cmbIdioma = new JComboBox<String>();
 		cmbIdioma.addItem("Español ES");
 		cmbIdioma.addItem("English US");
@@ -43,9 +46,28 @@ public class PanelBanner extends JPanel {
 		btnModoOscuro.setContentAreaFilled(false);
 		btnModoOscuro.setBorderPainted(false);
 
+		ImageIcon iconoOriginal = new ImageIcon("files/perfil.png");
+		Image imgEscalada = iconoOriginal.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
+
+		btnPerfil = new JButton();
+		btnPerfil.setIcon(new ImageIcon(imgEscalada));
+		btnPerfil.setBounds(830, 15, 50, 50);
+		btnPerfil.setContentAreaFilled(false);
+		btnPerfil.setBorderPainted(false);
+		btnPerfil.setVisible(false);
+
 		this.add(cmbIdioma);
 		this.add(btnModoOscuro);
+		this.add(btnPerfil);
 
+	}
+
+	public JButton getBtnPerfil() {
+		return btnPerfil;
+	}
+
+	public void setBtnPerfil(JButton btnPerfil) {
+		this.btnPerfil = btnPerfil;
 	}
 
 	public JButton getBtnModoOscuro() {

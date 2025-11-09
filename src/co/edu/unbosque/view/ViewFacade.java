@@ -17,6 +17,8 @@ public class ViewFacade {
 	private PanelAdministrador pAdmin;
 	private PanelPerfil pPerfil;
 	private PanelScroll pScr;
+	private PanelPerfilMujer pPM;
+	private PanelPerfilHombre pPH;
 
 	public ViewFacade() {
 		ven = new Ventana();
@@ -28,6 +30,8 @@ public class ViewFacade {
 		pAdmin = new PanelAdministrador();
 		pPerfil = new PanelPerfil();
 		pScr = new PanelScroll();
+		pPM = new PanelPerfilMujer();
+		pPH = new PanelPerfilHombre();
 	}
 
 	public void refrescarVista() {
@@ -104,6 +108,22 @@ public class ViewFacade {
 
 	public void setpScr(PanelScroll pScr) {
 		this.pScr = pScr;
+	}
+
+	public PanelPerfilMujer getpPM() {
+		return pPM;
+	}
+
+	public void setpPM(PanelPerfilMujer pPM) {
+		this.pPM = pPM;
+	}
+
+	public PanelPerfilHombre getpPH() {
+		return pPH;
+	}
+
+	public void setpPH(PanelPerfilHombre pPH) {
+		this.pPH = pPH;
 	}
 
 	private void cambiarIconoModo(String ruta) {

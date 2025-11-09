@@ -76,7 +76,7 @@ public class DislikeDAO {
 	 */
 	public void cargarDesdeArchivoSerializado(String url) {
 		Object contenido = FileHandler.leerDesdeArchivoSerializado(url);
-		if (contenido instanceof ArrayList<?>) {
+		if (contenido != null) {
 			listaDislikes = (ArrayList<Dislike>) contenido;
 		} else {
 			listaDislikes = new ArrayList<Dislike>();

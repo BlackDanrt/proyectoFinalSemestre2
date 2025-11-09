@@ -48,6 +48,7 @@ public class Controlador implements ActionListener {
 		vf.getpBan().getCmbIdioma().setSelectedItem(propConfig.getProperty("proyectoFinalSemestre2.idioma"));
 		inicializarOyentes();
 		inicializarConfig();
+		cadenasTextoPaneles();
 		idioma();
 	}
 
@@ -79,6 +80,21 @@ public class Controlador implements ActionListener {
 		vf.getpCV().setBounds(0, 0, 1280, 800);
 		vf.getVen().add(vf.getpCV());
 		vf.getpCV().setVisible(false);
+
+		// Panel Scroll (Principal)
+		vf.getpScr().setBounds(0, 0, 1280, 800);
+		vf.getVen().add(vf.getpScr());
+		vf.getpScr().setVisible(false);
+
+		// Panel Perfil Hombre
+		vf.getpPH().setBounds(0, 0, 1280, 800);
+		vf.getVen().add(vf.getpPH());
+		vf.getpPH().setVisible(false);
+
+		// Panel Perfil Mujer
+		vf.getpPM().setBounds(0, 0, 1280, 800);
+		vf.getVen().add(vf.getpPM());
+		vf.getpPM().setVisible(false);
 	}
 
 	public void inicializarConfig() {
@@ -187,6 +203,7 @@ public class Controlador implements ActionListener {
 			}
 		}
 		vf.getpBan().getCmbIdioma().setSelectedItem(idioma);
+		cadenasTextoPaneles();
 		vf.refrescarVista();
 	}
 
@@ -218,7 +235,7 @@ public class Controlador implements ActionListener {
 				for (MujerDTO dto : mujeres) {
 					if (dto.getCorreo().equals(correo) && dto.getContrasenia().equals(contrasenia)) {
 						sesionExitosa = true;
-						alias = dto.getId();
+						alias = dto.getAlias();
 						id = dto.getId();
 						esHombre = false;
 						break;
@@ -237,9 +254,14 @@ public class Controlador implements ActionListener {
 				} else {
 					MujerDTO mujer = mf.getMujerDao().buscarId(id);
 					estaVerificado = mujer.isEstaVerificado();
+					System.out.println(estaVerificado);
 				}
 
 				if (estaVerificado) {
+					vf.getpInic().setVisible(false);
+					vf.getpScr().setVisible(true);
+					vf.getpBan().getBtnPerfil().setVisible(true);
+					vf.getpBan().revalidate();
 				} else {
 					int codigoVerificacion = (int) (Math.random() * 900000) + 100000;
 
@@ -250,13 +272,19 @@ public class Controlador implements ActionListener {
 						propConfig.store(new FileWriter("config.properties"), null);
 					} catch (IOException e) {
 					}
+					vf.getpInic().setVisible(false);
+					vf.getpCV().setVisible(true);
 				}
 
 				try {
 					propConfig.setProperty("proyectoFinalSemestre2.id", "" + id + "");
 					propConfig.store(new FileWriter("config.properties"), null);
+
+					propConfig.setProperty("proyectoFinalSemestre2.generoUsuarioHombre", "" + esHombre + "");
+					propConfig.store(new FileWriter("config.properties"), null);
 				} catch (IOException e) {
 				}
+				vf.refrescarVista();
 
 			} else {
 				JOptionPane.showMessageDialog(vf.getVen(), "La contraseña o el correo son incorrectos",
@@ -284,14 +312,14 @@ public class Controlador implements ActionListener {
 			LanzadorDeExcepcion.verificarString(apellido);
 
 			String alias = vf.getpReg().getTxtAlias().getText();
-			LanzadorDeExcepcion.verificarAliasExistente(alias);
+			LanzadorDeExcepcion.verificarAliasExistente(alias, this.mf);
 
 			String fechaNacimiento = vf.getpReg().getTxtFechaNacimiento().getText();
 			int edad = LanzadorDeExcepcion.verificarFechaNacimiento(fechaNacimiento);
 
 			String correo = vf.getpReg().getTxtEmail().getText();
 			LanzadorDeExcepcion.verificarCorreoInvalido(correo);
-			LanzadorDeExcepcion.verificarCorreoExistente(correo);
+			LanzadorDeExcepcion.verificarCorreoExistente(correo, this.mf);
 
 			String foto = tomarRutaFoto();
 			String contrasenia = vf.getpReg().getJpfContrasenia().getText();
@@ -329,38 +357,56 @@ public class Controlador implements ActionListener {
 				}
 
 			} else {
-				// JPanel de error
+				JOptionPane.showMessageDialog(vf.getVen(), "El correo no existe", "Registro fallido",
+						JOptionPane.ERROR_MESSAGE);
 			}
 
 		} catch (InputMismatchException e) {
+			JOptionPane.showMessageDialog(vf.getVen(), "Formato de entrada inválido. Revisa los campos ingresados.",
+					"Error de entrada", JOptionPane.ERROR_MESSAGE);
+
 		} catch (FechaNacimientoInvalidaException e) {
+			JOptionPane.showMessageDialog(vf.getVen(), "La fecha de nacimiento ingresada no es válida.",
+					"Fecha inválida", JOptionPane.ERROR_MESSAGE);
+
 		} catch (StringInvalidoException e) {
+			JOptionPane.showMessageDialog(vf.getVen(), "Se ha detectado texto inválido en uno de los campos.",
+					"Texto inválido", JOptionPane.ERROR_MESSAGE);
+
 		} catch (CorreoInvalidoException e) {
+			JOptionPane.showMessageDialog(vf.getVen(), "El formato del correo ingresado no es válido.",
+					"Correo inválido", JOptionPane.ERROR_MESSAGE);
+
 		} catch (CorreoExistenteException e) {
+			JOptionPane.showMessageDialog(vf.getVen(),
+					"El correo ingresado ya está registrado. Usa otro o inicia sesión.", "Correo existente",
+					JOptionPane.ERROR_MESSAGE);
+
 		} catch (AliasExistenteException e) {
+			JOptionPane.showMessageDialog(vf.getVen(), "El alias o nombre de usuario ya está en uso. Intenta con otro.",
+					"Alias existente", JOptionPane.ERROR_MESSAGE);
+
 		} catch (ContraseniaDiferenteException e) {
+			JOptionPane.showMessageDialog(vf.getVen(), "Las contraseñas no coinciden. Verifica e inténtalo de nuevo.",
+					"Contraseña no coincide", JOptionPane.ERROR_MESSAGE);
+
 		} catch (ContraseniaDebilException e) {
+			JOptionPane.showMessageDialog(vf.getVen(),
+					"La contraseña es demasiado débil. Usa al menos 8 caracteres, con mayúsculas, minúsculas y números.",
+					"Contraseña débil", JOptionPane.ERROR_MESSAGE);
 		}
 
 	}
 
 	public String tomarRutaFoto() {
 
-		JFileChooser fileChooser = new JFileChooser();
-		fileChooser.setDialogTitle("Selecciona tu foto de perfil");
-
-		// Solo permitir imágenes
-		fileChooser.setFileFilter(
-				new javax.swing.filechooser.FileNameExtensionFilter("Imágenes (JPG, PNG, JPEG)", "jpg", "jpeg", "png"));
-
-		int resultado = fileChooser.showOpenDialog(null);
+		int resultado = vf.getpReg().getFileChooser().showOpenDialog(null);
 
 		if (resultado == JFileChooser.APPROVE_OPTION) {
-			File archivoSeleccionado = fileChooser.getSelectedFile();
+			File archivoSeleccionado = vf.getpReg().getFileChooser().getSelectedFile();
 
 			try {
-				// Carpeta de destino (ya existente)
-				File carpetaFiles = new File("files");
+				File carpetaFiles = new File("pfp");
 
 				// Crear archivo de destino dentro de esa carpeta
 				String nombreArchivo = archivoSeleccionado.getName();
@@ -369,16 +415,15 @@ public class Controlador implements ActionListener {
 				// Copiar imagen seleccionada a la carpeta files
 				Files.copy(archivoSeleccionado.toPath(), destino.toPath(), StandardCopyOption.REPLACE_EXISTING);
 
-				// Ruta relativa (adaptada al proyecto)
-				return "files/" + nombreArchivo;
+				// Ruta relativa
+				return "pfp/" + nombreArchivo;
 
 			} catch (IOException e) {
-				JOptionPane.showMessageDialog(null, "Error al copiar la imagen: " + e.getMessage());
-				// Si ocurre un error, también devolvemos la imagen por defecto
+				JOptionPane.showMessageDialog(vf.getVen(), "Error al copiar la imagen", "Error al copiar la imagen",
+						JOptionPane.ERROR_MESSAGE);
 				return "files/default.png";
 			}
 		} else {
-			// Si no se seleccionó nada, devolvemos la imagen por defecto
 			return "files/default.png";
 		}
 	}
@@ -394,23 +439,47 @@ public class Controlador implements ActionListener {
 		sb.append(vf.getpCV().getTxtfnum6().getText());
 
 		if (!codigo.equals(sb.toString())) {
-			// Tirar error
+			JOptionPane.showMessageDialog(vf.getVen(), "Error al verificar", "El codigo no ingresado no es correcto",
+					JOptionPane.ERROR_MESSAGE);
 		} else {
-			// Tirar aprobacion
+			JOptionPane.showMessageDialog(vf.getVen(), "Verificacion completada", "El codigo ingresado es correcto",
+					JOptionPane.INFORMATION_MESSAGE);
+			int indice = 0;
+			if (Boolean.parseBoolean(propConfig.getProperty("proyectoFinalSemestre2.generoUsuarioHombre")) == true) {
+				indice = mf.getHombreDao().buscarIdIndice(propConfig.getProperty("proyectoFinalSemestre2.id"));
+				HombreDTO dto = mf.getHombreDao().buscarId(propConfig.getProperty("proyectoFinalSemestre2.id"));
+				dto.setEstaVerificado(true);
+				mf.getHombreDao().getLista().get(indice).setEstaVerificado(true);
+				mf.getHombreDao().actualizar(indice, dto);
+
+			} else {
+				indice = mf.getMujerDao().buscarIdIndice(propConfig.getProperty("proyectoFinalSemestre2.id"));
+				MujerDTO dto = mf.getMujerDao().buscarId(propConfig.getProperty("proyectoFinalSemestre2.id"));
+				dto.setEstaVerificado(true);
+				mf.getMujerDao().getLista().get(indice).setEstaVerificado(true);
+				mf.getMujerDao().actualizar(indice, dto);
+				System.err.println(mf.getMujerDao().getLista().get(indice).isEstaVerificado());
+			}
+			vf.getpCV().setVisible(false);
+			vf.getpScr().setVisible(true);
+			vf.getpBan().getBtnPerfil().setVisible(true);
+			vf.getpBan().revalidate();
+			vf.refrescarVista();
 		}
 	}
 
 	public void mostrarPersona(int indice) {
 
-		if (mf.getHombreDao().buscarId(propConfig.getProperty("proyectoFinalSemestre2.id")) == null) {
+		if (Boolean.parseBoolean(propConfig.getProperty("proyectoFinalSemestre2.generoUsuarioHombre")) == false) {
 			MujerDTO temp = mf.getMujerDao().buscarId("proyectoFinalSemestre2.id");
+
 			if (mf.getDisDao().buscarDislike(temp.getId(), mf.getHombreDao().getLista().get(indice).getId())) {
 				int contador = Integer.parseInt(propConfig.getProperty("proyectoFinalSemestre2.indiceMostrar"));
 				aumentarContador();
 			} else {
 
 				HombreDTO dto = mf.getHombreDao().getLista().get(indice);
-				// 450 170
+
 				ImageIcon img = new ImageIcon(dto.getFoto());
 				Image redimension = img.getImage();
 				Image imgRedimensionada = redimension.getScaledInstance(170, 450, Image.SCALE_SMOOTH);
@@ -424,12 +493,13 @@ public class Controlador implements ActionListener {
 			}
 		} else {
 			HombreDTO temp = mf.getHombreDao().buscarId(propConfig.getProperty("proyectoFinalSemestre2.id"));
+
 			if (mf.getDisDao().buscarDislike(temp.getId(), mf.getMujerDao().getLista().get(indice).getId())) {
 				int contador = Integer.parseInt(propConfig.getProperty("proyectoFinalSemestre2.indiceMostrar"));
 				aumentarContador();
 			} else {
 				MujerDTO dto = mf.getMujerDao().getLista().get(indice);
-				// 450 170
+
 				ImageIcon img = new ImageIcon(dto.getFoto());
 				Image redimension = img.getImage();
 				Image imgRedimensionada = redimension.getScaledInstance(170, 450, Image.SCALE_SMOOTH);
@@ -445,7 +515,7 @@ public class Controlador implements ActionListener {
 	public void smash() {
 		int contador = Integer.parseInt(propConfig.getProperty("proyectoFinalSemestre2.indiceMostrar"));
 
-		if (mf.getHombreDao().buscarId(propConfig.getProperty("proyectoFinalSemestre2.id")) == null) {
+		if (Boolean.parseBoolean(propConfig.getProperty("proyectoFinalSemestre2.generoUsuarioHombre")) == false) {
 			int cantLike = mf.getMujerDao().getLista().get(contador).getCantLike() + 1;
 			mf.getMujerDao().getLista().get(contador).setCantLike(cantLike);
 		} else {
@@ -458,7 +528,7 @@ public class Controlador implements ActionListener {
 	public void pass() {
 		int contador = Integer.parseInt(propConfig.getProperty("proyectoFinalSemestre2.indiceMostrar"));
 
-		if (mf.getHombreDao().buscarId(propConfig.getProperty("proyectoFinalSemestre2.id")) == null) {
+		if (Boolean.parseBoolean(propConfig.getProperty("proyectoFinalSemestre2.generoUsuarioHombre")) == false) {
 			String idReceptor = mf.getMujerDao().getLista().get(contador).getId();
 			DislikeDTO dto = new DislikeDTO(propConfig.getProperty("proyectoFinalSemestre2.id"), idReceptor);
 			mf.getDisDao().crear(dto);
@@ -481,6 +551,47 @@ public class Controlador implements ActionListener {
 		}
 	}
 
+	public void generoSeleccionadoHombre(boolean esHombre) {
+		propConfig.setProperty("proyectoFinalSemestre2.indiceMostrar", "" + esHombre + "");
+		try {
+			propConfig.store(new FileWriter("config.properties"), null);
+		} catch (IOException e) {
+		}
+	}
+
+	public void perfilHombre() {
+		HombreDTO dto = mf.getHombreDao().buscarId(propConfig.getProperty("proyectoFinalSemestre2.id"));
+		vf.getpPH().getLblNombreUsuario().setText(dto.getNombre());
+		vf.getpPH().getLblApellidoUsuario().setText(dto.getApellido());
+		vf.getpPH().getLblAlias().setText(dto.getAlias());
+		vf.getpPH().getLblEmailUsuario().setText(dto.getCorreo());
+		vf.getpPH().getLblEdadUsuario().setText("" + dto.getEdad());
+		vf.getpPH().getJpfContrasenia().setText(dto.getContrasenia());
+		vf.getpPH().getJpfConfirmarContrasenia().setText(dto.getContrasenia());
+		vf.getpPH().getTxtEstatura().setText("" + dto.getEstatura());
+		vf.getpPH().getTxtIngresosMensuales().setText("" + dto.getIngresoMensual());
+		vf.getpPH().getTxtEdadMinima().setText("" + dto.getEdadMinima());
+		vf.getpPH().getTxtEdadMaxima().setText("" + dto.getEdadMaxima());
+		vf.getpPH().getChkVisibilidad().setSelected(dto.isEsVisiblePefil());
+	}
+
+	public void perfilMujer() {
+		MujerDTO dto = mf.getMujerDao().buscarId(propConfig.getProperty("proyectoFinalSemestre2.id"));
+		vf.getpPM().getLblNombreUsuario().setText(dto.getNombre());
+		vf.getpPM().getLblApellidoUsuario().setText(dto.getApellido());
+		vf.getpPM().getLblAlias().setText(dto.getAlias());
+		vf.getpPM().getLblEmailUsuario().setText(dto.getCorreo());
+		vf.getpPM().getLblEdadUsuario().setText("" + dto.getEdad());
+		vf.getpPM().getJpfContrasenia().setText(dto.getContrasenia());
+		vf.getpPM().getJpfConfirmarContrasenia().setText(dto.getContrasenia());
+		vf.getpPM().getTxtEstatura().setText("" + dto.getEstatura());
+		vf.getpPM().getTxtEstaturaIdeal().setText("" + dto.getEstaturaIdeal());
+		vf.getpPM().getTxtEdadMinima().setText("" + dto.getEdadMinima());
+		vf.getpPM().getTxtEdadMaxima().setText("" + dto.getEdadMaxima());
+		vf.getpPM().getChkVisibilidad().setSelected(dto.isEsVisiblePefil());
+		vf.getpPM().getChkDivorciada().setSelected(dto.isEsDivorciada());
+	}
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String comando = e.getActionCommand();
@@ -491,56 +602,78 @@ public class Controlador implements ActionListener {
 			modoOscuro();
 			break;
 		}
+
 		case "idioma": {
 			idioma();
 			break;
 		}
+
 		case "iniciar sesion": {
 			iniciarSesion();
 			break;
 		}
+
 		case "registrarse": {
 			vf.getpInic().setVisible(false);
 			vf.getpGen().setVisible(true);
 			vf.refrescarVista();
 			break;
 		}
+
 		case "registrarse hombre": {
 			vf.getpGen().setVisible(false);
 			vf.getpReg().setVisible(true);
+			generoSeleccionadoHombre(true);
 			vf.refrescarVista();
 			break;
 		}
+
 		case "registrarse mujer": {
 			vf.getpGen().setVisible(false);
 			vf.getpReg().setVisible(true);
+			generoSeleccionadoHombre(false);
 			vf.refrescarVista();
 			break;
 		}
+
+		case "registro completo": {
+			registrarse(Boolean.parseBoolean(propConfig.getProperty("proyectoFinalSemestre2.generoHombre")));
+			break;
+		}
+
 		case "volver inicio sesion": {
 			vf.getpGen().setVisible(false);
 			vf.getpInic().setVisible(true);
 			vf.refrescarVista();
 			break;
 		}
+
 		case "volver seleccionar genero": {
 			vf.getpReg().setVisible(false);
 			vf.getpGen().setVisible(true);
 			vf.refrescarVista();
 			break;
 		}
+
+		case "verificar": {
+			verificarCodigo();
+			break;
+		}
+
 		case "cerrar sesion": {
 			vf.getpCV().setVisible(false);
 			vf.getpInic().setVisible(true);
 			vf.refrescarVista();
 			break;
 		}
+
 		case "smash": {
 			smash();
 			mostrarPersona(Integer.parseInt(propConfig.getProperty("proyectoFinalSemestre2.indiceMostrar")));
 			vf.refrescarVista();
 			break;
 		}
+
 		case "pass": {
 			pass();
 			mostrarPersona(Integer.parseInt(propConfig.getProperty("proyectoFinalSemestre2.indiceMostrar")));
@@ -548,6 +681,26 @@ public class Controlador implements ActionListener {
 			break;
 		}
 
+		case "volver panel principal": {
+			vf.getpPH().setVisible(false);
+			vf.getpPM().setVisible(false);
+			vf.getpScr().setVisible(true);
+			break;
+		}
+
+		case "perfil": {
+			if (Boolean.parseBoolean(propConfig.getProperty("proyectoFinalSemestre2.generoUsuarioHombre"))) {
+				vf.getpScr().setVisible(false);
+				vf.getpPH().setVisible(true);
+				perfilHombre();
+			} else {
+				perfilMujer();
+				vf.getpScr().setVisible(false);
+				vf.getpPM().setVisible(true);
+			}
+			vf.refrescarVista();
+			break;
+		}
 		// Fin casos switch
 		}
 		// Fin switch
@@ -557,8 +710,12 @@ public class Controlador implements ActionListener {
 		// Panel Banner
 		vf.getpBan().getBtnModoOscuro().addActionListener(this);
 		vf.getpBan().getBtnModoOscuro().setActionCommand("modo oscuro");
+
 		vf.getpBan().getCmbIdioma().addActionListener(this);
 		vf.getpBan().getCmbIdioma().setActionCommand("idioma");
+
+		vf.getpBan().getBtnPerfil().addActionListener(this);
+		vf.getpBan().getBtnPerfil().setActionCommand("perfil");
 
 		// Panel Iniciar Sesion
 		vf.getpInic().getBtnIniciarSesion().addActionListener(this);
@@ -578,6 +735,9 @@ public class Controlador implements ActionListener {
 		vf.getpGen().getBtnVolver().setActionCommand("volver inicio sesion");
 
 		// Panel registrarse
+		vf.getpReg().getBtnRegistrar().addActionListener(this);
+		vf.getpReg().getBtnRegistrar().setActionCommand("registro completo");
+
 		vf.getpReg().getBtnCancelar().addActionListener(this);
 		vf.getpReg().getBtnCancelar().setActionCommand("volver seleccionar genero");
 
@@ -595,6 +755,19 @@ public class Controlador implements ActionListener {
 		vf.getpScr().getBtnPass().addActionListener(this);
 		vf.getpScr().getBtnPass().setActionCommand("pass");
 
+		// Panel perfil Hombre
+		vf.getpPH().getBtnActualizar().addActionListener(this);
+		vf.getpPH().getBtnActualizar().setActionCommand("actualizar hombre");
+
+		vf.getpPH().getBtnCancelar().addActionListener(this);
+		vf.getpPH().getBtnCancelar().setActionCommand("volver panel principal");
+
+		// Panel perfil Mujer
+		vf.getpPM().getBtnActualizar().addActionListener(this);
+		vf.getpPM().getBtnActualizar().setActionCommand("actualizar mujer");
+
+		vf.getpPM().getBtnCancelar().addActionListener(this);
+		vf.getpPM().getBtnCancelar().setActionCommand("volver panel principal");
 	}
 
 	public void cadenasTextoPaneles() {
@@ -623,18 +796,15 @@ public class Controlador implements ActionListener {
 		vf.getpPerfil().setLblTextoIngresos(propIdioma.getProperty("perfil.lbl.ingresos"));
 		vf.getpPerfil().setLblTextoDivorcio(propIdioma.getProperty("perfil.lbl.divorcio"));
 
-		vf.getpReg().setLblTextoNombre(propIdioma.getProperty("reg.lbl.nombre"));
-		vf.getpReg().setLblTextoApellido(propIdioma.getProperty("reg.lbl.apellido"));
-		vf.getpReg().setLblTextoAlias(propIdioma.getProperty("reg.lbl.alias"));
-		vf.getpReg().setLblTextoEmail(propIdioma.getProperty("reg.lbl.email"));
-		vf.getpReg().setLblTextoFechaNacimiento(propIdioma.getProperty("reg.lbl.fechaNac"));
-		vf.getpReg().setLblTextoContra(propIdioma.getProperty("reg.lbl.contra"));
-		vf.getpReg().setLblTextoConfirContra(propIdioma.getProperty("reg.lbl.confirContra"));
-		vf.getpReg().setLblTextoEstatura(propIdioma.getProperty("reg.lbl.estatura"));
-		vf.getpReg().setLblTextoIngresosMensuales(propIdioma.getProperty("reg.lbl.ingresosMensuales"));
-		vf.getpReg().setChkTextoDivorciada(propIdioma.getProperty("reg.chk.divorciada"));
-		vf.getpReg().setBtnTextoRegistrar(propIdioma.getProperty("reg.btn.registrar"));
-		vf.getpReg().setBtnTextoCancelar(propIdioma.getProperty("reg.btn.cancelar"));
+		vf.getpReg().getLblNombre().setText(propIdioma.getProperty("reg.lbl.nombre"));
+		vf.getpReg().getLblApellido().setText(propIdioma.getProperty("reg.lbl.apellido"));
+		vf.getpReg().getLblAlias().setText(propIdioma.getProperty("reg.lbl.alias"));
+		vf.getpReg().getLblEmail().setText(propIdioma.getProperty("reg.lbl.email"));
+		vf.getpReg().getLblFechaNacimiento().setText(propIdioma.getProperty("reg.lbl.fechaNac"));
+		vf.getpReg().getLblContrasenia().setText(propIdioma.getProperty("reg.lbl.contra"));
+		vf.getpReg().getLblConfirmarContrasenia().setText(propIdioma.getProperty("reg.lbl.confirContra"));
+		vf.getpReg().getBtnRegistrar().setText(propIdioma.getProperty("reg.btn.registrar"));
+		vf.getpReg().getBtnCancelar().setText(propIdioma.getProperty("reg.btn.cancelar"));
 
 		vf.getpScr().setLblTextoAlias(null);
 		vf.getpScr().setLblTextoEdad(null);
