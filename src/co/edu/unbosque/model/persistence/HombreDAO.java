@@ -210,4 +210,206 @@ public class HombreDAO implements DAO<HombreDTO> {
 		SERIAL_FILE_NAME = sERIAL_FILE_NAME;
 	}
 
+	@Override
+	public void menorAMayorSeleccionAlias() {
+		int n = listaHombres.size();
+		for (int i = 0; i < n - 1; i++) {
+
+			int min_idx = i;
+
+			for (int j = i + 1; j < n; j++) {
+				if (listaHombres.get(j).getAlias().compareTo(listaHombres.get(min_idx).getAlias()) > 0) {
+					min_idx = j;
+				}
+			}
+
+			Hombre temp = listaHombres.get(i);
+			listaHombres.set(i, listaHombres.get(min_idx));
+			listaHombres.set(min_idx, temp);
+		}
+	}
+
+	@Override
+	public void mayorAMenorSeleccionAlias() {
+		int n = listaHombres.size();
+		for (int i = 0; i < n - 1; i++) {
+
+			int max_idx = i;
+
+			for (int j = i + 1; j < n; j++) {
+				if (listaHombres.get(j).getAlias().compareTo(listaHombres.get(max_idx).getAlias()) < 0) {
+					max_idx = j;
+				}
+			}
+
+			Hombre temp = listaHombres.get(i);
+			listaHombres.set(i, listaHombres.get(max_idx));
+			listaHombres.set(max_idx, temp);
+		}
+	}
+
+	@Override
+	public void menorAMayorSeleccionNombre() {
+		int n = listaHombres.size();
+		for (int i = 0; i < n - 1; i++) {
+
+			int min_idx = i;
+
+			for (int j = i + 1; j < n; j++) {
+				if (listaHombres.get(j).getNombre().compareTo(listaHombres.get(min_idx).getNombre()) > 0) {
+					min_idx = j;
+				}
+			}
+
+			Hombre temp = listaHombres.get(i);
+			listaHombres.set(i, listaHombres.get(min_idx));
+			listaHombres.set(min_idx, temp);
+		}
+	}
+
+	@Override
+	public void mayorAMenorSeleccionNombre() {
+		int n = listaHombres.size();
+		for (int i = 0; i < n - 1; i++) {
+
+			int max_idx = i;
+
+			for (int j = i + 1; j < n; j++) {
+				if (listaHombres.get(j).getNombre().compareTo(listaHombres.get(max_idx).getNombre()) < 0) {
+					max_idx = j;
+				}
+			}
+
+			Hombre temp = listaHombres.get(i);
+			listaHombres.set(i, listaHombres.get(max_idx));
+			listaHombres.set(max_idx, temp);
+		}
+	}
+
+	@Override
+	public void menorAMayorSeleccionApellido() {
+		int n = listaHombres.size();
+		for (int i = 0; i < n - 1; i++) {
+
+			int min_idx = i;
+
+			for (int j = i + 1; j < n; j++) {
+				if (listaHombres.get(j).getApellido().compareTo(listaHombres.get(min_idx).getApellido()) > 0) {
+					min_idx = j;
+				}
+			}
+
+			Hombre temp = listaHombres.get(i);
+			listaHombres.set(i, listaHombres.get(min_idx));
+			listaHombres.set(min_idx, temp);
+		}
+	}
+
+	@Override
+	public void mayorAMenorSeleccionApellido() {
+		int n = listaHombres.size();
+		for (int i = 0; i < n - 1; i++) {
+
+			int max_idx = i;
+
+			for (int j = i + 1; j < n; j++) {
+				if (listaHombres.get(j).getApellido().compareTo(listaHombres.get(max_idx).getApellido()) < 0) {
+					max_idx = j;
+				}
+			}
+
+			Hombre temp = listaHombres.get(i);
+			listaHombres.set(i, listaHombres.get(max_idx));
+			listaHombres.set(max_idx, temp);
+		}
+	}
+
+	@Override
+	public void mayorAMenorInsercionCantLike() {
+		int n = listaHombres.size();
+		for (int i = 1; i < n; ++i) {
+			Hombre key = listaHombres.get(i);
+			int j = i - 1;
+
+			while (j >= 0 && listaHombres.get(j).getCantLike() < key.getCantLike()) {
+				listaHombres.set(j + 1, listaHombres.get(j));
+				j = j - 1;
+			}
+			listaHombres.set(j + 1, key);
+		}
+	}
+
+	@Override
+	public void menorAMayorInsercionCantLike() {
+		int n = listaHombres.size();
+		for (int i = 1; i < n; ++i) {
+			Hombre key = listaHombres.get(i);
+			int j = i - 1;
+
+			while (j >= 0 && listaHombres.get(j).getCantLike() > key.getCantLike()) {
+				listaHombres.set(j + 1, listaHombres.get(j));
+				j = j - 1;
+			}
+			listaHombres.set(j + 1, key);
+		}
+	}
+
+	@Override
+	public void mayorAMenorInsercionEdad() {
+		int n = listaHombres.size();
+		for (int i = 1; i < n; ++i) {
+			Hombre key = listaHombres.get(i);
+			int j = i - 1;
+
+			while (j >= 0 && listaHombres.get(j).getEdad() < key.getEdad()) {
+				listaHombres.set(j + 1, listaHombres.get(j));
+				j = j - 1;
+			}
+			listaHombres.set(j + 1, key);
+		}
+	}
+
+	@Override
+	public void menorAMayorInsercionEdad() {
+		int n = listaHombres.size();
+		for (int i = 1; i < n; ++i) {
+			Hombre key = listaHombres.get(i);
+			int j = i - 1;
+
+			while (j >= 0 && listaHombres.get(j).getEdad() > key.getEdad()) {
+				listaHombres.set(j + 1, listaHombres.get(j));
+				j = j - 1;
+			}
+			listaHombres.set(j + 1, key);
+		}
+	}
+
+	public void mayorAMenorInsercionIngreso() {
+		int n = listaHombres.size();
+		for (int i = 1; i < n; ++i) {
+			Hombre key = listaHombres.get(i);
+			int j = i - 1;
+
+			while (j >= 0 && listaHombres.get(j).getIngresoMensual() < key.getIngresoMensual()) {
+				listaHombres.set(j + 1, listaHombres.get(j));
+				j = j - 1;
+			}
+			listaHombres.set(j + 1, key);
+		}
+	}
+
+	public void menorAMayorInsercionIngreso() {
+		int n = listaHombres.size();
+		for (int i = 1; i < n; ++i) {
+			Hombre key = listaHombres.get(i);
+			int j = i - 1;
+
+			while (j >= 0 && listaHombres.get(j).getIngresoMensual() > key.getIngresoMensual()) {
+				listaHombres.set(j + 1, listaHombres.get(j));
+				j = j - 1;
+			}
+			listaHombres.set(j + 1, key);
+		}
+	}
+
 }

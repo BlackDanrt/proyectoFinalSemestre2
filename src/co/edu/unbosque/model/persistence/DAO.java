@@ -88,4 +88,25 @@ public interface DAO<E> {
 	 * @return una lista de objetos del tipo {@code E}
 	 */
 	public ArrayList<E> getLista();
+
+	public void menorAMayorSeleccionNombre();
+
+	public void mayorAMenorSeleccionNombre();
+
+	public void menorAMayorSeleccionApellido();
+
+	public void mayorAMenorSeleccionApellido();
+
+	public void menorAMayorSeleccionAlias();
+
+	public void mayorAMenorSeleccionAlias();
+
+	public void menorAMayorInsercionCantLike();
+
+	public void mayorAMenorInsercionCantLike();
+
+	public void menorAMayorInsercionEdad();
+
+	public void mayorAMenorInsercionEdad();
+
 }

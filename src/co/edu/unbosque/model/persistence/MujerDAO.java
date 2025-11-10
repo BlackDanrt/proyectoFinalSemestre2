@@ -2,6 +2,7 @@ package co.edu.unbosque.model.persistence;
 
 import java.util.ArrayList;
 
+import co.edu.unbosque.model.Hombre;
 import co.edu.unbosque.model.Mujer;
 import co.edu.unbosque.model.MujerDTO;
 
@@ -199,6 +200,180 @@ public class MujerDAO implements DAO<MujerDTO> {
 	 */
 	public static void setSERIAL_FILE_NAME(String sERIAL_FILE_NAME) {
 		SERIAL_FILE_NAME = sERIAL_FILE_NAME;
+	}
+
+	@Override
+	public void menorAMayorSeleccionAlias() {
+		int n = listaMujeres.size();
+		for (int i = 0; i < n - 1; i++) {
+
+			int min_idx = i;
+
+			for (int j = i + 1; j < n; j++) {
+				if (listaMujeres.get(j).getAlias().compareTo(listaMujeres.get(min_idx).getAlias()) > 0) {
+					min_idx = j;
+				}
+			}
+
+			Mujer temp = listaMujeres.get(i);
+			listaMujeres.set(i, listaMujeres.get(min_idx));
+			listaMujeres.set(min_idx, temp);
+		}
+	}
+
+	@Override
+	public void mayorAMenorSeleccionAlias() {
+		int n = listaMujeres.size();
+		for (int i = 0; i < n - 1; i++) {
+
+			int max_idx = i;
+
+			for (int j = i + 1; j < n; j++) {
+				if (listaMujeres.get(j).getAlias().compareTo(listaMujeres.get(max_idx).getAlias()) < 0) {
+					max_idx = j;
+				}
+			}
+
+			Mujer temp = listaMujeres.get(i);
+			listaMujeres.set(i, listaMujeres.get(max_idx));
+			listaMujeres.set(max_idx, temp);
+		}
+	}
+
+	@Override
+	public void menorAMayorSeleccionNombre() {
+		int n = listaMujeres.size();
+		for (int i = 0; i < n - 1; i++) {
+
+			int min_idx = i;
+
+			for (int j = i + 1; j < n; j++) {
+				if (listaMujeres.get(j).getNombre().compareTo(listaMujeres.get(min_idx).getNombre()) > 0) {
+					min_idx = j;
+				}
+			}
+
+			Mujer temp = listaMujeres.get(i);
+			listaMujeres.set(i, listaMujeres.get(min_idx));
+			listaMujeres.set(min_idx, temp);
+		}
+	}
+
+	@Override
+	public void mayorAMenorSeleccionNombre() {
+		int n = listaMujeres.size();
+		for (int i = 0; i < n - 1; i++) {
+
+			int max_idx = i;
+
+			for (int j = i + 1; j < n; j++) {
+				if (listaMujeres.get(j).getNombre().compareTo(listaMujeres.get(max_idx).getNombre()) < 0) {
+					max_idx = j;
+				}
+			}
+
+			Mujer temp = listaMujeres.get(i);
+			listaMujeres.set(i, listaMujeres.get(max_idx));
+			listaMujeres.set(max_idx, temp);
+		}
+	}
+
+	@Override
+	public void menorAMayorSeleccionApellido() {
+		int n = listaMujeres.size();
+		for (int i = 0; i < n - 1; i++) {
+
+			int min_idx = i;
+
+			for (int j = i + 1; j < n; j++) {
+				if (listaMujeres.get(j).getApellido().compareTo(listaMujeres.get(min_idx).getApellido()) > 0) {
+					min_idx = j;
+				}
+			}
+
+			Mujer temp = listaMujeres.get(i);
+			listaMujeres.set(i, listaMujeres.get(min_idx));
+			listaMujeres.set(min_idx, temp);
+		}
+	}
+
+	@Override
+	public void mayorAMenorSeleccionApellido() {
+		int n = listaMujeres.size();
+		for (int i = 0; i < n - 1; i++) {
+
+			int max_idx = i;
+
+			for (int j = i + 1; j < n; j++) {
+				if (listaMujeres.get(j).getApellido().compareTo(listaMujeres.get(max_idx).getApellido()) < 0) {
+					max_idx = j;
+				}
+			}
+
+			Mujer temp = listaMujeres.get(i);
+			listaMujeres.set(i, listaMujeres.get(max_idx));
+			listaMujeres.set(max_idx, temp);
+		}
+	}
+
+	@Override
+	public void mayorAMenorInsercionCantLike() {
+		int n = listaMujeres.size();
+		for (int i = 1; i < n; ++i) {
+			Mujer key = listaMujeres.get(i);
+			int j = i - 1;
+
+			while (j >= 0 && listaMujeres.get(j).getCantLike() < key.getCantLike()) {
+				listaMujeres.set(j + 1, listaMujeres.get(j));
+				j = j - 1;
+			}
+			listaMujeres.set(j + 1, key);
+		}
+	}
+
+	@Override
+	public void menorAMayorInsercionCantLike() {
+		int n = listaMujeres.size();
+		for (int i = 1; i < n; ++i) {
+			Mujer key = listaMujeres.get(i);
+			int j = i - 1;
+
+			while (j >= 0 && listaMujeres.get(j).getCantLike() > key.getCantLike()) {
+				listaMujeres.set(j + 1, listaMujeres.get(j));
+				j = j - 1;
+			}
+			listaMujeres.set(j + 1, key);
+		}
+	}
+
+	@Override
+	public void mayorAMenorInsercionEdad() {
+		int n = listaMujeres.size();
+		for (int i = 1; i < n; ++i) {
+			Mujer key = listaMujeres.get(i);
+			int j = i - 1;
+
+			while (j >= 0 && listaMujeres.get(j).getEdad() < key.getEdad()) {
+				listaMujeres.set(j + 1, listaMujeres.get(j));
+				j = j - 1;
+			}
+			listaMujeres.set(j + 1, key);
+		}
+	}
+
+	@Override
+	public void menorAMayorInsercionEdad() {
+		int n = listaMujeres.size();
+		for (int i = 1; i < n; ++i) {
+			Mujer key = listaMujeres.get(i);
+			int j = i - 1;
+
+			while (j >= 0 && listaMujeres.get(j).getEdad() > key.getEdad()) {
+				listaMujeres.set(j + 1, listaMujeres.get(j));
+				j = j - 1;
+			}
+			listaMujeres.set(j + 1, key);
+		}
 	}
 
 }
