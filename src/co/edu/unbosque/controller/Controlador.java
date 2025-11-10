@@ -262,6 +262,7 @@ public class Controlador implements ActionListener {
 				if (estaVerificado) {
 					vf.getpInic().setVisible(false);
 					vf.getpScr().setVisible(true);
+					mostrarPersona(0);
 					vf.getpBan().getBtnPerfil().setVisible(true);
 					vf.getpBan().revalidate();
 				} else {
@@ -284,6 +285,10 @@ public class Controlador implements ActionListener {
 
 					propConfig.setProperty("proyectoFinalSemestre2.generoUsuarioHombre", "" + esHombre + "");
 					propConfig.store(new FileWriter("config.properties"), null);
+
+					propConfig.setProperty("proyectoFinalSemestre2.indiceMostrar", "0" + "");
+					propConfig.store(new FileWriter("config.properties"), null);
+
 				} catch (IOException e) {
 				}
 				vf.refrescarVista();
@@ -479,18 +484,18 @@ public class Controlador implements ActionListener {
 	public void mostrarPersona(int indice) {
 
 		if (Boolean.parseBoolean(propConfig.getProperty("proyectoFinalSemestre2.generoUsuarioHombre")) == false) {
-			MujerDTO temp = mf.getMujerDao().buscarId("proyectoFinalSemestre2.id");
+			MujerDTO temp = mf.getMujerDao().buscarId(propConfig.getProperty("proyectoFinalSemestre2.id"));
 
 			if (mf.getDisDao().buscarDislike(temp.getId(), mf.getHombreDao().getLista().get(indice).getId())) {
 				int contador = Integer.parseInt(propConfig.getProperty("proyectoFinalSemestre2.indiceMostrar"));
 				aumentarContador();
 			} else {
-
+				vf.getpScr().mostrarAtributosHombre();
 				HombreDTO dto = mf.getHombreDao().getLista().get(indice);
 
 				ImageIcon img = new ImageIcon(dto.getFoto());
 				Image redimension = img.getImage();
-				Image imgRedimensionada = redimension.getScaledInstance(170, 450, Image.SCALE_SMOOTH);
+				Image imgRedimensionada = redimension.getScaledInstance(270, 360, Image.SCALE_SMOOTH);
 				vf.getpScr().getLblFondo().setIcon(new ImageIcon(imgRedimensionada));
 				vf.getpScr().getLblAlias().setText(dto.getAlias());
 				vf.getpScr().getLblEdad().setText(String.valueOf(dto.getEdad()));
@@ -507,10 +512,14 @@ public class Controlador implements ActionListener {
 				aumentarContador();
 			} else {
 				MujerDTO dto = mf.getMujerDao().getLista().get(indice);
-
+				if (dto.getEstatura() != 0) {
+					vf.getpScr().mostrarAtributosMujer(true);
+				} else {
+					vf.getpScr().mostrarAtributosMujer(false);
+				}
 				ImageIcon img = new ImageIcon(dto.getFoto());
 				Image redimension = img.getImage();
-				Image imgRedimensionada = redimension.getScaledInstance(170, 450, Image.SCALE_SMOOTH);
+				Image imgRedimensionada = redimension.getScaledInstance(270, 360, Image.SCALE_SMOOTH);
 				vf.getpScr().getLblFondo().setIcon(new ImageIcon(imgRedimensionada));
 				vf.getpScr().getLblAlias().setText(dto.getAlias());
 				vf.getpScr().getLblEdad().setText(String.valueOf(dto.getEdad()));
@@ -552,6 +561,11 @@ public class Controlador implements ActionListener {
 	public void aumentarContador() {
 		int contador = Integer.parseInt(propConfig.getProperty("proyectoFinalSemestre2.indiceMostrar"));
 		contador++;
+		if (Boolean.parseBoolean(propConfig.getProperty("proyectoFinalSemestre2.generoUsuarioHombre")) == true) {
+			contador = 0;
+		} else {
+			contador = 0;
+		}
 		propConfig.setProperty("proyectoFinalSemestre2.indiceMostrar", "" + contador + "");
 		try {
 			propConfig.store(new FileWriter("config.properties"), null);
@@ -1049,13 +1063,12 @@ public class Controlador implements ActionListener {
 		vf.getpReg().getBtnRegistrar().setText(propIdioma.getProperty("reg.btn.registrar"));
 		vf.getpReg().getBtnCancelar().setText(propIdioma.getProperty("reg.btn.cancelar"));
 
-		vf.getpScr().setLblTextoAlias(null);
-		vf.getpScr().setLblTextoEdad(null);
-		vf.getpScr().setLblTextoEstatura(null);
-		vf.getpScr().setLblTextoIngresos(null);
-		vf.getpScr().setLblTextoDivorcios(null);
-		vf.getpScr().setBtnTextoSmash("<3");
-		vf.getpScr().setBtnTextoPass("X");
+		vf.getpScr().getLblEdadTexto().setText(null);
+		vf.getpScr().getLblEstaturaTexto().setText(null);
+		vf.getpScr().getLblIngresosTexto().setText(null);
+		vf.getpScr().getLblDivorcioTexto().setText(null);
+		vf.getpScr().getBtnSmash().setText("<3");
+		vf.getpScr().getBtnPass().setText("X");
 
 		vf.getpGen().setLblTextoTitulo(propIdioma.getProperty("gen.lbl.titulo"));
 		vf.getpGen().setLblTextoHombre(propIdioma.getProperty("gen.lbl.hombre"));

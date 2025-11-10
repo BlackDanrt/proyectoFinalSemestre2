@@ -1,20 +1,26 @@
 package co.edu.unbosque.view;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Font;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 public class PanelScroll extends JPanel {
 
 	private JLabel lblFondo;
 	private JLabel lblAlias;
+	private JLabel lblEdadTexto;
 	private JLabel lblEdad;
+	private JLabel lblEstaturaTexto;
 	private JLabel lblEstatura;
+	private JLabel lblIngresosTexto;
 	private JLabel lblIngresos;
-	private JLabel lblDivorcios;
+	private JLabel lblDivorcioTexto;
+	private JLabel lblDivorcio;
 	private JButton btnSmash;
 	private JButton btnPass;
 
@@ -27,47 +33,140 @@ public class PanelScroll extends JPanel {
 	}
 
 	private void inicializarComponentes() {
+		// Foto de perfil centrada
 		lblFondo = new JLabel();
-		lblFondo.setBounds(70, 40, 170, 450);
+		lblFondo.setBounds(505, 40, 270, 360);
+		lblFondo.setOpaque(true);
+		lblFondo.setBackground(new Color(255, 255, 255, 100));
 
+		// Configuración de fuente común para los labels
+		Font labelFont = new Font("Arial", Font.BOLD, 16);
+		Color labelColor = Color.WHITE;
+
+		// Alias - debajo de la foto
 		lblAlias = new JLabel();
-		lblAlias.setBounds(70, 250, 340, 20);
+		lblAlias.setBounds(505, 425, 270, 30);
+		lblAlias.setFont(new Font("Arial", Font.BOLD, 24));
+		lblAlias.setForeground(labelColor);
 
+		// Edad
+		lblEdadTexto = new JLabel();
+		lblEdadTexto.setBounds(505, 468, 135, 30);
+		lblEdadTexto.setFont(labelFont);
+		lblEdadTexto.setForeground(labelColor);
+
+		// Edad
 		lblEdad = new JLabel();
-		lblEdad.setBounds(70, 250, 340, 20);
+		lblEdad.setBounds(670, 468, 105, 30);
+		lblEdad.setFont(labelFont);
+		lblEdad.setForeground(labelColor);
+
+		// Estatura
+		lblEstaturaTexto = new JLabel();
+		lblEstaturaTexto.setFont(labelFont);
+		lblEstaturaTexto.setForeground(labelColor);
+		lblEstaturaTexto.setVisible(false);
 
 		lblEstatura = new JLabel();
-		lblEstatura.setBounds(70, 250, 340, 20);
+		lblEstatura.setFont(labelFont);
+		lblEstatura.setForeground(labelColor);
+		lblEstatura.setVisible(false);
+
+		// Ingresos
+		lblIngresosTexto = new JLabel();
+		lblIngresosTexto.setFont(labelFont);
+		lblIngresosTexto.setForeground(labelColor);
+		lblIngresosTexto.setVisible(false);
 
 		lblIngresos = new JLabel();
-		lblIngresos.setBounds(70, 250, 340, 20);
+		lblIngresos.setFont(labelFont);
+		lblIngresos.setForeground(labelColor);
+		lblIngresos.setVisible(false);
 
-		lblDivorcios = new JLabel();
-		lblDivorcios.setBounds(70, 250, 340, 20);
+		// Divorcios
+		lblDivorcioTexto = new JLabel();
+		lblDivorcioTexto.setFont(labelFont);
+		lblDivorcioTexto.setForeground(labelColor);
+		lblDivorcioTexto.setVisible(false);
 
+		lblDivorcio = new JLabel();
+		lblDivorcio.setFont(labelFont);
+		lblDivorcio.setForeground(labelColor);
+		lblDivorcio.setVisible(false);
+
+		// Configuración de fuente para botones
+		Font buttonFont = new Font("Arial", Font.BOLD, 18);
+
+		// Botón Pass (izquierda)
 		btnPass = new JButton();
-		Font currentFont = btnPass.getFont();
-		Font boldFont = new Font(currentFont.getName(), Font.BOLD, currentFont.getSize());
 		btnPass.setBackground(Color.decode("#F23C29"));
-		btnPass.setForeground(Color.white);
-		btnPass.setFont(boldFont);
-		btnPass.setBounds(230, 720, 140, 35);
+		btnPass.setForeground(Color.WHITE);
+		btnPass.setFont(buttonFont);
+		btnPass.setBounds(400, 610, 160, 50);
+		btnPass.setFocusPainted(false);
+		btnPass.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
+		// Botón Smash (derecha)
 		btnSmash = new JButton();
 		btnSmash.setBackground(Color.decode("#44F533"));
-		btnPass.setForeground(Color.white);
-		btnPass.setFont(boldFont);
-		btnSmash.setBounds(230, 720, 140, 35);
+		btnSmash.setForeground(Color.WHITE);
+		btnSmash.setFont(buttonFont);
+		btnSmash.setBounds(700, 610, 160, 50);
+		btnSmash.setFocusPainted(false);
+		btnSmash.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
+		// Agregar componentes al panel
 		this.add(lblFondo);
 		this.add(lblAlias);
 		this.add(lblEdad);
+		this.add(lblEdadTexto);
 		this.add(lblEstatura);
+		this.add(lblEstaturaTexto);
 		this.add(lblIngresos);
-		this.add(lblDivorcios);
+		this.add(lblIngresosTexto);
+		this.add(lblDivorcio);
+		this.add(lblDivorcioTexto);
 		this.add(btnPass);
 		this.add(btnSmash);
+	}
 
+	public void mostrarAtributosHombre() {
+		lblEstatura.setBounds(670, 511, 135, 30);
+		lblEstaturaTexto.setBounds(505, 511, 105, 30);
+		lblEstatura.setVisible(true);
+		lblEstaturaTexto.setVisible(true);
+
+		lblIngresos.setBounds(670, 554, 135, 30);
+		lblIngresosTexto.setBounds(505, 554, 135, 30);
+		lblIngresos.setVisible(true);
+		lblIngresosTexto.setVisible(true);
+	}
+
+	public void ocultarAtributos() {
+		lblEstatura.setVisible(true);
+		lblEstaturaTexto.setVisible(true);
+
+		lblIngresos.setVisible(true);
+		lblIngresosTexto.setVisible(true);
+
+		lblDivorcio.setVisible(true);
+		lblDivorcioTexto.setVisible(true);
+
+		lblEstatura.setVisible(true);
+		lblEstaturaTexto.setVisible(true);
+	}
+
+	public void mostrarAtributosMujer(boolean atributoExtra) {
+		lblDivorcio.setBounds(670, 511, 135, 30);
+		lblDivorcioTexto.setBounds(505, 511, 135, 30);
+		lblDivorcio.setVisible(true);
+		lblDivorcioTexto.setVisible(true);
+		if (atributoExtra) {
+			lblEstatura.setBounds(670, 554, 135, 30);
+			lblEstaturaTexto.setBounds(505, 554, 135, 30);
+			lblEstatura.setVisible(true);
+			lblEstaturaTexto.setVisible(true);
+		}
 	}
 
 	public JLabel getLblFondo() {
@@ -86,8 +185,12 @@ public class PanelScroll extends JPanel {
 		this.lblAlias = lblAlias;
 	}
 
-	public void setLblTextoAlias(String texto) {
-		lblAlias.setText(texto);
+	public JLabel getLblEdadTexto() {
+		return lblEdadTexto;
+	}
+
+	public void setLblEdadTexto(JLabel lblEdadTexto) {
+		this.lblEdadTexto = lblEdadTexto;
 	}
 
 	public JLabel getLblEdad() {
@@ -98,8 +201,12 @@ public class PanelScroll extends JPanel {
 		this.lblEdad = lblEdad;
 	}
 
-	public void setLblTextoEdad(String texto) {
-		lblEdad.setText(texto);
+	public JLabel getLblEstaturaTexto() {
+		return lblEstaturaTexto;
+	}
+
+	public void setLblEstaturaTexto(JLabel lblEstaturaTexto) {
+		this.lblEstaturaTexto = lblEstaturaTexto;
 	}
 
 	public JLabel getLblEstatura() {
@@ -110,8 +217,12 @@ public class PanelScroll extends JPanel {
 		this.lblEstatura = lblEstatura;
 	}
 
-	public void setLblTextoEstatura(String texto) {
-		lblEstatura.setText(texto);
+	public JLabel getLblIngresosTexto() {
+		return lblIngresosTexto;
+	}
+
+	public void setLblIngresosTexto(JLabel lblIngresosTexto) {
+		this.lblIngresosTexto = lblIngresosTexto;
 	}
 
 	public JLabel getLblIngresos() {
@@ -122,20 +233,20 @@ public class PanelScroll extends JPanel {
 		this.lblIngresos = lblIngresos;
 	}
 
-	public void setLblTextoIngresos(String texto) {
-		lblIngresos.setText(texto);
+	public JLabel getLblDivorcioTexto() {
+		return lblDivorcioTexto;
 	}
 
-	public JLabel getLblDivorcios() {
-		return lblDivorcios;
+	public void setLblDivorcioTexto(JLabel lblDivorcioTexto) {
+		this.lblDivorcioTexto = lblDivorcioTexto;
 	}
 
-	public void setLblDivorcios(JLabel lblDivorcios) {
-		this.lblDivorcios = lblDivorcios;
+	public JLabel getLblDivorcio() {
+		return lblDivorcio;
 	}
 
-	public void setLblTextoDivorcios(String texto) {
-		lblDivorcios.setText(texto);
+	public void setLblDivorcio(JLabel lblDivorcio) {
+		this.lblDivorcio = lblDivorcio;
 	}
 
 	public JButton getBtnSmash() {
@@ -146,20 +257,12 @@ public class PanelScroll extends JPanel {
 		this.btnSmash = btnSmash;
 	}
 
-	public void setBtnTextoSmash(String texto) {
-		btnSmash.setText(texto);
-	}
-
 	public JButton getBtnPass() {
 		return btnPass;
 	}
 
 	public void setBtnPass(JButton btnPass) {
 		this.btnPass = btnPass;
-	}
-
-	public void setBtnTextoPass(String texto) {
-		btnPass.setText(texto);
 	}
 
 }
