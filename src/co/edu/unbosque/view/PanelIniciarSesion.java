@@ -8,7 +8,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class PanelIniciarSesion extends JPanel {
-	private JLabel lblFondo;
+	private Image imagenFondo;
 	private JTextField txtEmail;
 	private JPasswordField jpfContrasenia;
 	private JLabel lblEmail;
@@ -19,17 +19,12 @@ public class PanelIniciarSesion extends JPanel {
 	public PanelIniciarSesion() {
 		this.setLayout(null);
 		this.setSize(560, 620);
-		this.setBackground(Color.decode("#BB82CF"));
+		this.setOpaque(false);
 		this.setVisible(true);
 		inicializarComponentes();
-
 	}
 
 	private void inicializarComponentes() {
-
-		lblFondo = new JLabel();
-		lblFondo.setBounds(70, 40, 450, 170);
-
 		lblEmail = new JLabel();
 		lblEmail.setBounds(70, 250, 340, 40);
 
@@ -48,22 +43,28 @@ public class PanelIniciarSesion extends JPanel {
 		btnRegistrar = new JButton();
 		btnRegistrar.setBounds(70, 560, 140, 35);
 
-		this.add(lblFondo);
 		this.add(lblEmail);
 		this.add(txtEmail);
 		this.add(lblContrasenia);
 		this.add(jpfContrasenia);
 		this.add(btnIniciarSesion);
 		this.add(btnRegistrar);
-
 	}
 
-	public JLabel getLblFondo() {
-		return lblFondo;
+	@Override
+	protected void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		if (imagenFondo != null) { // Verifica que exista
+			g.drawImage(imagenFondo, 0, 0, this);
+		}
 	}
 
-	public void setLblFondo(JLabel lblFondo) {
-		this.lblFondo = lblFondo;
+	public Image getImagenFondo() {
+		return imagenFondo;
+	}
+
+	public void setImagenFondo(Image imagenFondo) {
+		this.imagenFondo = imagenFondo;
 	}
 
 	public JTextField getTxtEmail() {
@@ -85,13 +86,9 @@ public class PanelIniciarSesion extends JPanel {
 	public JLabel getLblEmail() {
 		return lblEmail;
 	}
-	
+
 	public void setLblEmail(JLabel lblEmail) {
 		this.lblEmail = lblEmail;
-	}
-	
-	public void setLblTextoEmail(String texto) {
-		lblEmail.setText(texto);
 	}
 
 	public JLabel getLblContrasenia() {
@@ -101,24 +98,15 @@ public class PanelIniciarSesion extends JPanel {
 	public void setLblContrasenia(JLabel lblContrasenia) {
 		this.lblContrasenia = lblContrasenia;
 	}
-	
-	public void setLblTextoContra(String texto) {
-		lblContrasenia.setText(texto);
-	}
 
 	public JButton getBtnIniciarSesion() {
 		return btnIniciarSesion;
 	}
-	
 
 	public void setBtnIniciarSesion(JButton btnIniciarSesion) {
 		this.btnIniciarSesion = btnIniciarSesion;
 	}
 
-	public void setBtnTextoIniciarSesion(String texto) {
-		btnIniciarSesion.setText(texto);
-	}
-	
 	public JButton getBtnRegistrar() {
 		return btnRegistrar;
 	}
@@ -126,10 +114,5 @@ public class PanelIniciarSesion extends JPanel {
 	public void setBtnRegistrar(JButton btnRegistrar) {
 		this.btnRegistrar = btnRegistrar;
 	}
-	
-	public void setBtnTextoRegistrar(String texto) {
-		btnRegistrar.setText(texto);
-	}
-	
-	
+
 }

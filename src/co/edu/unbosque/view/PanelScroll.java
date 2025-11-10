@@ -27,7 +27,7 @@ public class PanelScroll extends JPanel {
 	public PanelScroll() {
 		this.setLayout(null);
 		this.setSize(560, 700);
-		this.setBackground(Color.decode("#BB82CF"));
+		this.setOpaque(false);
 		this.setVisible(true);
 		inicializarComponentes();
 	}

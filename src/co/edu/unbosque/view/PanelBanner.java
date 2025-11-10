@@ -22,6 +22,7 @@ public class PanelBanner extends JPanel {
 	public void inicializarComponentes() {
 		this.setLayout(null);
 		this.setSize(1280, 80);
+		this.setOpaque(false);
 		this.setBorder(BorderFactory.createLineBorder(Color.decode("#FF4458")));
 		this.setVisible(true);
 

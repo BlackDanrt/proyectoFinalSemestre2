@@ -5,6 +5,7 @@ import java.awt.Image;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 
 public class ViewFacade {
 
@@ -135,20 +136,24 @@ public class ViewFacade {
 	}
 
 	public void modoOscuro() {
-		ven.getContentPane().setBackground(Color.decode("#101010"));
-		pBan.setBackground(Color.decode("#19191C"));
+
 
 		pBan.getBtnModoOscuro().setBorder(BorderFactory.createLineBorder(Color.WHITE, 2, true));
 
 		cambiarIconoModo("files/sol.png");
+		ven.getFondo().setIcon(new ImageIcon("files/PrincipalOscuro.png"));
+		pInic.setImagenFondo(new ImageIcon("files/LoginOscuro.png").getImage());
+		pInic.repaint();
 	}
 
 	public void modoClaro() {
-		ven.getContentPane().setBackground(Color.WHITE);
-		pBan.setBackground(Color.decode("#F5F5F5"));
+
 
 		pBan.getBtnModoOscuro().setBorder(BorderFactory.createLineBorder(Color.BLACK, 2, true));
 
 		cambiarIconoModo("files/luna.png");
+		ven.getFondo().setIcon(new ImageIcon("files/PrincipalClaro.png"));
+		pInic.setImagenFondo(new ImageIcon("files/LoginClaro.png").getImage());
+		pInic.repaint();
 	}
 }

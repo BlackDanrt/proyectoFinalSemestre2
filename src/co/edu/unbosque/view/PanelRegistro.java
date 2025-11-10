@@ -46,7 +46,7 @@ public class PanelRegistro extends JPanel {
 	public PanelRegistro() {
 		this.setLayout(null);
 		this.setSize(1280, 800);
-		this.setBackground(Color.decode("#BB82CF"));
+		this.setOpaque(false);
 		this.setVisible(true);
 		inicializarComponentes();
 	}

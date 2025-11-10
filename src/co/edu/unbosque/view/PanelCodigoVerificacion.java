@@ -16,7 +16,7 @@ public class PanelCodigoVerificacion extends JPanel {
 	public PanelCodigoVerificacion() {
 		this.setLayout(null);
 		this.setSize(1280, 860);
-		this.setBackground(Color.decode("#BB82CF"));
+		this.setOpaque(false);
 		this.setVisible(true);
 		inicializarComponentes();
 	}
