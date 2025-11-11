@@ -55,7 +55,7 @@ public class Controlador implements ActionListener {
 
 	public void runGUI() {
 
-		// Panel __iniciar__ __sesion__
+		// Panel iniciar sesion
 		vf.getpInic().setBounds(360, 70, 560, 620);
 		vf.getVen().getCapas().add(vf.getpInic(), JLayeredPane.PALETTE_LAYER);
 
@@ -66,17 +66,17 @@ public class Controlador implements ActionListener {
 		vf.refrescarVista();
 		vf.getVen().setVisible(true);
 
-		// Panel __seleccionar__ __genero__
+		// Panel seleccionar genero
 		vf.getpGen().setBounds(0, 0, 1280, 800);
 		vf.getVen().getCapas().add(vf.getpGen(), JLayeredPane.PALETTE_LAYER);
 		vf.getpGen().setVisible(false);
 
-		// Panel __registrarse__
+		// Panel registrarse
 		vf.getpReg().setBounds(0, 0, 1280, 800);
 		vf.getVen().getCapas().add(vf.getpReg(), JLayeredPane.PALETTE_LAYER);
 		vf.getpReg().setVisible(false);
 
-		// Panel __Codigo__ __Verificacion__
+		// Panel Codigo Verificacion
 		vf.getpCV().setBounds(0, 0, 1280, 800);
 		vf.getVen().getCapas().add(vf.getpCV(), JLayeredPane.PALETTE_LAYER);
 		vf.getpCV().setVisible(false);
@@ -86,12 +86,12 @@ public class Controlador implements ActionListener {
 		vf.getVen().getCapas().add(vf.getpScr(), JLayeredPane.PALETTE_LAYER);
 		vf.getpScr().setVisible(false);
 
-		// Panel __Perfil__ __Hombre__
+		// Panel Perfil Hombre
 		vf.getpPH().setBounds(0, 0, 1280, 800);
 		vf.getVen().getCapas().add(vf.getpPH(), JLayeredPane.PALETTE_LAYER);
 		vf.getpPH().setVisible(false);
 
-		// Panel __Perfil__ __Mujer__
+		// Panel Perfil Mujer
 		vf.getpPM().setBounds(0, 0, 1280, 800);
 		vf.getVen().getCapas().add(vf.getpPM(), JLayeredPane.PALETTE_LAYER);
 		vf.getpPM().setVisible(false);
@@ -254,7 +254,6 @@ public class Controlador implements ActionListener {
 				} else {
 					MujerDTO mujer = mf.getMujerDao().buscarId(id);
 					estaVerificado = mujer.isEstaVerificado();
-					System.out.println(estaVerificado);
 				}
 
 				if (estaVerificado) {
@@ -286,6 +285,8 @@ public class Controlador implements ActionListener {
 					propConfig.setProperty("proyectoFinalSemestre2.indiceMostrar", "0" + "");
 					propConfig.store(new FileWriter("config.properties"), null);
 					mostrarPersona(0);
+					vf.getpInic().getTxtEmail().setText("");
+					vf.getpInic().getJpfContrasenia().setText("");
 				} catch (IOException e) {
 				}
 				vf.refrescarVista();
@@ -468,7 +469,7 @@ public class Controlador implements ActionListener {
 				dto.setEstaVerificado(true);
 				mf.getMujerDao().getLista().get(indice).setEstaVerificado(true);
 				mf.getMujerDao().actualizar(indice, dto);
-				System.err.println(mf.getMujerDao().getLista().get(indice).isEstaVerificado());
+
 			}
 			vf.getpCV().setVisible(false);
 			vf.getpScr().setVisible(true);
@@ -987,6 +988,8 @@ public class Controlador implements ActionListener {
 			vf.getpInic().setVisible(true);
 			vf.getpBan().getBtnPerfil().setVisible(false);
 			vf.getpScr().ocultarAtributos();
+			JOptionPane.showMessageDialog(vf.getVen(), "Sesion cerrada", "Vuelva Pronto",
+					JOptionPane.INFORMATION_MESSAGE);
 			vf.refrescarVista();
 			break;
 		}

@@ -68,7 +68,6 @@ public class CorreoDAO {
 			mensaje.setContent(contenidoHTML, "text/html; charset=utf-8");
 
 			Transport.send(mensaje);
-			System.out.println("Email de código enviado exitosamente a: " + entity.getDestinatario());
 			return true;
 
 		} catch (MessagingException | java.io.UnsupportedEncodingException e) {
@@ -102,7 +101,6 @@ public class CorreoDAO {
 			mensaje.setContent(contenidoHTML, "text/html; charset=utf-8");
 
 			Transport.send(mensaje);
-			System.out.println("Email de registro enviado exitosamente a: " + entity.getDestinatario());
 			return true;
 
 		} catch (MessagingException | java.io.UnsupportedEncodingException e) {

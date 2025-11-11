@@ -16,7 +16,6 @@ public class ViewFacade {
 	private PanelSeleccionarGenero pGen;
 	private PanelCodigoVerificacion pCV;
 	private PanelAdministrador pAdmin;
-	private PanelPerfil pPerfil;
 	private PanelScroll pScr;
 	private PanelPerfilMujer pPM;
 	private PanelPerfilHombre pPH;
@@ -29,7 +28,6 @@ public class ViewFacade {
 		pGen = new PanelSeleccionarGenero();
 		pCV = new PanelCodigoVerificacion();
 		pAdmin = new PanelAdministrador();
-		pPerfil = new PanelPerfil();
 		pScr = new PanelScroll();
 		pPM = new PanelPerfilMujer();
 		pPH = new PanelPerfilHombre();
@@ -93,14 +91,6 @@ public class ViewFacade {
 
 	public void setpAdmin(PanelAdministrador pAdmin) {
 		this.pAdmin = pAdmin;
-	}
-
-	public PanelPerfil getpPerfil() {
-		return pPerfil;
-	}
-
-	public void setpPerfil(PanelPerfil pPerfil) {
-		this.pPerfil = pPerfil;
 	}
 
 	public PanelScroll getpScr() {
