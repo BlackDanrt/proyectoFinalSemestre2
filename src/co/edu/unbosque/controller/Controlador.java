@@ -483,13 +483,13 @@ public class Controlador implements ActionListener {
 		if (Boolean.parseBoolean(propConfig.getProperty("proyectoFinalSemestre2.generoUsuarioHombre")) == false) {
 			MujerDTO temp = mf.getMujerDao().buscarId(propConfig.getProperty("proyectoFinalSemestre2.id"));
 
-			if (false) {
-				int contador = Integer.parseInt(propConfig.getProperty("proyectoFinalSemestre2.indiceMostrar"));
-				aumentarContador();
-			} else {
-				vf.getpScr().mostrarAtributosHombre();
-				HombreDTO dto = mf.getHombreDao().getLista().get(indice);
+			vf.getpScr().mostrarAtributosHombre();
+			int contador = Integer.parseInt(propConfig.getProperty("proyectoFinalSemestre2.indiceMostrar"));
+			HombreDTO dto = mf.getHombreDao().getLista().get(indice);
 
+			if (dto.getEdad() >= temp.getEdadMinima() && dto.getEdad() <= temp.getEdadMaxima()
+					&& dto.getEstatura() >= (temp.getEstaturaIdeal() - 5)
+					&& dto.getEstatura() <= (temp.getEstaturaIdeal() + 5)) {
 				ImageIcon img = new ImageIcon(dto.getFoto());
 				Image redimension = img.getImage();
 				Image imgRedimensionada = redimension.getScaledInstance(270, 360, Image.SCALE_SMOOTH);
@@ -500,15 +500,20 @@ public class Controlador implements ActionListener {
 				long ingresos = mf.getConDiv().convertirAIdioma(dto.getIngresoMensual(),
 						propConfig.getProperty("proyectoFinalSemestre2.idioma"));
 				vf.getpScr().getLblIngresos().setText(String.valueOf(ingresos));
+
+			} else {
+				aumentarContador();
 			}
+
 		} else {
 			HombreDTO temp = mf.getHombreDao().buscarId(propConfig.getProperty("proyectoFinalSemestre2.id"));
 
-			if (false) {
-				int contador = Integer.parseInt(propConfig.getProperty("proyectoFinalSemestre2.indiceMostrar"));
-				aumentarContador();
-			} else {
-				MujerDTO dto = mf.getMujerDao().getLista().get(indice);
+			int contador = Integer.parseInt(propConfig.getProperty("proyectoFinalSemestre2.indiceMostrar"));
+			MujerDTO dto = mf.getMujerDao().getLista().get(indice);
+
+			if (dto.isEsDivorciada() == temp.isPreferenciaDivorcio() && dto.getEdad() >= temp.getEdadMinima()
+					&& dto.getEdad() <= temp.getEdadMaxima()) {
+
 				if (dto.getEstatura() != 0) {
 					vf.getpScr().mostrarAtributosMujer(true);
 				} else {
@@ -521,6 +526,10 @@ public class Controlador implements ActionListener {
 				vf.getpScr().getLblAlias().setText(dto.getAlias());
 				vf.getpScr().getLblEdad().setText(String.valueOf(dto.getEdad()));
 				vf.getpScr().getLblDivorcio().setText(String.valueOf(dto.isEsDivorciada()));
+
+				vf.getpScr().ocultarAtributos();
+			} else {
+				aumentarContador();
 			}
 		}
 		vf.refrescarVista();
