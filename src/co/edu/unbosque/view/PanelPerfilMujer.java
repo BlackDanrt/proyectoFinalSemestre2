@@ -55,6 +55,7 @@ public class PanelPerfilMujer extends JPanel {
 	private JButton btnActualizar;
 	private JButton btnCancelar;
 	private JButton btnCerrarSesion;
+	private JButton btnEliminarCuenta;
 
 	// FileChooser para cargar imagen de perfil
 	private JFileChooser fileChooser;
@@ -257,7 +258,7 @@ public class PanelPerfilMujer extends JPanel {
 		// ============ BOTONES CENTRADOS ============
 
 		btnActualizar = new JButton("Actualizar");
-		btnActualizar.setBounds(358, 640, 180, 45);
+		btnActualizar.setBounds(220, 640, 180, 45);
 		btnActualizar.setFont(new Font("Arial", Font.BOLD, 16));
 		btnActualizar.setBackground(Color.decode("#4CAF50"));
 		btnActualizar.setForeground(Color.WHITE);
@@ -265,7 +266,7 @@ public class PanelPerfilMujer extends JPanel {
 		btnActualizar.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
 		btnCancelar = new JButton("Cancelar");
-		btnCancelar.setBounds(578, 640, 180, 45);
+		btnCancelar.setBounds(440, 640, 180, 45);
 		btnCancelar.setFont(new Font("Arial", Font.BOLD, 16));
 		btnCancelar.setBackground(Color.decode("#F44336"));
 		btnCancelar.setForeground(Color.WHITE);
@@ -273,12 +274,20 @@ public class PanelPerfilMujer extends JPanel {
 		btnCancelar.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
 		btnCerrarSesion = new JButton("Cerrar Sesion");
-		btnCerrarSesion.setBounds(798, 640, 180, 45);
+		btnCerrarSesion.setBounds(660, 640, 180, 45);
 		btnCerrarSesion.setFont(new Font("Arial", Font.BOLD, 16));
 		btnCerrarSesion.setBackground(Color.decode("#F44336"));
 		btnCerrarSesion.setForeground(Color.WHITE);
 		btnCerrarSesion.setFocusPainted(false);
 		btnCerrarSesion.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
+		btnEliminarCuenta = new JButton("Eliminar Cuenta");
+		btnEliminarCuenta.setBounds(880, 640, 180, 45);
+		btnEliminarCuenta.setFont(new Font("Arial", Font.BOLD, 16));
+		btnEliminarCuenta.setBackground(Color.decode("#F44336"));
+		btnEliminarCuenta.setForeground(Color.WHITE);
+		btnEliminarCuenta.setFocusPainted(false);
+		btnEliminarCuenta.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
 		// FileChooser
 		fileChooser = new JFileChooser();
@@ -325,6 +334,7 @@ public class PanelPerfilMujer extends JPanel {
 		this.add(btnActualizar);
 		this.add(btnCancelar);
 		this.add(btnCerrarSesion);
+		this.add(btnEliminarCuenta);
 	}
 
 	// ============ MÉTODO PARA SELECCIONAR IMAGEN ============
@@ -649,4 +659,13 @@ public class PanelPerfilMujer extends JPanel {
 		this.imagenActual = imagenActual;
 	}
 
+	public JButton getBtnEliminarCuenta() {
+		return btnEliminarCuenta;
+	}
+
+	public void setBtnEliminarCuenta(JButton btnEliminarCuenta) {
+		this.btnEliminarCuenta = btnEliminarCuenta;
+	}
+	
+	
 }

@@ -137,17 +137,17 @@ public class ViewFacade {
 
 	public void modoOscuro() {
 
-
 		pBan.getBtnModoOscuro().setBorder(BorderFactory.createLineBorder(Color.WHITE, 2, true));
 
 		cambiarIconoModo("files/sol.png");
 		ven.getFondo().setIcon(new ImageIcon("files/PrincipalOscuro.png"));
 		pInic.setImagenFondo(new ImageIcon("files/LoginOscuro.png").getImage());
 		pInic.repaint();
+		pCV.setImagenFondo(new ImageIcon("files/codigoOscuro.png").getImage());
+		pCV.repaint();
 	}
 
 	public void modoClaro() {
-
 
 		pBan.getBtnModoOscuro().setBorder(BorderFactory.createLineBorder(Color.BLACK, 2, true));
 
@@ -155,5 +155,7 @@ public class ViewFacade {
 		ven.getFondo().setIcon(new ImageIcon("files/PrincipalClaro.png"));
 		pInic.setImagenFondo(new ImageIcon("files/LoginClaro.png").getImage());
 		pInic.repaint();
+		pCV.setImagenFondo(new ImageIcon("files/codigoClaro.png").getImage());
+		pCV.repaint();
 	}
 }

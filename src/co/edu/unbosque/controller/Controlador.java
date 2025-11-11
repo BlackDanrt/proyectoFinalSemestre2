@@ -14,12 +14,10 @@ import java.util.Properties;
 import java.util.UUID;
 
 import javax.swing.ImageIcon;
-import javax.swing.JFileChooser;
 import javax.swing.JLayeredPane;
 import javax.swing.JOptionPane;
 
 import co.edu.unbosque.model.CorreoDTO;
-import co.edu.unbosque.model.DislikeDTO;
 import co.edu.unbosque.model.HombreDTO;
 import co.edu.unbosque.model.ModelFacade;
 import co.edu.unbosque.model.MujerDTO;
@@ -365,7 +363,7 @@ public class Controlador implements ActionListener {
 				vf.getpReg().setVisible(false);
 				vf.getpInic().setVisible(true);
 				vf.refrescarVista();
-				JOptionPane.showMessageDialog(vf.getVen(), "Proceso exitoso", "Cuenta creada",
+				JOptionPane.showMessageDialog(vf.getVen(), "Cuenta creada", "Proceso exitoso",
 						JOptionPane.INFORMATION_MESSAGE);
 
 			} else {
@@ -486,7 +484,7 @@ public class Controlador implements ActionListener {
 		if (Boolean.parseBoolean(propConfig.getProperty("proyectoFinalSemestre2.generoUsuarioHombre")) == false) {
 			MujerDTO temp = mf.getMujerDao().buscarId(propConfig.getProperty("proyectoFinalSemestre2.id"));
 
-			if (mf.getDisDao().buscarDislike(temp.getId(), mf.getHombreDao().getLista().get(indice).getId())) {
+			if (false) {
 				int contador = Integer.parseInt(propConfig.getProperty("proyectoFinalSemestre2.indiceMostrar"));
 				aumentarContador();
 			} else {
@@ -507,7 +505,7 @@ public class Controlador implements ActionListener {
 		} else {
 			HombreDTO temp = mf.getHombreDao().buscarId(propConfig.getProperty("proyectoFinalSemestre2.id"));
 
-			if (mf.getDisDao().buscarDislike(temp.getId(), mf.getMujerDao().getLista().get(indice).getId())) {
+			if (false) {
 				int contador = Integer.parseInt(propConfig.getProperty("proyectoFinalSemestre2.indiceMostrar"));
 				aumentarContador();
 			} else {
@@ -544,17 +542,6 @@ public class Controlador implements ActionListener {
 
 	public void pass() {
 		int contador = Integer.parseInt(propConfig.getProperty("proyectoFinalSemestre2.indiceMostrar"));
-
-		if (Boolean.parseBoolean(propConfig.getProperty("proyectoFinalSemestre2.generoUsuarioHombre")) == false) {
-			String idReceptor = mf.getMujerDao().getLista().get(contador).getId();
-			DislikeDTO dto = new DislikeDTO(propConfig.getProperty("proyectoFinalSemestre2.id"), idReceptor);
-			mf.getDisDao().crear(dto);
-		} else {
-			String idReceptor = mf.getHombreDao().getLista().get(contador).getId();
-			DislikeDTO dto = new DislikeDTO(propConfig.getProperty("proyectoFinalSemestre2.id"), idReceptor);
-			mf.getDisDao().crear(dto);
-
-		}
 		aumentarContador();
 	}
 
@@ -837,6 +824,35 @@ public class Controlador implements ActionListener {
 		}
 	}
 
+	public void eliminarCuenta() {
+
+		if (Boolean.parseBoolean(propConfig.getProperty("proyectoFinalSemestre2.generoUsuarioHombre")) == true) {
+			int eliminar = JOptionPane.showConfirmDialog(vf.getVen(), "Esta accion no es reversible",
+					"Confirmar eliminacion", JOptionPane.WARNING_MESSAGE);
+			if (eliminar == 0) {
+				int indice = mf.getHombreDao().buscarIdIndice(propConfig.getProperty("proyectoFinalSemestre2.id"));
+				mf.getHombreDao().eliminar(indice);
+				vf.getpPH().setVisible(false);
+				vf.getpInic().setVisible(true);
+				vf.getpBan().getBtnPerfil().setVisible(false);
+				vf.getpScr().ocultarAtributos();
+				vf.refrescarVista();
+			}
+		} else {
+			int eliminar = JOptionPane.showConfirmDialog(vf.getVen(), "Esta accion no es reversible",
+					"Confirmar eliminacion", JOptionPane.WARNING_MESSAGE);
+			if (eliminar == 0) {
+				int indice = mf.getMujerDao().buscarIdIndice(propConfig.getProperty("proyectoFinalSemestre2.id"));
+				mf.getMujerDao().eliminar(indice);
+				vf.getpPM().setVisible(false);
+				vf.getpInic().setVisible(true);
+				vf.getpBan().getBtnPerfil().setVisible(false);
+				vf.getpScr().ocultarAtributos();
+				vf.refrescarVista();
+			}
+		}
+	}
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String comando = e.getActionCommand();
@@ -967,6 +983,11 @@ public class Controlador implements ActionListener {
 			break;
 		}
 
+		case "eliminar cuenta": {
+			eliminarCuenta();
+			break;
+		}
+
 		// Fin casos switch
 		}
 		// Fin switch
@@ -1031,6 +1052,9 @@ public class Controlador implements ActionListener {
 		vf.getpPH().getBtnCerrarSesion().addActionListener(this);
 		vf.getpPH().getBtnCerrarSesion().setActionCommand("cerrar sesion perfil");
 
+		vf.getpPH().getBtnEliminarCuenta().addActionListener(this);
+		vf.getpPH().getBtnEliminarCuenta().setActionCommand("eliminar cuenta");
+
 		// Panel perfil Mujer
 		vf.getpPM().getBtnActualizar().addActionListener(this);
 		vf.getpPM().getBtnActualizar().setActionCommand("actualizar mujer");
@@ -1040,6 +1064,9 @@ public class Controlador implements ActionListener {
 
 		vf.getpPM().getBtnCerrarSesion().addActionListener(this);
 		vf.getpPM().getBtnCerrarSesion().setActionCommand("cerrar sesion perfil");
+
+		vf.getpPM().getBtnEliminarCuenta().addActionListener(this);
+		vf.getpPM().getBtnEliminarCuenta().setActionCommand("eliminar cuenta");
 
 	}
 
