@@ -143,17 +143,17 @@ public class PanelScroll extends JPanel {
 	}
 
 	public void ocultarAtributos() {
-		lblEstatura.setVisible(true);
-		lblEstaturaTexto.setVisible(true);
+		lblEstatura.setVisible(false);
+		lblEstaturaTexto.setVisible(false);
 
-		lblIngresos.setVisible(true);
-		lblIngresosTexto.setVisible(true);
+		lblIngresos.setVisible(false);
+		lblIngresosTexto.setVisible(false);
 
-		lblDivorcio.setVisible(true);
-		lblDivorcioTexto.setVisible(true);
+		lblDivorcio.setVisible(false);
+		lblDivorcioTexto.setVisible(false);
 
-		lblEstatura.setVisible(true);
-		lblEstaturaTexto.setVisible(true);
+		lblEstatura.setVisible(false);
+		lblEstaturaTexto.setVisible(false);
 	}
 
 	public void mostrarAtributosMujer(boolean atributoExtra) {

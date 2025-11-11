@@ -260,7 +260,6 @@ public class Controlador implements ActionListener {
 				if (estaVerificado) {
 					vf.getpInic().setVisible(false);
 					vf.getpScr().setVisible(true);
-					mostrarPersona(0);
 					vf.getpBan().getBtnPerfil().setVisible(true);
 					vf.getpBan().revalidate();
 				} else {
@@ -286,7 +285,7 @@ public class Controlador implements ActionListener {
 
 					propConfig.setProperty("proyectoFinalSemestre2.indiceMostrar", "0" + "");
 					propConfig.store(new FileWriter("config.properties"), null);
-
+					mostrarPersona(0);
 				} catch (IOException e) {
 				}
 				vf.refrescarVista();
@@ -521,7 +520,7 @@ public class Controlador implements ActionListener {
 				vf.getpScr().getLblFondo().setIcon(new ImageIcon(imgRedimensionada));
 				vf.getpScr().getLblAlias().setText(dto.getAlias());
 				vf.getpScr().getLblEdad().setText(String.valueOf(dto.getEdad()));
-				vf.getpScr().getLblEdad().setText(String.valueOf(dto.isEsDivorciada()));
+				vf.getpScr().getLblDivorcio().setText(String.valueOf(dto.isEsDivorciada()));
 			}
 		}
 		vf.refrescarVista();
