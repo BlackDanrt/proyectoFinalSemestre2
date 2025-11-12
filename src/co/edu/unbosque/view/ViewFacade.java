@@ -31,6 +31,13 @@ public class ViewFacade {
 		pScr = new PanelScroll();
 		pPM = new PanelPerfilMujer();
 		pPH = new PanelPerfilHombre();
+		pGen.setVisible(false);
+		pReg.setVisible(false);
+		pCV.setVisible(false);
+		pAdmin.setVisible(false);
+		pScr.setVisible(false);
+		pPM.setVisible(false);
+		pPH.setVisible(false);
 	}
 
 	public void refrescarVista() {

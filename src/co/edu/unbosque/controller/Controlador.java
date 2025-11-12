@@ -50,7 +50,6 @@ public class Controlador implements ActionListener {
 		inicializarOyentes();
 		inicializarConfig();
 		cadenasTextoPaneles();
-		idioma();
 	}
 
 	public void runGUI() {
@@ -95,6 +94,7 @@ public class Controlador implements ActionListener {
 		vf.getpPM().setBounds(0, 0, 1280, 800);
 		vf.getVen().getCapas().add(vf.getpPM(), JLayeredPane.PALETTE_LAYER);
 		vf.getpPM().setVisible(false);
+
 	}
 
 	public void inicializarConfig() {
@@ -132,6 +132,12 @@ public class Controlador implements ActionListener {
 		try {
 			propConfig.store(new FileWriter("config.properties"), null);
 		} catch (IOException e) {
+		}
+
+		propConfig.setProperty("proyectoFinalSemestre2.usuarioInicioSesion", "false");
+		try {
+			propConfig.store(new FileWriter("config.properties"), null);
+		} catch (IOException a) {
 		}
 
 	}
@@ -202,6 +208,15 @@ public class Controlador implements ActionListener {
 			} catch (InputMismatchException | IOException e) {
 			}
 		}
+		boolean inicioSesion = Boolean
+				.parseBoolean(propConfig.getProperty("proyectoFinalSemestre2.usuarioInicioSesion"));
+		if (inicioSesion) {
+			mostrarPersona(Integer.parseInt(propConfig.getProperty("proyectoFinalSemestre2.indiceMostrar")));
+		}
+		if (vf.getpPH().isVisible()) {
+		    perfilHombre();
+		}
+
 		vf.getpBan().getCmbIdioma().setSelectedItem(idioma);
 		cadenasTextoPaneles();
 		vf.refrescarVista();
@@ -284,6 +299,10 @@ public class Controlador implements ActionListener {
 
 					propConfig.setProperty("proyectoFinalSemestre2.indiceMostrar", "0" + "");
 					propConfig.store(new FileWriter("config.properties"), null);
+
+					propConfig.setProperty("proyectoFinalSemestre2.usuarioInicioSesion", "true");
+					propConfig.store(new FileWriter("config.properties"), null);
+
 					mostrarPersona(0);
 					vf.getpInic().getTxtEmail().setText("");
 					vf.getpInic().getJpfContrasenia().setText("");
@@ -480,6 +499,7 @@ public class Controlador implements ActionListener {
 	}
 
 	public void mostrarPersona(int indice) {
+		vf.getpScr().ocultarAtributos();
 
 		if (Boolean.parseBoolean(propConfig.getProperty("proyectoFinalSemestre2.generoUsuarioHombre")) == false) {
 			MujerDTO temp = mf.getMujerDao().buscarId(propConfig.getProperty("proyectoFinalSemestre2.id"));
@@ -528,7 +548,6 @@ public class Controlador implements ActionListener {
 				vf.getpScr().getLblEdad().setText(String.valueOf(dto.getEdad()));
 				vf.getpScr().getLblDivorcio().setText(String.valueOf(dto.isEsDivorciada()));
 
-				vf.getpScr().ocultarAtributos();
 			} else {
 				aumentarContador();
 			}
@@ -587,7 +606,9 @@ public class Controlador implements ActionListener {
 		vf.getpPH().getJpfContrasenia().setText(dto.getContrasenia());
 		vf.getpPH().getJpfConfirmarContrasenia().setText(dto.getContrasenia());
 		vf.getpPH().getTxtEstatura().setText("" + dto.getEstatura());
-		vf.getpPH().getTxtIngresosMensuales().setText("" + dto.getIngresoMensual());
+		long ingreso = mf.getConDiv().convertirAIdioma(dto.getIngresoMensual(),
+				propConfig.getProperty("proyectoFinalSemestre2.idioma"));
+		vf.getpPH().getTxtIngresosMensuales().setText("" + ingreso);
 		vf.getpPH().getTxtEdadMinima().setText("" + dto.getEdadMinima());
 		vf.getpPH().getTxtEdadMaxima().setText("" + dto.getEdadMaxima());
 		vf.getpPH().getChkVisibilidad().setSelected(dto.isEsVisiblePefil());
@@ -652,6 +673,8 @@ public class Controlador implements ActionListener {
 
 			long ingresoMensual = Integer.parseInt(vf.getpPH().getTxtIngresosMensuales().getText());
 			LanzadorDeExcepcion.verificarNumero(ingresoMensual);
+			ingresoMensual = mf.getConDiv().convertirADolar(ingresoMensual,
+					propConfig.getProperty("proyectoFinalSemestre2.idioma"));
 
 			boolean preferenciaDivorcio = vf.getpPH().getChkDivorcioPreferencia().isSelected();
 
@@ -988,6 +1011,11 @@ public class Controlador implements ActionListener {
 			vf.getpInic().setVisible(true);
 			vf.getpBan().getBtnPerfil().setVisible(false);
 			vf.getpScr().ocultarAtributos();
+			propConfig.setProperty("proyectoFinalSemestre2.usuarioInicioSesion", "false");
+			try {
+				propConfig.store(new FileWriter("config.properties"), null);
+			} catch (IOException s) {
+			}
 			JOptionPane.showMessageDialog(vf.getVen(), "Sesion cerrada", "Vuelva Pronto",
 					JOptionPane.INFORMATION_MESSAGE);
 			vf.refrescarVista();
