@@ -41,14 +41,12 @@ public class PanelIniciarSesion extends JPanel {
 
 		btnIniciarSesion = new JButton();	
 		btnIniciarSesion.setBounds(130, 490, 140, 60);
-		btnIniciarSesion.setBackground(Color.decode("#FF8A00"));
-		btnIniciarSesion.setForeground(Color.decode("#8F8B8B"));
+		btnIniciarSesion.setBackground(Color.decode("#8F8B8B"));
 		btnIniciarSesion.setFont(new Font("Noto Sans CJK SC", Font.BOLD, 12));
 
 		btnRegistrar = new JButton();
 		btnRegistrar.setBounds(290, 490, 140, 60);
-		btnRegistrar.setBackground(Color.decode("#FF8A00"));
-		btnRegistrar.setForeground(Color.decode("#8F8B8B"));
+		btnRegistrar.setBackground(Color.decode("#8F8B8B"));
 		btnRegistrar.setFont(new Font("Noto Sans CJK SC", Font.BOLD, 12));
 
 		this.add(lblEmail);
