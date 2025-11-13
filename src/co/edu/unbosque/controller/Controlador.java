@@ -95,6 +95,11 @@ public class Controlador implements ActionListener {
 		vf.getVen().getCapas().add(vf.getpPM(), JLayeredPane.PALETTE_LAYER);
 		vf.getpPM().setVisible(false);
 
+		// Panel administrador
+		vf.getpAdmin().setBounds(0, 0, 1280, 800);
+		vf.getVen().getCapas().add(vf.getpAdmin(), JLayeredPane.PALETTE_LAYER);
+		vf.getpAdmin().setVisible(false);
+
 	}
 
 	public void inicializarConfig() {
@@ -214,7 +219,7 @@ public class Controlador implements ActionListener {
 			mostrarPersona(Integer.parseInt(propConfig.getProperty("proyectoFinalSemestre2.indiceMostrar")));
 		}
 		if (vf.getpPH().isVisible()) {
-		    perfilHombre();
+			perfilHombre();
 		}
 
 		vf.getpBan().getCmbIdioma().setSelectedItem(idioma);
@@ -227,7 +232,15 @@ public class Controlador implements ActionListener {
 		String contrasenia = vf.getpInic().getJpfContrasenia().getText();
 
 		if (correo.equals(mf.getAdmin().getCorreoAdmin()) && contrasenia.equals(mf.getAdmin().getContraseniaAdmin())) {
-
+			vf.getpInic().setVisible(false);
+			vf.getpBan().getCmbIdioma().setVisible(false);
+			vf.refrescarVista();
+			vf.getpAdmin().setVisible(true);
+			if (Boolean.parseBoolean(propConfig.getProperty("proyectoFinalSemestre2.modoAscendente"))) {
+				vf.ordenAscendente();
+			} else {
+				vf.ordenDescendente();
+			}
 		} else {
 
 			ArrayList<MujerDTO> mujeres = mf.getMujerDao().getLista();
@@ -559,11 +572,11 @@ public class Controlador implements ActionListener {
 		int contador = Integer.parseInt(propConfig.getProperty("proyectoFinalSemestre2.indiceMostrar"));
 
 		if (Boolean.parseBoolean(propConfig.getProperty("proyectoFinalSemestre2.generoUsuarioHombre")) == false) {
-			int cantLike = mf.getMujerDao().getLista().get(contador).getCantLike() + 1;
-			mf.getMujerDao().getLista().get(contador).setCantLike(cantLike);
-		} else {
 			int cantLike = mf.getHombreDao().getLista().get(contador).getCantLike() + 1;
 			mf.getHombreDao().getLista().get(contador).setCantLike(cantLike);
+		} else {
+			int cantLike = mf.getMujerDao().getLista().get(contador).getCantLike() + 1;
+			mf.getMujerDao().getLista().get(contador).setCantLike(cantLike);
 		}
 		aumentarContador();
 	}
@@ -865,6 +878,8 @@ public class Controlador implements ActionListener {
 				int indice = mf.getHombreDao().buscarIdIndice(propConfig.getProperty("proyectoFinalSemestre2.id"));
 				mf.getHombreDao().eliminar(indice);
 				vf.getpPH().setVisible(false);
+				vf.getpInic().getTxtEmail().setText("");
+				vf.getpInic().getJpfContrasenia().setText("");
 				vf.getpInic().setVisible(true);
 				vf.getpBan().getBtnPerfil().setVisible(false);
 				vf.getpScr().ocultarAtributos();
@@ -877,18 +892,129 @@ public class Controlador implements ActionListener {
 				int indice = mf.getMujerDao().buscarIdIndice(propConfig.getProperty("proyectoFinalSemestre2.id"));
 				mf.getMujerDao().eliminar(indice);
 				vf.getpPM().setVisible(false);
+				vf.getpInic().getTxtEmail().setText("");
+				vf.getpInic().getJpfContrasenia().setText("");
 				vf.getpInic().setVisible(true);
 				vf.getpBan().getBtnPerfil().setVisible(false);
 				vf.getpScr().ocultarAtributos();
 				vf.refrescarVista();
 			}
 		}
+		try {
+			propConfig.setProperty("proyectoFinalSemestre2.usuarioInicioSesion", "false");
+			propConfig.store(new FileWriter("config.properties"), null);
+		} catch (IOException e) {
+		}
+	}
+
+	public void filtrarOrden() {
+		boolean modoAscendente = Boolean.parseBoolean(propConfig.getProperty("proyectoFinalSemestre2.modoAscendente"));
+		if (modoAscendente) {
+			vf.ordenDescendente();
+			modoAscendente = false;
+		} else {
+			vf.ordenAscendente();
+			modoAscendente = true;
+		}
+
+		propConfig.setProperty("proyectoFinalSemestre2.modoAscendente", "" + modoAscendente + "");
+		try {
+			propConfig.store(new FileWriter("config.properties"), null);
+		} catch (IOException e) {
+		}
+
+	}
+
+	public void filtrarAdministrador() {
+		vf.getpAdmin().getBtnOrden().setVisible(true);
+		vf.getpAdmin().getCmbGenero().setVisible(true);
+		boolean ordenAscendente = Boolean.parseBoolean(propConfig.getProperty("proyectoFinalSemestre2.modoAscendente"));
+
+		if (vf.getpAdmin().getCmbFiltro().getSelectedItem().equals("Top 10 Likes")
+				|| vf.getpAdmin().getCmbFiltro().getSelectedItem().equals("Ingresos")) {
+			vf.getpAdmin().getBtnOrden().setVisible(false);
+
+		} else {
+			if (ordenAscendente) {
+				if (vf.getpAdmin().getCmbFiltro().getSelectedItem().equals("Alias")) {
+					mf.getHombreDao().menorAMayorSeleccionAlias();
+					mf.getMujerDao().menorAMayorSeleccionAlias();
+				} else if (vf.getpAdmin().getCmbFiltro().getSelectedItem().equals("Nombre")) {
+					mf.getHombreDao().menorAMayorSeleccionNombre();
+					mf.getMujerDao().menorAMayorSeleccionNombre();
+				} else if (vf.getpAdmin().getCmbFiltro().getSelectedItem().equals("Apellido")) {
+					mf.getHombreDao().menorAMayorSeleccionApellido();
+					mf.getMujerDao().menorAMayorSeleccionApellido();
+				} else if (vf.getpAdmin().getCmbFiltro().getSelectedItem().equals("Likes")) {
+					mf.getHombreDao().menorAMayorInsercionCantLike();
+					mf.getMujerDao().menorAMayorInsercionCantLike();
+				} else if (vf.getpAdmin().getCmbFiltro().getSelectedItem().equals("Edad")) {
+					mf.getHombreDao().menorAMayorInsercionEdad();
+					mf.getMujerDao().menorAMayorInsercionEdad();
+				}
+
+			} else {
+				if (vf.getpAdmin().getCmbFiltro().getSelectedItem().equals("Alias")) {
+					mf.getHombreDao().mayorAMenorSeleccionAlias();
+					mf.getMujerDao().mayorAMenorSeleccionAlias();
+				} else if (vf.getpAdmin().getCmbFiltro().getSelectedItem().equals("Nombre")) {
+					mf.getHombreDao().mayorAMenorSeleccionNombre();
+					mf.getMujerDao().mayorAMenorSeleccionNombre();
+				} else if (vf.getpAdmin().getCmbFiltro().getSelectedItem().equals("Apellido")) {
+					mf.getHombreDao().mayorAMenorSeleccionApellido();
+					mf.getMujerDao().mayorAMenorSeleccionApellido();
+				} else if (vf.getpAdmin().getCmbFiltro().getSelectedItem().equals("Likes")) {
+					mf.getHombreDao().mayorAMenorInsercionCantLike();
+					mf.getMujerDao().mayorAMenorInsercionCantLike();
+				} else if (vf.getpAdmin().getCmbFiltro().getSelectedItem().equals("Edad")) {
+					mf.getHombreDao().mayorAMenorInsercionEdad();
+					mf.getMujerDao().mayorAMenorInsercionEdad();
+				}
+			}
+		}
+
+		if (vf.getpAdmin().getCmbFiltro().getSelectedItem().equals("Ingresos")) {
+			vf.getpAdmin().getCmbGenero().setVisible(false);
+			ArrayList<HombreDTO> listaFiltrada = new ArrayList<HombreDTO>();
+			for (int i = 0; i < mf.getHombreDao().getLista().size(); i++) {
+				if (mf.getHombreDao().getLista().get(i).getIngresoMensual() >= 245) {
+					listaFiltrada.add(mf.getHombreDao().getLista().get(i));
+				}
+			}
+			vf.getpAdmin().mostrarHombre(listaFiltrada, this);
+		} else if (vf.getpAdmin().getCmbFiltro().getSelectedItem().equals("Top 10 Likes")) {
+
+			if (vf.getpAdmin().getCmbGenero().getSelectedItem().equals("Hombre")) {
+				mf.getHombreDao().mayorAMenorInsercionCantLike();
+				ArrayList<HombreDTO> listaFiltrada = new ArrayList<HombreDTO>();
+				for (int i = 0; i < 10; i++) {
+					listaFiltrada.add(mf.getHombreDao().getLista().get(i));
+				}
+				vf.getpAdmin().mostrarHombre(listaFiltrada, this);
+
+			} else {
+				mf.getMujerDao().mayorAMenorInsercionCantLike();
+				ArrayList<MujerDTO> listaFiltrada = new ArrayList<MujerDTO>();
+				for (int i = 0; i < 10; i++) {
+					listaFiltrada.add(mf.getMujerDao().getLista().get(i));
+				}
+				vf.getpAdmin().mostrarMujer(listaFiltrada, this);
+
+			}
+
+		} else {
+			if (vf.getpAdmin().getCmbGenero().getSelectedItem().equals("Hombre")) {
+				vf.getpAdmin().mostrarHombre(mf.getHombreDao().getLista(), this);
+			} else {
+				vf.getpAdmin().mostrarMujer(mf.getMujerDao().getLista(), this);
+			}
+		}
+
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String comando = e.getActionCommand();
-
 		// Inicio switch
 		switch (comando) {
 		case "modo oscuro": {
@@ -954,7 +1080,11 @@ public class Controlador implements ActionListener {
 		}
 
 		case "cerrar sesion": {
+			vf.getpBan().getCmbIdioma().setVisible(true);
+			vf.getpAdmin().setVisible(false);
 			vf.getpCV().setVisible(false);
+			vf.getpInic().getTxtEmail().setText("");
+			vf.getpInic().getJpfContrasenia().setText("");
 			vf.getpInic().setVisible(true);
 			vf.refrescarVista();
 			break;
@@ -1027,9 +1157,44 @@ public class Controlador implements ActionListener {
 			break;
 		}
 
+		case "filtrar orden": {
+			filtrarOrden();
+			filtrarAdministrador();
+			break;
+		}
+
+		case "filtrar": {
+			filtrarAdministrador();
+			break;
+		}
+
+		case "crear pdf": {
+			mf.getcPdf().crearPDF();
+			JOptionPane.showMessageDialog(vf.getVen(), "El pdf de estadisticas ha sido creado con exito",
+					"Creacion PDF", JOptionPane.INFORMATION_MESSAGE);
+			break;
+		}
 		// Fin casos switch
 		}
 		// Fin switch
+		if (comando.startsWith("eliminar")) {
+			String ind = comando.replace("eliminar", "").trim();
+			int indice = Integer.parseInt(ind);
+			int retorno = JOptionPane.showConfirmDialog(vf.getVen(), "Esta accion no es reversible",
+					"Confirmar eliminacion", JOptionPane.WARNING_MESSAGE);
+
+			if (retorno == 0) {
+				if (vf.getpAdmin().getCmbGenero().getSelectedItem().equals("Hombre")
+						|| vf.getpAdmin().getCmbGenero().getSelectedItem().equals("Ingresos")) {
+					mf.getHombreDao().eliminar(indice);
+				} else {
+					mf.getMujerDao().eliminar(indice);
+				}
+
+				filtrarAdministrador();
+			}
+		}
+
 	}
 
 	public void inicializarOyentes() {
@@ -1107,11 +1272,28 @@ public class Controlador implements ActionListener {
 		vf.getpPM().getBtnEliminarCuenta().addActionListener(this);
 		vf.getpPM().getBtnEliminarCuenta().setActionCommand("eliminar cuenta");
 
+		// Panel administrador
+		vf.getpAdmin().getCmbFiltro().addActionListener(this);
+		vf.getpAdmin().getCmbFiltro().setActionCommand("filtrar");
+
+		vf.getpAdmin().getCmbGenero().addActionListener(this);
+		vf.getpAdmin().getCmbGenero().setActionCommand("filtrar");
+
+		vf.getpAdmin().getBtnOrden().addActionListener(this);
+		vf.getpAdmin().getBtnOrden().setActionCommand("filtrar orden");
+
+		vf.getpAdmin().getBtnCerrarSesion().addActionListener(this);
+		vf.getpAdmin().getBtnCerrarSesion().setActionCommand("cerrar sesion");
+
+		vf.getpAdmin().getBtnCrearPdf().addActionListener(this);
+		vf.getpAdmin().getBtnCrearPdf().setActionCommand("crear pdf");
+
+		vf.getpPa().getBtnDarDeBaja().addActionListener(this);
 	}
 
 	public void cadenasTextoPaneles() {
-		vf.getpAdmin().setBtnTextoDescPdf(propIdioma.getProperty("admin.btn.descPdf"));
-		vf.getpAdmin().setBtnTextoElimUss(propIdioma.getProperty("admin.btn.elimUss"));
+		// vf.getpAdmin().setBtnTextoDescPdf(propIdioma.getProperty("admin.btn.descPdf"));
+		// vf.getpAdmin().setBtnTextoElimUss(propIdioma.getProperty("admin.btn.elimUss"));
 
 		vf.getpCV().setLabelTextoTitulo(propIdioma.getProperty("cv.lbl.titulo"));
 		vf.getpCV().setBtnTextoCerrarSesion(propIdioma.getProperty("cv.btn.cerrarSesion"));

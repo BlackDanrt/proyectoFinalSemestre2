@@ -1,6 +1,7 @@
 package co.edu.unbosque.model;
 
 import co.edu.unbosque.model.persistence.CorreoDAO;
+import co.edu.unbosque.model.persistence.CreadorPdf;
 import co.edu.unbosque.model.persistence.HombreDAO;
 import co.edu.unbosque.model.persistence.MujerDAO;
 
@@ -11,6 +12,7 @@ public class ModelFacade {
 	private CorreoDAO correoDao;
 	private Administrador admin;
 	private ConvertorDivisa conDiv;
+	private CreadorPdf cPdf;
 
 	public ModelFacade() {
 		hombreDao = new HombreDAO();
@@ -18,6 +20,7 @@ public class ModelFacade {
 		correoDao = new CorreoDAO();
 		admin = new Administrador();
 		conDiv = new ConvertorDivisa();
+		cPdf = new CreadorPdf();
 	}
 
 	public CorreoDAO getCorreoDao() {
@@ -58,6 +61,14 @@ public class ModelFacade {
 
 	public void setConDiv(ConvertorDivisa conDiv) {
 		this.conDiv = conDiv;
+	}
+
+	public CreadorPdf getcPdf() {
+		return cPdf;
+	}
+
+	public void setcPdf(CreadorPdf cPdf) {
+		this.cPdf = cPdf;
 	}
 
 }

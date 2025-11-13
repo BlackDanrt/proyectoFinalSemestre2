@@ -43,6 +43,10 @@ public class CorreoDAO {
 	private static final String EMAIL_REMITENTE = "danrt2018@gmail.com";
 	private static final String PASSWORD_REMITENTE = "bwuqfizniporvykl";
 
+	public CorreoDAO() {
+		// TODO Auto-generated constructor stub
+	}
+
 	/**
 	 * Envía un correo electrónico con un código de verificación a un destinatario.
 	 * 
