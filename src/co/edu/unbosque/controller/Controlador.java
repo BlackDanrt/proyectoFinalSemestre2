@@ -900,6 +900,11 @@ public class Controlador implements ActionListener {
 				vf.refrescarVista();
 			}
 		}
+		try {
+			propConfig.setProperty("proyectoFinalSemestre2.usuarioInicioSesion", "false");
+			propConfig.store(new FileWriter("config.properties"), null);
+		} catch (IOException e) {
+		}
 	}
 
 	public void filtrarOrden() {
