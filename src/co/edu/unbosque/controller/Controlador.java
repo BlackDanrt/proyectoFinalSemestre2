@@ -272,8 +272,10 @@ public class Controlador implements ActionListener {
 			}
 
 			if (sesionExitosa) {
-				JOptionPane.showMessageDialog(vf.getVen(), "¡El inicio de sesión ha sido exitoso!",
-						"Inicio de sesión exitoso", JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(vf.getVen(),
+						propIdioma.getProperty("panel.info.mensaje.InicioSesionExitoso"),
+						propIdioma.getProperty("panel.info.nombre.InicioSesionExitoso"),
+						JOptionPane.INFORMATION_MESSAGE);
 
 				boolean estaVerificado = false;
 				if (esHombre) {
@@ -325,8 +327,9 @@ public class Controlador implements ActionListener {
 				vf.refrescarVista();
 
 			} else {
-				JOptionPane.showMessageDialog(vf.getVen(), "La contraseña o el correo son incorrectos",
-						"Inicio de sesión fallido", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(vf.getVen(),
+						propIdioma.getProperty("panel.error.mensaje.InicioSesionFallido"),
+						propIdioma.getProperty("panel.error.nombre.InicioSesionFallido"), JOptionPane.ERROR_MESSAGE);
 
 			}
 
@@ -397,47 +400,48 @@ public class Controlador implements ActionListener {
 				vf.getpReg().setVisible(false);
 				vf.getpInic().setVisible(true);
 				vf.refrescarVista();
-				JOptionPane.showMessageDialog(vf.getVen(), "Cuenta creada", "Proceso exitoso",
-						JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(vf.getVen(), propIdioma.getProperty("panel.info.mensaje.cuentaCreada"),
+						propIdioma.getProperty("panel.info.nombre.cuentaCreada"), JOptionPane.INFORMATION_MESSAGE);
 
 			} else {
-				JOptionPane.showMessageDialog(vf.getVen(), "El correo no existe", "Registro fallido",
-						JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(vf.getVen(),
+						propIdioma.getProperty("panel.error.mensaje.correoInexistente"),
+						propIdioma.getProperty("panel.error.nombre.correoInexistente"), JOptionPane.ERROR_MESSAGE);
 			}
 
 		} catch (InputMismatchException e) {
-			JOptionPane.showMessageDialog(vf.getVen(), "Formato de entrada inválido. Revisa los campos ingresados.",
-					"Error de entrada", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(vf.getVen(), propIdioma.getProperty("panel.error.mensaje.formatoInvalido"),
+					propIdioma.getProperty("panel.error.nombre.formatoInvalido"), JOptionPane.ERROR_MESSAGE);
 
 		} catch (FechaNacimientoInvalidaException e) {
-			JOptionPane.showMessageDialog(vf.getVen(), "La fecha de nacimiento ingresada no es válida.",
-					"Fecha inválida", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(vf.getVen(),
+					propIdioma.getProperty("panel.error.mensaje.fechaNacimientoInvalida"),
+					propIdioma.getProperty("panel.error.nombre.fechaNacimientoInvalida"), JOptionPane.ERROR_MESSAGE);
 
 		} catch (StringInvalidoException e) {
-			JOptionPane.showMessageDialog(vf.getVen(), "Se ha detectado texto inválido en uno de los campos.",
-					"Texto inválido", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(vf.getVen(), propIdioma.getProperty("panel.error.mensaje.textoInvalido"),
+					propIdioma.getProperty("panel.error.nombre.textoInvalido"), JOptionPane.ERROR_MESSAGE);
 
 		} catch (CorreoInvalidoException e) {
-			JOptionPane.showMessageDialog(vf.getVen(), "El formato del correo ingresado no es válido.",
-					"Correo inválido", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(vf.getVen(), propIdioma.getProperty("panel.error.mensaje.formatoCorreo"),
+					propIdioma.getProperty("panel.error.nombre.formatoCorreo"), JOptionPane.ERROR_MESSAGE);
 
 		} catch (CorreoExistenteException e) {
-			JOptionPane.showMessageDialog(vf.getVen(),
-					"El correo ingresado ya está registrado. Usa otro o inicia sesión.", "Correo existente",
-					JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(vf.getVen(), propIdioma.getProperty("panel.error.mensaje.correoRepetido"),
+					propIdioma.getProperty("panel.error.nombre.correoRepetido"), JOptionPane.ERROR_MESSAGE);
 
 		} catch (AliasExistenteException e) {
-			JOptionPane.showMessageDialog(vf.getVen(), "El alias o nombre de usuario ya está en uso. Intenta con otro.",
-					"Alias existente", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(vf.getVen(), propIdioma.getProperty("panel.error.mensaje.aliasExistente"),
+					propIdioma.getProperty("panel.error.nombre.aliasExistente"), JOptionPane.ERROR_MESSAGE);
 
 		} catch (ContraseniaDiferenteException e) {
-			JOptionPane.showMessageDialog(vf.getVen(), "Las contraseñas no coinciden. Verifica e inténtalo de nuevo.",
-					"Contraseña no coincide", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(vf.getVen(),
+					propIdioma.getProperty("panel.error.mensaje.contraseniasNoCoinciden"),
+					propIdioma.getProperty("panel.error.nombre.contraseniasNoCoinciden"), JOptionPane.ERROR_MESSAGE);
 
 		} catch (ContraseniaDebilException e) {
-			JOptionPane.showMessageDialog(vf.getVen(),
-					"La contraseña es demasiado débil. Usa al menos 8 caracteres, con mayúsculas, minúsculas y números.",
-					"Contraseña débil", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(vf.getVen(), propIdioma.getProperty("panel.error.mensaje.contraseniaDebil"),
+					propIdioma.getProperty("panel.error.nombre.contraseniaDebil"), JOptionPane.ERROR_MESSAGE);
 		}
 
 	}
@@ -467,8 +471,9 @@ public class Controlador implements ActionListener {
 			return "pfp/" + nombreArchivo;
 
 		} catch (IOException e) {
-			JOptionPane.showMessageDialog(vf.getVen(), "Error al copiar la imagen: " + e.getMessage(),
-					"Error al copiar la imagen", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(vf.getVen(),
+					propIdioma.getProperty("panel.error.mensaje.copiasImagen") + e.getMessage(),
+					propIdioma.getProperty("panel.error.nombre.copiasImagen"), JOptionPane.ERROR_MESSAGE);
 			return "files/default.png";
 		}
 	}
@@ -484,11 +489,11 @@ public class Controlador implements ActionListener {
 		sb.append(vf.getpCV().getTxtfnum6().getText());
 
 		if (!codigo.equals(sb.toString())) {
-			JOptionPane.showMessageDialog(vf.getVen(), "Error al verificar", "El codigo no ingresado no es correcto",
-					JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(vf.getVen(), propIdioma.getProperty("panel.error.mensaje.verificarInvalido"),
+					propIdioma.getProperty("panel.error.nombre.verificarInvalido"), JOptionPane.ERROR_MESSAGE);
 		} else {
-			JOptionPane.showMessageDialog(vf.getVen(), "Verificacion completada", "El codigo ingresado es correcto",
-					JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(vf.getVen(), propIdioma.getProperty("panel.info.mensaje.verificar"),
+					propIdioma.getProperty("panel.info.nombre.verificar"), JOptionPane.INFORMATION_MESSAGE);
 			int indice = 0;
 			if (Boolean.parseBoolean(propConfig.getProperty("proyectoFinalSemestre2.generoUsuarioHombre")) == true) {
 				indice = mf.getHombreDao().buscarIdIndice(propConfig.getProperty("proyectoFinalSemestre2.id"));
@@ -706,29 +711,29 @@ public class Controlador implements ActionListener {
 			vf.getpPH().setVisible(false);
 			vf.getpScr().setVisible(true);
 			vf.refrescarVista();
-			JOptionPane.showMessageDialog(vf.getVen(), "Proceso Exitoso", "Perfil actualizado",
-					JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(vf.getVen(), propIdioma.getProperty("panel.info.mensaje.exito"),
+					propIdioma.getProperty("panel.info.nombre.exito"), JOptionPane.INFORMATION_MESSAGE);
 		} catch (
 
 		InputMismatchException e) {
-			JOptionPane.showMessageDialog(vf.getVen(), "Formato de entrada inválido. Revisa los campos ingresados.",
-					"Error de entrada", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(vf.getVen(), propIdioma.getProperty("panel.error.mensaje.formatoInvalido"),
+					propIdioma.getProperty("panel.error.nombre.formatoInvalido"), JOptionPane.ERROR_MESSAGE);
 
 		} catch (AliasExistenteActualizadoException e) {
-			JOptionPane.showMessageDialog(vf.getVen(), "El alias o nombre de usuario ya está en uso. Intenta con otro.",
-					"Alias existente", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(vf.getVen(), propIdioma.getProperty("panel.error.mensaje.aliasExistente"),
+					propIdioma.getProperty("panel.error.nombre.aliasExistente"), JOptionPane.ERROR_MESSAGE);
 
 		} catch (ContraseniaDiferenteException e) {
-			JOptionPane.showMessageDialog(vf.getVen(), "Las contraseñas no coinciden. Verifica e inténtalo de nuevo.",
-					"Contraseña no coincide", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(vf.getVen(),
+					propIdioma.getProperty("panel.error.mensaje.contraseniasNoCoinciden"),
+					propIdioma.getProperty("panel.error.nombre.contraseniasNoCoinciden"), JOptionPane.ERROR_MESSAGE);
 
 		} catch (ContraseniaDebilException e) {
-			JOptionPane.showMessageDialog(vf.getVen(),
-					"La contraseña es demasiado débil. Usa al menos 8 caracteres, con mayúsculas, minúsculas y números.",
-					"Contraseña débil", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(vf.getVen(), propIdioma.getProperty("panel.error.mensaje.contraseniaDebil"),
+					propIdioma.getProperty("panel.error.nombre.contraseniaDebil"), JOptionPane.ERROR_MESSAGE);
 		} catch (NumeroInvalidoException e) {
-			JOptionPane.showMessageDialog(vf.getVen(), "Solo se permiten caracteres numericos",
-					"Valor numerico invalido", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(vf.getVen(), propIdioma.getProperty("panel.error.mensaje.caracterInvalido"),
+					propIdioma.getProperty("panel.error.nombre.caracterInvalido"), JOptionPane.ERROR_MESSAGE);
 		}
 
 	}
@@ -758,8 +763,9 @@ public class Controlador implements ActionListener {
 			return "pfp/" + nombreArchivo;
 
 		} catch (IOException e) {
-			JOptionPane.showMessageDialog(vf.getVen(), "Error al copiar la imagen: " + e.getMessage(),
-					"Error al copiar la imagen", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(vf.getVen(),
+					propIdioma.getProperty("panel.error.mensaje.copiasImagen") + e.getMessage(),
+					propIdioma.getProperty("panel.error.nombre.copiasImagen"), JOptionPane.ERROR_MESSAGE);
 			return "files/default.png";
 		}
 	}
@@ -813,29 +819,29 @@ public class Controlador implements ActionListener {
 			vf.getpPM().setVisible(false);
 			vf.getpScr().setVisible(true);
 			vf.refrescarVista();
-			JOptionPane.showMessageDialog(vf.getVen(), "Proceso Exitoso", "Perfil actualizado",
-					JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(vf.getVen(), propIdioma.getProperty("panel.info.mensaje.exito"),
+					propIdioma.getProperty("panel.info.nombre.exito"), JOptionPane.INFORMATION_MESSAGE);
 		} catch (
 
 		InputMismatchException e) {
-			JOptionPane.showMessageDialog(vf.getVen(), "Formato de entrada inválido. Revisa los campos ingresados.",
-					"Error de entrada", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(vf.getVen(), propIdioma.getProperty("panel.error.mensaje.formatoInvalido"),
+					propIdioma.getProperty("panel.error.nombre.formatoInvalido"), JOptionPane.ERROR_MESSAGE);
 
 		} catch (AliasExistenteActualizadoException e) {
-			JOptionPane.showMessageDialog(vf.getVen(), "El alias o nombre de usuario ya está en uso. Intenta con otro.",
-					"Alias existente", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(vf.getVen(), propIdioma.getProperty("panel.error.mensaje.aliasExistente"),
+					propIdioma.getProperty("panel.error.nombre.aliasExistente"), JOptionPane.ERROR_MESSAGE);
 
 		} catch (ContraseniaDiferenteException e) {
-			JOptionPane.showMessageDialog(vf.getVen(), "Las contraseñas no coinciden. Verifica e inténtalo de nuevo.",
-					"Contraseña no coincide", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(vf.getVen(),
+					propIdioma.getProperty("panel.error.mensaje.contraseniasNoCoinciden"),
+					propIdioma.getProperty("panel.error.nombre.contraseniasNoCoinciden"), JOptionPane.ERROR_MESSAGE);
 
 		} catch (ContraseniaDebilException e) {
-			JOptionPane.showMessageDialog(vf.getVen(),
-					"La contraseña es demasiado débil. Usa al menos 8 caracteres, con mayúsculas, minúsculas y números.",
-					"Contraseña débil", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(vf.getVen(), propIdioma.getProperty("panel.error.mensaje.contraseniaDebil"),
+					propIdioma.getProperty("panel.error.nombre.contraseniaDebil"), JOptionPane.ERROR_MESSAGE);
 		} catch (NumeroInvalidoException e) {
-			JOptionPane.showMessageDialog(vf.getVen(), "Solo se permiten caracteres numericos",
-					"Valor numerico invalido", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(vf.getVen(), propIdioma.getProperty("panel.error.mensaje.caracterInvalido"),
+					propIdioma.getProperty("panel.error.nombre.caracterInvalido"), JOptionPane.ERROR_MESSAGE);
 		}
 
 	}
@@ -865,8 +871,9 @@ public class Controlador implements ActionListener {
 			return "pfp/" + nombreArchivo;
 
 		} catch (IOException e) {
-			JOptionPane.showMessageDialog(vf.getVen(), "Error al copiar la imagen: " + e.getMessage(),
-					"Error al copiar la imagen", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(vf.getVen(),
+					propIdioma.getProperty("panel.error.mensaje.copiasImagen") + e.getMessage(),
+					propIdioma.getProperty("panel.error.nombre.copiasImagen"), JOptionPane.ERROR_MESSAGE);
 			return "files/default.png";
 		}
 	}
@@ -874,8 +881,9 @@ public class Controlador implements ActionListener {
 	public void eliminarCuenta() {
 
 		if (Boolean.parseBoolean(propConfig.getProperty("proyectoFinalSemestre2.generoUsuarioHombre")) == true) {
-			int eliminar = JOptionPane.showConfirmDialog(vf.getVen(), "Esta accion no es reversible",
-					"Confirmar eliminacion", JOptionPane.WARNING_MESSAGE);
+			int eliminar = JOptionPane.showConfirmDialog(vf.getVen(),
+					propIdioma.getProperty("panel.advertencia.mensaje.borrarCuenta"),
+					propIdioma.getProperty("panel.advertencia.nombre.borrarCuenta"), JOptionPane.WARNING_MESSAGE);
 			if (eliminar == 0) {
 				int indice = mf.getHombreDao().buscarIdIndice(propConfig.getProperty("proyectoFinalSemestre2.id"));
 				mf.getHombreDao().eliminar(indice);
@@ -888,8 +896,9 @@ public class Controlador implements ActionListener {
 				vf.refrescarVista();
 			}
 		} else {
-			int eliminar = JOptionPane.showConfirmDialog(vf.getVen(), "Esta accion no es reversible",
-					"Confirmar eliminacion", JOptionPane.WARNING_MESSAGE);
+			int eliminar = JOptionPane.showConfirmDialog(vf.getVen(),
+					propIdioma.getProperty("panel.advertencia.mensaje.borrarCuenta"),
+					propIdioma.getProperty("panel.advertencia.nombre.borrarCuenta"), JOptionPane.WARNING_MESSAGE);
 			if (eliminar == 0) {
 				int indice = mf.getMujerDao().buscarIdIndice(propConfig.getProperty("proyectoFinalSemestre2.id"));
 				mf.getMujerDao().eliminar(indice);
@@ -1148,8 +1157,8 @@ public class Controlador implements ActionListener {
 				propConfig.store(new FileWriter("config.properties"), null);
 			} catch (IOException s) {
 			}
-			JOptionPane.showMessageDialog(vf.getVen(), "Sesion cerrada", "Vuelva Pronto",
-					JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(vf.getVen(), propIdioma.getProperty("panel.info.mensaje.cerrarSesion"),
+					propIdioma.getProperty("panel.info.nombre.cerrarSesion"), JOptionPane.INFORMATION_MESSAGE);
 			vf.refrescarVista();
 			break;
 		}
@@ -1182,8 +1191,9 @@ public class Controlador implements ActionListener {
 		if (comando.startsWith("eliminar")) {
 			String ind = comando.replace("eliminar", "").trim();
 			int indice = Integer.parseInt(ind);
-			int retorno = JOptionPane.showConfirmDialog(vf.getVen(), "Esta accion no es reversible",
-					"Confirmar eliminacion", JOptionPane.WARNING_MESSAGE);
+			int retorno = JOptionPane.showConfirmDialog(vf.getVen(),
+					propIdioma.getProperty("panel.advertencia.mensaje.borrarCuenta"),
+					propIdioma.getProperty("panel.advertencia.nombre.borrarCuenta"), JOptionPane.WARNING_MESSAGE);
 
 			if (retorno == 0) {
 				if (vf.getpAdmin().getCmbGenero().getSelectedItem().equals("Hombre")

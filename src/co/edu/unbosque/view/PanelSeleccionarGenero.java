@@ -46,13 +46,18 @@ public class PanelSeleccionarGenero extends JPanel {
 		btnMujer.setIcon(new ImageIcon(imgMujer));
 
 		btnVolver = new JButton();
-		btnVolver.setBounds(71, 750, 90, 25);
+		btnVolver.setBounds(90, 760, 120, 35);
+		btnVolver.setBackground(Color.decode("#8F8B8B"));
 
 		lblHombre = new JLabel();
-		lblHombre.setBounds(379, 521, 153, 35);
+		lblHombre.setBounds(420, 521, 153, 35);
+		lblHombre.setForeground(Color.WHITE);
+		lblHombre.setFont(new Font("Noto Sans CJK SC", Font.BOLD, 20));
 
 		lblMujer = new JLabel();
-		lblMujer.setBounds(747, 521, 153, 35);
+		lblMujer.setBounds(790, 521, 153, 35);
+		lblMujer.setForeground(Color.WHITE);
+		lblMujer.setFont(new Font("Noto Sans CJK SC", Font.BOLD, 20));
 
 		this.add(lblTitulo);
 		this.add(btnHombre);
