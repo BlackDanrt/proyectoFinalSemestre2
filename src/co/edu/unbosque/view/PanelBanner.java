@@ -9,16 +9,47 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
 
+/**
+ * La clase {@code PanelBanner} representa la barra superior del sistema
+ * BosTinder, donde se encuentran los controles generales como el cambio de
+ * idioma, el botón de perfil y el modo oscuro.
+ * 
+ * <p>
+ * Este panel se utiliza como parte del encabezado de la interfaz gráfica para
+ * permitir una navegación rápida y configuraciones generales del usuario.
+ * </p>
+ * 
+ * @author Juan Martinez
+ * @version 1.0
+ */
 public class PanelBanner extends JPanel {
 
+	/**
+	 * Botón que permite acceder al perfil del usuario.
+	 */
 	private JButton btnPerfil;
+
+	/**
+	 * Botón que activa o desactiva el modo oscuro.
+	 */
 	private JButton btnModoOscuro;
+
+	/**
+	 * Menú desplegable que permite seleccionar el idioma de la aplicación.
+	 */
 	private JComboBox<String> cmbIdioma;
 
+	/**
+	 * Crea un nuevo panel de banner e inicializa sus componentes.
+	 */
 	public PanelBanner() {
 		inicializarComponentes();
 	}
 
+	/**
+	 * Inicializa y configura los componentes gráficos del panel, incluyendo el
+	 * botón de perfil, el botón de modo oscuro y el combo de idiomas.
+	 */
 	public void inicializarComponentes() {
 		this.setLayout(null);
 		this.setSize(1280, 80);
@@ -58,28 +89,57 @@ public class PanelBanner extends JPanel {
 
 	}
 
+	/**
+	 * Obtiene el botón de perfil.
+	 * 
+	 * @return el botón que permite acceder al perfil del usuario.
+	 */
 	public JButton getBtnPerfil() {
 		return btnPerfil;
 	}
 
+	/**
+	 * Establece un nuevo botón de perfil.
+	 * 
+	 * @param btnPerfil el nuevo botón de perfil a asignar.
+	 */
 	public void setBtnPerfil(JButton btnPerfil) {
 		this.btnPerfil = btnPerfil;
 	}
 
+	/**
+	 * Obtiene el botón de modo oscuro.
+	 * 
+	 * @return el botón que permite alternar entre modo claro y oscuro.
+	 */
 	public JButton getBtnModoOscuro() {
 		return btnModoOscuro;
 	}
 
+	/**
+	 * Establece un nuevo botón de modo oscuro.
+	 * 
+	 * @param btnModoOscuro el botón de modo oscuro a asignar.
+	 */
 	public void setBtnModoOscuro(JButton btnModoOscuro) {
 		this.btnModoOscuro = btnModoOscuro;
 	}
 
+	/**
+	 * Obtiene el menú desplegable de idiomas.
+	 * 
+	 * @return el combo box de selección de idioma.
+	 */
 	public JComboBox<String> getCmbIdioma() {
 		return cmbIdioma;
 	}
 
+	/**
+	 * Establece un nuevo menú desplegable de idiomas.
+	 * 
+	 * @param cmbIdioma el combo box de idioma a asignar.
+	 */
 	public void setCmbIdioma(JComboBox<String> cmbIdioma) {
 		this.cmbIdioma = cmbIdioma;
 	}
-
 }

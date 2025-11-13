@@ -8,58 +8,210 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import javax.imageio.ImageIO;
 
+/**
+ * Panel que representa la vista del perfil de usuario masculino.
+ * 
+ * <p>
+ * Este panel permite visualizar y modificar la información personal,
+ * configuración y preferencias del usuario hombre. Además, incluye la opción de
+ * cargar una imagen de perfil desde el sistema de archivos.
+ * </p>
+ * 
+ * <p>
+ * Los componentes se dividen en columnas: una para los datos personales
+ * (nombre, apellido, alias, etc.) y otra para la configuración (contraseña,
+ * estatura, ingresos, edades y preferencias).
+ * </p>
+ * 
+ * <p>
+ * También dispone de botones para actualizar la información, cancelar los
+ * cambios, cerrar sesión o eliminar la cuenta.
+ * </p>
+ * 
+ * @author Juan Martinez
+ * @version 1.0
+ */
 public class PanelPerfilHombre extends JPanel {
 
-	// Componentes de visualización
+	/**
+	 * Etiqueta de fondo del panel o ventana del administrador.
+	 */
 	private JLabel lblFondo;
 
-	// NUEVOS: Componentes para foto de perfil
+	/**
+	 * Etiqueta que muestra la foto de perfil del usuario administrador.
+	 */
 	private JLabel lblFotoPerfil;
+
+	/**
+	 * Botón que permite seleccionar una nueva foto de perfil desde el sistema de
+	 * archivos.
+	 */
 	private JButton btnSeleccionarFoto;
+
+	/**
+	 * Archivo seleccionado por el usuario para cambiar la imagen de perfil.
+	 */
 	private File archivoImagenSeleccionada;
+
+	/**
+	 * Imagen actualmente mostrada en el perfil del usuario.
+	 */
 	private BufferedImage imagenActual;
 
-	// Columna Izquierda - Información personal
+	/**
+	 * Etiqueta con el texto "Nombre".
+	 */
 	private JLabel lblNombre;
+
+	/**
+	 * Etiqueta que muestra el nombre del usuario.
+	 */
 	private JLabel lblNombreUsuario;
+
+	/**
+	 * Etiqueta con el texto "Apellido".
+	 */
 	private JLabel lblApellido;
+
+	/**
+	 * Etiqueta que muestra el apellido del usuario.
+	 */
 	private JLabel lblApellidoUsuario;
+
+	/**
+	 * Etiqueta con el texto "Alias".
+	 */
 	private JLabel lblAlias;
+
+	/**
+	 * Etiqueta con el texto "Correo electrónico".
+	 */
 	private JLabel lblEmail;
+
+	/**
+	 * Etiqueta que muestra el correo electrónico del usuario.
+	 */
 	private JLabel lblEmailUsuario;
+
+	/**
+	 * Etiqueta con el texto "Edad".
+	 */
 	private JLabel lblEdad;
+
+	/**
+	 * Etiqueta que muestra la edad del usuario.
+	 */
 	private JLabel lblEdadUsuario;
 
-	// Columna Derecha - Configuración y preferencias
+	/**
+	 * Etiqueta con el texto "Contraseña".
+	 */
 	private JLabel lblContrasenia;
+
+	/**
+	 * Etiqueta con el texto "Confirmar contraseña".
+	 */
 	private JLabel lblConfirmarContrasenia;
+
+	/**
+	 * Etiqueta con el texto "Estatura".
+	 */
 	private JLabel lblEstatura;
+
+	/**
+	 * Etiqueta con el texto "Ingresos mensuales".
+	 */
 	private JLabel lblIngresosMensuales;
+
+	/**
+	 * Etiqueta con el texto "Edad mínima".
+	 */
 	private JLabel lblEdadMinima;
+
+	/**
+	 * Etiqueta con el texto "Edad máxima".
+	 */
 	private JLabel lblEdadMaxima;
 
-	// Campos de entrada
+	/**
+	 * Campo de texto donde el usuario puede ingresar o modificar su alias.
+	 */
 	private JTextField txtAlias;
+
+	/**
+	 * Campo de contraseña donde el usuario ingresa su nueva contraseña.
+	 */
 	private JPasswordField jpfContrasenia;
+
+	/**
+	 * Campo de contraseña para confirmar la nueva contraseña ingresada.
+	 */
 	private JPasswordField jpfConfirmarContrasenia;
+
+	/**
+	 * Campo de texto donde el usuario ingresa su estatura.
+	 */
 	private JTextField txtEstatura;
+
+	/**
+	 * Campo de texto donde el usuario ingresa sus ingresos mensuales.
+	 */
 	private JTextField txtIngresosMensuales;
+
+	/**
+	 * Campo de texto donde el usuario establece su edad mínima de preferencia.
+	 */
 	private JTextField txtEdadMinima;
+
+	/**
+	 * Campo de texto donde el usuario establece su edad máxima de preferencia.
+	 */
 	private JTextField txtEdadMaxima;
 
-	// Checkboxes
+	/**
+	 * Casilla de verificación que indica si el perfil del usuario es visible o no.
+	 */
 	private JCheckBox chkVisibilidad;
+
+	/**
+	 * Casilla de verificación que indica si el usuario acepta personas divorciadas
+	 * como preferencia.
+	 */
 	private JCheckBox chkDivorcioPreferencia;
 
-	// Botones
+	/**
+	 * Botón para actualizar los datos del perfil.
+	 */
 	private JButton btnActualizar;
+
+	/**
+	 * Botón para cancelar los cambios realizados.
+	 */
 	private JButton btnCancelar;
+
+	/**
+	 * Botón para cerrar la sesión actual del usuario.
+	 */
 	private JButton btnCerrarSesion;
+
+	/**
+	 * Botón para eliminar la cuenta del usuario.
+	 */
 	private JButton btnEliminarCuenta;
 
-	// FileChooser para cargar imagen de perfil
+	/**
+	 * Selector de archivos usado para elegir imágenes del sistema.
+	 */
 	private JFileChooser fileChooser;
 
+	/**
+	 * Crea el panel de perfil masculino y establece su estructura visual.
+	 * <p>
+	 * Se configura el diseño, tamaño, visibilidad y se inicializan todos los
+	 * componentes.
+	 * </p>
+	 */
 	public PanelPerfilHombre() {
 		this.setLayout(null);
 		this.setSize(1280, 800);
@@ -68,17 +220,20 @@ public class PanelPerfilHombre extends JPanel {
 		inicializarComponentes();
 	}
 
+	/**
+	 * Inicializa todos los componentes gráficos del panel.
+	 * <p>
+	 * Organiza etiquetas, campos de texto, botones, checkboxes y el área de imagen
+	 * de perfil.
+	 * </p>
+	 */
 	private void inicializarComponentes() {
-		// Logo/Fondo centrado
 		lblFondo = new JLabel();
 		lblFondo.setBounds(440, 30, 400, 150);
 		lblFondo.setHorizontalAlignment(SwingConstants.CENTER);
 		lblFondo.setFont(new Font("Noto Sans CJK SC", Font.BOLD, 32));
 		lblFondo.setForeground(Color.WHITE);
 
-		// ============ FOTO DE PERFIL (ARRIBA A LA IZQUIERDA) ============
-
-		// Label para mostrar la foto
 		lblFotoPerfil = new JLabel();
 		lblFotoPerfil.setBounds(50, 30, 120, 120);
 		lblFotoPerfil.setHorizontalAlignment(SwingConstants.CENTER);
@@ -91,7 +246,6 @@ public class PanelPerfilHombre extends JPanel {
 		lblFotoPerfil.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2));
 		lblFotoPerfil.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
-		// Hacer el label clickeable
 		lblFotoPerfil.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -99,7 +253,6 @@ public class PanelPerfilHombre extends JPanel {
 			}
 		});
 
-		// Botón para seleccionar foto
 		btnSeleccionarFoto = new JButton("Cambiar Foto");
 		btnSeleccionarFoto.setBounds(50, 160, 120, 30);
 		btnSeleccionarFoto.setFont(new Font("Noto Sans CJK SC", Font.PLAIN, 12));
@@ -109,9 +262,6 @@ public class PanelPerfilHombre extends JPanel {
 		btnSeleccionarFoto.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		btnSeleccionarFoto.addActionListener(e -> seleccionarImagen());
 
-		// ============ COLUMNA IZQUIERDA ============
-
-		// Nombre
 		lblNombre = new JLabel("Nombre:");
 		lblNombre.setBounds(200, 220, 340, 20);
 		lblNombre.setFont(new Font("Noto Sans CJK SC", Font.BOLD, 14));
@@ -125,7 +275,6 @@ public class PanelPerfilHombre extends JPanel {
 		lblNombreUsuario.setBackground(new Color(255, 255, 255, 100));
 		lblNombreUsuario.setBorder(BorderFactory.createLineBorder(Color.WHITE));
 
-		// Apellido
 		lblApellido = new JLabel("Apellido:");
 		lblApellido.setBounds(200, 295, 340, 20);
 		lblApellido.setFont(new Font("Noto Sans CJK SC", Font.BOLD, 14));
@@ -139,7 +288,6 @@ public class PanelPerfilHombre extends JPanel {
 		lblApellidoUsuario.setBackground(new Color(255, 255, 255, 100));
 		lblApellidoUsuario.setBorder(BorderFactory.createLineBorder(Color.WHITE));
 
-		// Alias
 		lblAlias = new JLabel("Alias:");
 		lblAlias.setBounds(200, 370, 340, 20);
 		lblAlias.setFont(new Font("Noto Sans CJK SC", Font.BOLD, 14));
@@ -149,7 +297,6 @@ public class PanelPerfilHombre extends JPanel {
 		txtAlias.setBounds(200, 395, 340, 35);
 		txtAlias.setFont(new Font("Noto Sans CJK SC", Font.PLAIN, 14));
 
-		// Email
 		lblEmail = new JLabel("Email:");
 		lblEmail.setBounds(200, 445, 340, 20);
 		lblEmail.setFont(new Font("Noto Sans CJK SC", Font.BOLD, 14));
@@ -163,7 +310,6 @@ public class PanelPerfilHombre extends JPanel {
 		lblEmailUsuario.setBackground(new Color(255, 255, 255, 100));
 		lblEmailUsuario.setBorder(BorderFactory.createLineBorder(Color.WHITE));
 
-		// Edad
 		lblEdad = new JLabel("Edad:");
 		lblEdad.setBounds(200, 520, 340, 20);
 		lblEdad.setFont(new Font("Noto Sans CJK SC", Font.BOLD, 14));
@@ -177,9 +323,6 @@ public class PanelPerfilHombre extends JPanel {
 		lblEdadUsuario.setBackground(new Color(255, 255, 255, 100));
 		lblEdadUsuario.setBorder(BorderFactory.createLineBorder(Color.WHITE));
 
-		// ============ COLUMNA DERECHA ============
-
-		// Contraseña
 		lblContrasenia = new JLabel("Nueva Contraseña:");
 		lblContrasenia.setBounds(740, 220, 340, 20);
 		lblContrasenia.setFont(new Font("Noto Sans CJK SC", Font.BOLD, 14));
@@ -189,7 +332,6 @@ public class PanelPerfilHombre extends JPanel {
 		jpfContrasenia.setBounds(740, 245, 340, 35);
 		jpfContrasenia.setFont(new Font("Noto Sans CJK SC", Font.PLAIN, 14));
 
-		// Confirmar Contraseña
 		lblConfirmarContrasenia = new JLabel("Confirmar Contraseña:");
 		lblConfirmarContrasenia.setBounds(740, 295, 340, 20);
 		lblConfirmarContrasenia.setFont(new Font("Noto Sans CJK SC", Font.BOLD, 14));
@@ -199,7 +341,6 @@ public class PanelPerfilHombre extends JPanel {
 		jpfConfirmarContrasenia.setBounds(740, 320, 340, 35);
 		jpfConfirmarContrasenia.setFont(new Font("Noto Sans CJK SC", Font.PLAIN, 14));
 
-		// Estatura
 		lblEstatura = new JLabel("Estatura (cm):");
 		lblEstatura.setBounds(740, 370, 160, 20);
 		lblEstatura.setFont(new Font("Noto Sans CJK SC", Font.BOLD, 14));
@@ -209,7 +350,6 @@ public class PanelPerfilHombre extends JPanel {
 		txtEstatura.setBounds(740, 395, 160, 35);
 		txtEstatura.setFont(new Font("Noto Sans CJK SC", Font.PLAIN, 14));
 
-		// Ingresos Mensuales
 		lblIngresosMensuales = new JLabel("Ingresos ($):");
 		lblIngresosMensuales.setBounds(920, 370, 160, 20);
 		lblIngresosMensuales.setFont(new Font("Noto Sans CJK SC", Font.BOLD, 14));
@@ -219,7 +359,6 @@ public class PanelPerfilHombre extends JPanel {
 		txtIngresosMensuales.setBounds(920, 395, 160, 35);
 		txtIngresosMensuales.setFont(new Font("Noto Sans CJK SC", Font.PLAIN, 14));
 
-		// Edad Mínima
 		lblEdadMinima = new JLabel("Edad Mínima:");
 		lblEdadMinima.setBounds(740, 445, 160, 20);
 		lblEdadMinima.setFont(new Font("Noto Sans CJK SC", Font.BOLD, 14));
@@ -229,7 +368,6 @@ public class PanelPerfilHombre extends JPanel {
 		txtEdadMinima.setBounds(740, 470, 160, 35);
 		txtEdadMinima.setFont(new Font("Noto Sans CJK SC", Font.PLAIN, 14));
 
-		// Edad Máxima
 		lblEdadMaxima = new JLabel("Edad Máxima:");
 		lblEdadMaxima.setBounds(920, 445, 160, 20);
 		lblEdadMaxima.setFont(new Font("Noto Sans CJK SC", Font.BOLD, 14));
@@ -239,7 +377,6 @@ public class PanelPerfilHombre extends JPanel {
 		txtEdadMaxima.setBounds(920, 470, 160, 35);
 		txtEdadMaxima.setFont(new Font("Noto Sans CJK SC", Font.PLAIN, 14));
 
-		// Checkbox Visibilidad
 		chkVisibilidad = new JCheckBox("Perfil visible para otros usuarios");
 		chkVisibilidad.setBounds(740, 520, 340, 30);
 		chkVisibilidad.setOpaque(false);
@@ -251,8 +388,6 @@ public class PanelPerfilHombre extends JPanel {
 		chkDivorcioPreferencia.setOpaque(false);
 		chkDivorcioPreferencia.setFont(new Font("Noto Sans CJK SC", Font.BOLD, 14));
 		chkDivorcioPreferencia.setForeground(Color.WHITE);
-
-		// ============ BOTONES CENTRADOS ============
 
 		btnActualizar = new JButton("Actualizar");
 		btnActualizar.setBounds(220, 640, 180, 45);
@@ -286,20 +421,15 @@ public class PanelPerfilHombre extends JPanel {
 		btnEliminarCuenta.setFocusPainted(false);
 		btnEliminarCuenta.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
-		// FileChooser
 		fileChooser = new JFileChooser();
 		fileChooser.setFileFilter(
 				new javax.swing.filechooser.FileNameExtensionFilter("Imágenes (JPG, PNG, JPEG)", "jpg", "jpeg", "png"));
 
-		// ============ AGREGAR COMPONENTES AL PANEL ============
-
 		this.add(lblFondo);
 
-		// Foto de perfil
 		this.add(lblFotoPerfil);
 		this.add(btnSeleccionarFoto);
 
-		// Columna Izquierda
 		this.add(lblNombre);
 		this.add(lblNombreUsuario);
 		this.add(lblApellido);
@@ -311,7 +441,6 @@ public class PanelPerfilHombre extends JPanel {
 		this.add(lblEdad);
 		this.add(lblEdadUsuario);
 
-		// Columna Derecha
 		this.add(lblContrasenia);
 		this.add(jpfContrasenia);
 		this.add(lblConfirmarContrasenia);
@@ -327,15 +456,20 @@ public class PanelPerfilHombre extends JPanel {
 		this.add(chkVisibilidad);
 		this.add(chkDivorcioPreferencia);
 
-		// Botones
 		this.add(btnActualizar);
 		this.add(btnCancelar);
 		this.add(btnCerrarSesion);
 		this.add(btnEliminarCuenta);
 	}
 
-	// ============ MÉTODO PARA SELECCIONAR IMAGEN ============
-
+	/**
+	 * Abre un cuadro de diálogo para seleccionar una imagen desde el sistema de
+	 * archivos.
+	 * <p>
+	 * Si el usuario selecciona una imagen válida, se muestra una vista previa en el
+	 * panel.
+	 * </p>
+	 */
 	private void seleccionarImagen() {
 		int resultado = fileChooser.showOpenDialog(this);
 
@@ -345,12 +479,16 @@ public class PanelPerfilHombre extends JPanel {
 		}
 	}
 
+	/**
+	 * Carga y muestra una vista previa de la imagen seleccionada.
+	 * 
+	 * @param archivo archivo de imagen seleccionado por el usuario
+	 */
 	private void cargarVistaPrevia(File archivo) {
 		try {
 			imagenActual = ImageIO.read(archivo);
 
 			if (imagenActual != null) {
-				// Escalar la imagen para que quepa en el label (120x120)
 				Image imagenEscalada = escalarImagen(imagenActual, 120, 120);
 				lblFotoPerfil.setIcon(new ImageIcon(imagenEscalada));
 				lblFotoPerfil.setText("");
@@ -363,11 +501,19 @@ public class PanelPerfilHombre extends JPanel {
 		}
 	}
 
+	/**
+	 * Escala una imagen manteniendo su proporción para ajustarla al tamaño
+	 * indicado.
+	 * 
+	 * @param img       la imagen original
+	 * @param maxWidth  ancho máximo permitido
+	 * @param maxHeight alto máximo permitido
+	 * @return la imagen escalada para adaptarse al espacio disponible
+	 */
 	private Image escalarImagen(BufferedImage img, int maxWidth, int maxHeight) {
 		int width = img.getWidth();
 		int height = img.getHeight();
 
-		// Calcular proporción manteniendo aspecto
 		double ratio = Math.min((double) maxWidth / width, (double) maxHeight / height);
 
 		int newWidth = (int) (width * ratio);
@@ -376,26 +522,49 @@ public class PanelPerfilHombre extends JPanel {
 		return img.getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH);
 	}
 
-	// ============ GETTERS Y SETTERS ============
-
-	// NUEVOS getters para la imagen
+	/**
+	 * Devuelve el archivo de imagen seleccionado por el usuario.
+	 * 
+	 * @return archivo de imagen seleccionado
+	 */
 	public File getArchivoImagenSeleccionada() {
 		return archivoImagenSeleccionada;
 	}
 
+	/**
+	 * Devuelve la imagen actualmente cargada como perfil.
+	 * 
+	 * @return imagen actual del perfil
+	 */
 	public BufferedImage getImagenActual() {
 		return imagenActual;
 	}
 
+	/**
+	 * Obtiene la etiqueta que muestra la foto de perfil del usuario.
+	 * 
+	 * @return JLabel correspondiente a la foto de perfil.
+	 */
 	public JLabel getLblFotoPerfil() {
 		return lblFotoPerfil;
 	}
 
+	/**
+	 * Obtiene el botón que permite seleccionar una nueva foto de perfil.
+	 * 
+	 * @return JButton utilizado para seleccionar una foto de perfil.
+	 */
 	public JButton getBtnSeleccionarFoto() {
 		return btnSeleccionarFoto;
 	}
 
-	// Setters para cargar imagen desde el controlador
+	/**
+	 * Establece el archivo de imagen seleccionado por el usuario y actualiza la
+	 * vista previa. Si el archivo no es nulo, se carga la imagen seleccionada en el
+	 * componente visual correspondiente.
+	 *
+	 * @param archivo Archivo de imagen seleccionado por el usuario.
+	 */
 	public void setArchivoImagenSeleccionada(File archivo) {
 		this.archivoImagenSeleccionada = archivo;
 		if (archivo != null) {
@@ -403,6 +572,11 @@ public class PanelPerfilHombre extends JPanel {
 		}
 	}
 
+	/**
+	 * Establece una nueva imagen de perfil y actualiza la vista previa.
+	 * 
+	 * @param imagen imagen a mostrar como foto de perfil
+	 */
 	public void setImagenPerfil(BufferedImage imagen) {
 		if (imagen != null) {
 			this.imagenActual = imagen;
@@ -412,254 +586,569 @@ public class PanelPerfilHombre extends JPanel {
 		}
 	}
 
+	/**
+	 * Obtiene la etiqueta de fondo del panel o ventana.
+	 * 
+	 * @return JLabel correspondiente al fondo.
+	 */
 	public JLabel getLblFondo() {
 		return lblFondo;
 	}
 
+	/**
+	 * Establece la etiqueta de fondo del panel o ventana.
+	 * 
+	 * @param lblFondo JLabel que se usará como fondo.
+	 */
 	public void setLblFondo(JLabel lblFondo) {
 		this.lblFondo = lblFondo;
 	}
 
+	/**
+	 * Obtiene la etiqueta del texto "Nombre".
+	 * 
+	 * @return JLabel del nombre.
+	 */
 	public JLabel getLblNombre() {
 		return lblNombre;
 	}
 
+	/**
+	 * Asigna la etiqueta del texto "Nombre".
+	 * 
+	 * @param lblNombre JLabel del nombre.
+	 */
 	public void setLblNombre(JLabel lblNombre) {
 		this.lblNombre = lblNombre;
 	}
 
+	/**
+	 * Obtiene la etiqueta que muestra el nombre del usuario.
+	 * 
+	 * @return JLabel con el nombre del usuario.
+	 */
 	public JLabel getLblNombreUsuario() {
 		return lblNombreUsuario;
 	}
 
+	/**
+	 * Asigna la etiqueta que muestra el nombre del usuario.
+	 * 
+	 * @param lblNombreUsuario JLabel con el nombre del usuario.
+	 */
 	public void setLblNombreUsuario(JLabel lblNombreUsuario) {
 		this.lblNombreUsuario = lblNombreUsuario;
 	}
 
+	/**
+	 * Obtiene la etiqueta del texto "Apellido".
+	 * 
+	 * @return JLabel del apellido.
+	 */
 	public JLabel getLblApellido() {
 		return lblApellido;
 	}
 
+	/**
+	 * Asigna la etiqueta del texto "Apellido".
+	 * 
+	 * @param lblApellido JLabel del apellido.
+	 */
 	public void setLblApellido(JLabel lblApellido) {
 		this.lblApellido = lblApellido;
 	}
 
+	/**
+	 * Obtiene la etiqueta que muestra el apellido del usuario.
+	 * 
+	 * @return JLabel con el apellido del usuario.
+	 */
 	public JLabel getLblApellidoUsuario() {
 		return lblApellidoUsuario;
 	}
 
+	/**
+	 * Asigna la etiqueta que muestra el apellido del usuario.
+	 * 
+	 * @param lblApellidoUsuario JLabel con el apellido del usuario.
+	 */
 	public void setLblApellidoUsuario(JLabel lblApellidoUsuario) {
 		this.lblApellidoUsuario = lblApellidoUsuario;
 	}
 
+	/**
+	 * Obtiene la etiqueta del texto "Alias".
+	 * 
+	 * @return JLabel del alias.
+	 */
 	public JLabel getLblAlias() {
 		return lblAlias;
 	}
 
+	/**
+	 * Asigna la etiqueta del texto "Alias".
+	 * 
+	 * @param lblAlias JLabel del alias.
+	 */
 	public void setLblAlias(JLabel lblAlias) {
 		this.lblAlias = lblAlias;
 	}
 
+	/**
+	 * Obtiene la etiqueta del texto "Correo electrónico".
+	 * 
+	 * @return JLabel del correo.
+	 */
 	public JLabel getLblEmail() {
 		return lblEmail;
 	}
 
+	/**
+	 * Asigna la etiqueta del texto "Correo electrónico".
+	 * 
+	 * @param lblEmail JLabel del correo.
+	 */
 	public void setLblEmail(JLabel lblEmail) {
 		this.lblEmail = lblEmail;
 	}
 
+	/**
+	 * Obtiene la etiqueta que muestra el correo electrónico del usuario.
+	 * 
+	 * @return JLabel con el correo del usuario.
+	 */
 	public JLabel getLblEmailUsuario() {
 		return lblEmailUsuario;
 	}
 
+	/**
+	 * Asigna la etiqueta que muestra el correo electrónico del usuario.
+	 * 
+	 * @param lblEmailUsuario JLabel con el correo del usuario.
+	 */
 	public void setLblEmailUsuario(JLabel lblEmailUsuario) {
 		this.lblEmailUsuario = lblEmailUsuario;
 	}
 
+	/**
+	 * Obtiene la etiqueta del texto "Edad".
+	 * 
+	 * @return JLabel de la edad.
+	 */
 	public JLabel getLblEdad() {
 		return lblEdad;
 	}
 
+	/**
+	 * Asigna la etiqueta del texto "Edad".
+	 * 
+	 * @param lblEdad JLabel de la edad.
+	 */
 	public void setLblEdad(JLabel lblEdad) {
 		this.lblEdad = lblEdad;
 	}
 
+	/**
+	 * Obtiene la etiqueta que muestra la edad del usuario.
+	 * 
+	 * @return JLabel con la edad del usuario.
+	 */
 	public JLabel getLblEdadUsuario() {
 		return lblEdadUsuario;
 	}
 
+	/**
+	 * Asigna la etiqueta que muestra la edad del usuario.
+	 * 
+	 * @param lblEdadUsuario JLabel con la edad del usuario.
+	 */
 	public void setLblEdadUsuario(JLabel lblEdadUsuario) {
 		this.lblEdadUsuario = lblEdadUsuario;
 	}
 
+	/**
+	 * Obtiene la etiqueta del texto "Contraseña".
+	 * 
+	 * @return JLabel de la contraseña.
+	 */
 	public JLabel getLblContrasenia() {
 		return lblContrasenia;
 	}
 
+	/**
+	 * Asigna la etiqueta del texto "Contraseña".
+	 * 
+	 * @param lblContrasenia JLabel de la contraseña.
+	 */
 	public void setLblContrasenia(JLabel lblContrasenia) {
 		this.lblContrasenia = lblContrasenia;
 	}
 
+	/**
+	 * Obtiene la etiqueta del texto "Confirmar contraseña".
+	 * 
+	 * @return JLabel de confirmación de contraseña.
+	 */
 	public JLabel getLblConfirmarContrasenia() {
 		return lblConfirmarContrasenia;
 	}
 
+	/**
+	 * Asigna la etiqueta del texto "Confirmar contraseña".
+	 * 
+	 * @param lblConfirmarContrasenia JLabel de confirmación de contraseña.
+	 */
 	public void setLblConfirmarContrasenia(JLabel lblConfirmarContrasenia) {
 		this.lblConfirmarContrasenia = lblConfirmarContrasenia;
 	}
 
+	/**
+	 * Obtiene la etiqueta del texto "Estatura".
+	 * 
+	 * @return JLabel de la estatura.
+	 */
 	public JLabel getLblEstatura() {
 		return lblEstatura;
 	}
 
+	/**
+	 * Asigna la etiqueta del texto "Estatura".
+	 * 
+	 * @param lblEstatura JLabel de la estatura.
+	 */
 	public void setLblEstatura(JLabel lblEstatura) {
 		this.lblEstatura = lblEstatura;
 	}
 
+	/**
+	 * Obtiene la etiqueta del texto "Ingresos mensuales".
+	 * 
+	 * @return JLabel de ingresos mensuales.
+	 */
 	public JLabel getLblIngresosMensuales() {
 		return lblIngresosMensuales;
 	}
 
+	/**
+	 * Asigna la etiqueta del texto "Ingresos mensuales".
+	 * 
+	 * @param lblIngresosMensuales JLabel de ingresos mensuales.
+	 */
 	public void setLblIngresosMensuales(JLabel lblIngresosMensuales) {
 		this.lblIngresosMensuales = lblIngresosMensuales;
 	}
 
+	/**
+	 * Obtiene la etiqueta del texto "Edad mínima".
+	 * 
+	 * @return JLabel de edad mínima.
+	 */
 	public JLabel getLblEdadMinima() {
 		return lblEdadMinima;
 	}
 
+	/**
+	 * Asigna la etiqueta del texto "Edad mínima".
+	 * 
+	 * @param lblEdadMinima JLabel de edad mínima.
+	 */
 	public void setLblEdadMinima(JLabel lblEdadMinima) {
 		this.lblEdadMinima = lblEdadMinima;
 	}
 
+	/**
+	 * Obtiene la etiqueta del texto "Edad máxima".
+	 * 
+	 * @return JLabel de edad máxima.
+	 */
 	public JLabel getLblEdadMaxima() {
 		return lblEdadMaxima;
 	}
 
+	/**
+	 * Asigna la etiqueta del texto "Edad máxima".
+	 * 
+	 * @param lblEdadMaxima JLabel de edad máxima.
+	 */
 	public void setLblEdadMaxima(JLabel lblEdadMaxima) {
 		this.lblEdadMaxima = lblEdadMaxima;
 	}
 
+	/**
+	 * Obtiene el campo de texto del alias del usuario.
+	 * 
+	 * @return JTextField del alias.
+	 */
 	public JTextField getTxtAlias() {
 		return txtAlias;
 	}
 
+	/**
+	 * Asigna el campo de texto del alias del usuario.
+	 * 
+	 * @param txtAlias JTextField del alias.
+	 */
 	public void setTxtAlias(JTextField txtAlias) {
 		this.txtAlias = txtAlias;
 	}
 
+	/**
+	 * Obtiene el campo de la contraseña.
+	 * 
+	 * @return JPasswordField de la contraseña.
+	 */
 	public JPasswordField getJpfContrasenia() {
 		return jpfContrasenia;
 	}
 
+	/**
+	 * Asigna el campo de la contraseña.
+	 * 
+	 * @param jpfContrasenia JPasswordField de la contraseña.
+	 */
 	public void setJpfContrasenia(JPasswordField jpfContrasenia) {
 		this.jpfContrasenia = jpfContrasenia;
 	}
 
+	/**
+	 * Obtiene el campo de confirmación de contraseña.
+	 * 
+	 * @return JPasswordField de confirmación.
+	 */
 	public JPasswordField getJpfConfirmarContrasenia() {
 		return jpfConfirmarContrasenia;
 	}
 
+	/**
+	 * Asigna el campo de confirmación de contraseña.
+	 * 
+	 * @param jpfConfirmarContrasenia JPasswordField de confirmación.
+	 */
 	public void setJpfConfirmarContrasenia(JPasswordField jpfConfirmarContrasenia) {
 		this.jpfConfirmarContrasenia = jpfConfirmarContrasenia;
 	}
 
+	/**
+	 * Obtiene el campo de texto de la estatura.
+	 * 
+	 * @return JTextField de estatura.
+	 */
 	public JTextField getTxtEstatura() {
 		return txtEstatura;
 	}
 
+	/**
+	 * Asigna el campo de texto de la estatura.
+	 * 
+	 * @param txtEstatura JTextField de estatura.
+	 */
 	public void setTxtEstatura(JTextField txtEstatura) {
 		this.txtEstatura = txtEstatura;
 	}
 
+	/**
+	 * Obtiene el campo de texto de los ingresos mensuales.
+	 * 
+	 * @return JTextField de ingresos mensuales.
+	 */
 	public JTextField getTxtIngresosMensuales() {
 		return txtIngresosMensuales;
 	}
 
+	/**
+	 * Asigna el campo de texto de los ingresos mensuales.
+	 * 
+	 * @param txtIngresosMensuales JTextField de ingresos mensuales.
+	 */
 	public void setTxtIngresosMensuales(JTextField txtIngresosMensuales) {
 		this.txtIngresosMensuales = txtIngresosMensuales;
 	}
 
+	/**
+	 * Obtiene el campo de texto de edad mínima preferida.
+	 * 
+	 * @return JTextField de edad mínima.
+	 */
 	public JTextField getTxtEdadMinima() {
 		return txtEdadMinima;
 	}
 
+	/**
+	 * Asigna el campo de texto de edad mínima preferida.
+	 * 
+	 * @param txtEdadMinima JTextField de edad mínima.
+	 */
 	public void setTxtEdadMinima(JTextField txtEdadMinima) {
 		this.txtEdadMinima = txtEdadMinima;
 	}
 
+	/**
+	 * Obtiene el campo de texto de edad máxima preferida.
+	 * 
+	 * @return JTextField de edad máxima.
+	 */
 	public JTextField getTxtEdadMaxima() {
 		return txtEdadMaxima;
 	}
 
+	/**
+	 * Asigna el campo de texto de edad máxima preferida.
+	 * 
+	 * @param txtEdadMaxima JTextField de edad máxima.
+	 */
 	public void setTxtEdadMaxima(JTextField txtEdadMaxima) {
 		this.txtEdadMaxima = txtEdadMaxima;
 	}
 
+	/**
+	 * Obtiene la casilla de visibilidad del perfil.
+	 * 
+	 * @return JCheckBox de visibilidad.
+	 */
 	public JCheckBox getChkVisibilidad() {
 		return chkVisibilidad;
 	}
 
+	/**
+	 * Asigna la casilla de visibilidad del perfil.
+	 * 
+	 * @param chkVisibilidad JCheckBox de visibilidad.
+	 */
 	public void setChkVisibilidad(JCheckBox chkVisibilidad) {
 		this.chkVisibilidad = chkVisibilidad;
 	}
 
+	/**
+	 * Obtiene la casilla de preferencia sobre divorcio.
+	 * 
+	 * @return JCheckBox de divorcio.
+	 */
 	public JCheckBox getChkDivorcioPreferencia() {
 		return chkDivorcioPreferencia;
 	}
 
+	/**
+	 * Asigna la casilla de preferencia sobre divorcio.
+	 * 
+	 * @param chkDivorcioPreferencia JCheckBox de divorcio.
+	 */
 	public void setChkDivorcioPreferencia(JCheckBox chkDivorcioPreferencia) {
 		this.chkDivorcioPreferencia = chkDivorcioPreferencia;
 	}
 
+	/**
+	 * Obtiene el botón para actualizar los datos del perfil.
+	 * 
+	 * @return JButton de actualización.
+	 */
 	public JButton getBtnActualizar() {
 		return btnActualizar;
 	}
 
+	/**
+	 * Asigna el botón para actualizar los datos del perfil.
+	 * 
+	 * @param btnActualizar JButton de actualización.
+	 */
 	public void setBtnActualizar(JButton btnActualizar) {
 		this.btnActualizar = btnActualizar;
 	}
 
+	/**
+	 * Obtiene el botón para cancelar los cambios realizados.
+	 * 
+	 * @return JButton de cancelación.
+	 */
 	public JButton getBtnCancelar() {
 		return btnCancelar;
 	}
 
+	/**
+	 * Asigna el botón para cancelar los cambios realizados.
+	 * 
+	 * @param btnCancelar JButton de cancelación.
+	 */
 	public void setBtnCancelar(JButton btnCancelar) {
 		this.btnCancelar = btnCancelar;
 	}
 
+	/**
+	 * Obtiene el selector de archivos usado para elegir imágenes.
+	 * 
+	 * @return JFileChooser de imágenes.
+	 */
 	public JFileChooser getFileChooser() {
 		return fileChooser;
 	}
 
+	/**
+	 * Asigna el selector de archivos usado para elegir imágenes.
+	 * 
+	 * @param fileChooser JFileChooser de imágenes.
+	 */
 	public void setFileChooser(JFileChooser fileChooser) {
 		this.fileChooser = fileChooser;
 	}
 
+	/**
+	 * Asigna la etiqueta que muestra la foto de perfil.
+	 * 
+	 * @param lblFotoPerfil JLabel de la foto de perfil.
+	 */
 	public void setLblFotoPerfil(JLabel lblFotoPerfil) {
 		this.lblFotoPerfil = lblFotoPerfil;
 	}
 
+	/**
+	 * Asigna el botón que permite seleccionar una foto de perfil.
+	 * 
+	 * @param btnSeleccionarFoto JButton de selección de foto.
+	 */
 	public void setBtnSeleccionarFoto(JButton btnSeleccionarFoto) {
 		this.btnSeleccionarFoto = btnSeleccionarFoto;
 	}
 
+	/**
+	 * Asigna la imagen actualmente mostrada en el perfil.
+	 * 
+	 * @param imagenActual BufferedImage de la imagen actual.
+	 */
 	public void setImagenActual(BufferedImage imagenActual) {
 		this.imagenActual = imagenActual;
 	}
 
+	/**
+	 * Obtiene el botón para cerrar sesión.
+	 * 
+	 * @return JButton de cierre de sesión.
+	 */
 	public JButton getBtnCerrarSesion() {
 		return btnCerrarSesion;
 	}
 
+	/**
+	 * Asigna el botón para cerrar sesión.
+	 * 
+	 * @param btnCerrarSesion JButton de cierre de sesión.
+	 */
 	public void setBtnCerrarSesion(JButton btnCerrarSesion) {
 		this.btnCerrarSesion = btnCerrarSesion;
 	}
 
+	/**
+	 * Obtiene el botón para eliminar la cuenta.
+	 * 
+	 * @return JButton de eliminación de cuenta.
+	 */
 	public JButton getBtnEliminarCuenta() {
 		return btnEliminarCuenta;
 	}
 
+	/**
+	 * Asigna el botón para eliminar la cuenta.
+	 * 
+	 * @param btnEliminarCuenta JButton de eliminación de cuenta.
+	 */
 	public void setBtnEliminarCuenta(JButton btnEliminarCuenta) {
 		this.btnEliminarCuenta = btnEliminarCuenta;
 	}

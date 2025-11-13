@@ -152,6 +152,19 @@ public class HombreDAO implements DAO<HombreDTO> {
 		return null;
 	}
 
+	/**
+	 * Busca el índice de un registro en la lista según el identificador
+	 * especificado.
+	 * <p>
+	 * Recorre la lista interna de entidades {@link Hombre} y compara su
+	 * identificador con el valor recibido. Si encuentra coincidencia, retorna la
+	 * posición del elemento en la lista.
+	 * </p>
+	 *
+	 * @param id el identificador único del {@link Hombre} que se desea buscar
+	 * @return el índice del elemento en la lista si se encuentra, o {@code null} si
+	 *         no existe ninguna coincidencia
+	 */
 	@Override
 	public int buscarIdIndice(String id) {
 		for (int i = 0; i < listaHombres.size(); i++) {
@@ -210,6 +223,14 @@ public class HombreDAO implements DAO<HombreDTO> {
 		SERIAL_FILE_NAME = sERIAL_FILE_NAME;
 	}
 
+	/**
+	 * Ordena la lista de hombres de menor a mayor según el alias utilizando el
+	 * algoritmo de ordenamiento por selección.
+	 * <p>
+	 * Este método modifica directamente la lista interna de {@link Hombre},
+	 * comparando los alias de forma lexicográfica.
+	 * </p>
+	 */
 	@Override
 	public void menorAMayorSeleccionAlias() {
 		int n = listaHombres.size();
@@ -229,6 +250,14 @@ public class HombreDAO implements DAO<HombreDTO> {
 		}
 	}
 
+	/**
+	 * Ordena la lista de hombres de mayor a menor según el alias utilizando el
+	 * algoritmo de ordenamiento por selección.
+	 * <p>
+	 * Este método modifica directamente la lista interna de {@link Hombre},
+	 * comparando los alias de forma lexicográfica descendente.
+	 * </p>
+	 */
 	@Override
 	public void mayorAMenorSeleccionAlias() {
 		int n = listaHombres.size();
@@ -248,6 +277,14 @@ public class HombreDAO implements DAO<HombreDTO> {
 		}
 	}
 
+	/**
+	 * Ordena la lista de hombres de menor a mayor según el nombre utilizando el
+	 * algoritmo de ordenamiento por selección.
+	 * <p>
+	 * Este método modifica directamente la lista interna de {@link Hombre},
+	 * comparando los nombres de forma lexicográfica.
+	 * </p>
+	 */
 	@Override
 	public void menorAMayorSeleccionNombre() {
 		int n = listaHombres.size();
@@ -267,6 +304,14 @@ public class HombreDAO implements DAO<HombreDTO> {
 		}
 	}
 
+	/**
+	 * Ordena la lista de hombres de mayor a menor según el nombre utilizando el
+	 * algoritmo de ordenamiento por selección.
+	 * <p>
+	 * Este método modifica directamente la lista interna de {@link Hombre},
+	 * comparando los nombres de forma lexicográfica descendente.
+	 * </p>
+	 */
 	@Override
 	public void mayorAMenorSeleccionNombre() {
 		int n = listaHombres.size();
@@ -286,6 +331,14 @@ public class HombreDAO implements DAO<HombreDTO> {
 		}
 	}
 
+	/**
+	 * Ordena la lista de hombres de menor a mayor según el apellido utilizando el
+	 * algoritmo de ordenamiento por selección.
+	 * <p>
+	 * Este método modifica directamente la lista interna de {@link Hombre},
+	 * comparando los apellidos de forma lexicográfica.
+	 * </p>
+	 */
 	@Override
 	public void menorAMayorSeleccionApellido() {
 		int n = listaHombres.size();
@@ -305,6 +358,14 @@ public class HombreDAO implements DAO<HombreDTO> {
 		}
 	}
 
+	/**
+	 * Ordena la lista de hombres de mayor a menor según el apellido utilizando el
+	 * algoritmo de ordenamiento por selección.
+	 * <p>
+	 * Este método modifica directamente la lista interna de {@link Hombre},
+	 * comparando los apellidos de forma lexicográfica descendente.
+	 * </p>
+	 */
 	@Override
 	public void mayorAMenorSeleccionApellido() {
 		int n = listaHombres.size();
@@ -324,6 +385,15 @@ public class HombreDAO implements DAO<HombreDTO> {
 		}
 	}
 
+	/**
+	 * Ordena la lista de hombres de mayor a menor según la cantidad de "likes"
+	 * utilizando el algoritmo de ordenamiento por inserción.
+	 * <p>
+	 * Este método modifica directamente la lista interna de {@link Hombre},
+	 * ordenando los elementos de forma que los que tienen mayor cantidad de "likes"
+	 * aparezcan primero.
+	 * </p>
+	 */
 	@Override
 	public void mayorAMenorInsercionCantLike() {
 		int n = listaHombres.size();
@@ -339,6 +409,15 @@ public class HombreDAO implements DAO<HombreDTO> {
 		}
 	}
 
+	/**
+	 * Ordena la lista de hombres de menor a mayor según la cantidad de "likes"
+	 * utilizando el algoritmo de ordenamiento por inserción.
+	 * <p>
+	 * Este método modifica directamente la lista interna de {@link Hombre},
+	 * ordenando los elementos de forma que los que tienen menor cantidad de "likes"
+	 * aparezcan primero.
+	 * </p>
+	 */
 	@Override
 	public void menorAMayorInsercionCantLike() {
 		int n = listaHombres.size();
@@ -354,6 +433,14 @@ public class HombreDAO implements DAO<HombreDTO> {
 		}
 	}
 
+	/**
+	 * Ordena la lista de hombres de mayor a menor según la edad utilizando el
+	 * algoritmo de ordenamiento por inserción.
+	 * <p>
+	 * Este método modifica directamente la lista interna de {@link Hombre},
+	 * ordenando los elementos de forma que los de mayor edad aparezcan primero.
+	 * </p>
+	 */
 	@Override
 	public void mayorAMenorInsercionEdad() {
 		int n = listaHombres.size();
@@ -369,6 +456,14 @@ public class HombreDAO implements DAO<HombreDTO> {
 		}
 	}
 
+	/**
+	 * Ordena la lista de hombres de menor a mayor según la edad utilizando el
+	 * algoritmo de ordenamiento por inserción.
+	 * <p>
+	 * Este método modifica directamente la lista interna de {@link Hombre},
+	 * ordenando los elementos de forma que los de menor edad aparezcan primero.
+	 * </p>
+	 */
 	@Override
 	public void menorAMayorInsercionEdad() {
 		int n = listaHombres.size();
@@ -383,7 +478,16 @@ public class HombreDAO implements DAO<HombreDTO> {
 			listaHombres.set(j + 1, key);
 		}
 	}
-	
+
+	/**
+	 * Ordena la lista de hombres de mayor a menor según el ingreso mensual
+	 * utilizando el algoritmo de ordenamiento por inserción.
+	 * <p>
+	 * Este método modifica directamente la lista interna de {@link Hombre},
+	 * ordenando los elementos de forma que los que tienen mayor ingreso mensual
+	 * aparezcan primero.
+	 * </p>
+	 */
 	public void mayorAMenorInsercionIngreso() {
 		int n = listaHombres.size();
 		for (int i = 1; i < n; ++i) {
@@ -398,6 +502,15 @@ public class HombreDAO implements DAO<HombreDTO> {
 		}
 	}
 
+	/**
+	 * Ordena la lista de hombres de menor a mayor según el ingreso mensual
+	 * utilizando el algoritmo de ordenamiento por inserción.
+	 * <p>
+	 * Este método modifica directamente la lista interna de {@link Hombre},
+	 * ordenando los elementos de forma que los que tienen menor ingreso mensual
+	 * aparezcan primero.
+	 * </p>
+	 */
 	public void menorAMayorInsercionIngreso() {
 		int n = listaHombres.size();
 		for (int i = 1; i < n; ++i) {

@@ -184,13 +184,4 @@ public class DataMapper {
 		return entity;
 	}
 
-	/**
-	 * Convierte un objeto {@link DislikeDTO} en su entidad {@link Dislike}
-	 * correspondiente.
-	 * 
-	 * @param dto objeto {@link DislikeDTO}
-	 * @return entidad {@link Dislike}
-	 */
-
-
 }

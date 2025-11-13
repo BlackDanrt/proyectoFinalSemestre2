@@ -34,13 +34,82 @@ import co.edu.unbosque.util.exception.NumeroInvalidoException;
 import co.edu.unbosque.util.exception.StringInvalidoException;
 import co.edu.unbosque.view.ViewFacade;
 
+/**
+ * Clase principal del controlador del sistema BosTinder.
+ * <p>
+ * Esta clase implementa el patrón de diseño <b>MVC</b>
+ * (Modelo-Vista-Controlador) y actúa como intermediario entre la vista
+ * ({@link co.edu.unbosque.view.ViewFacade}) y el modelo
+ * ({@link co.edu.unbosque.model.ModelFacade}).
+ * </p>
+ *
+ * <p>
+ * <b>Responsabilidades principales:</b>
+ * </p>
+ * <ul>
+ * <li>Escuchar y gestionar los eventos de la interfaz gráfica implementando
+ * {@link java.awt.event.ActionListener}.</li>
+ * <li>Coordinar las operaciones entre la vista y el modelo.</li>
+ * <li>Manejar la lógica de registro, autenticación, idioma, y modo oscuro.</li>
+ * <li>Controlar el flujo entre los distintos paneles de la aplicación.</li>
+ * </ul>
+ *
+ * <p>
+ * <b>Componentes principales:</b>
+ * </p>
+ * <ul>
+ * <li>{@link co.edu.unbosque.model.ModelFacade}: Manejo de los datos del
+ * sistema (usuarios, correos, archivos, etc.).</li>
+ * <li>{@link co.edu.unbosque.view.ViewFacade}: Representación visual de la
+ * interfaz y sus paneles.</li>
+ * </ul>
+ *
+ * <p>
+ * <b>Excepciones manejadas:</b>
+ * </p>
+ * <ul>
+ * <li>{@link co.edu.unbosque.util.exception.CorreoInvalidoException}</li>
+ * <li>{@link co.edu.unbosque.util.exception.AliasExistenteException}</li>
+ * <li>{@link co.edu.unbosque.util.exception.ContraseniaDebilException}</li>
+ * <li>{@link co.edu.unbosque.util.exception.ContraseniaDiferenteException}</li>
+ * <li>{@link co.edu.unbosque.util.exception.NumeroInvalidoException}</li>
+ * <li>{@link co.edu.unbosque.util.exception.StringInvalidoException}</li>
+ * <li>{@link co.edu.unbosque.util.exception.FechaNacimientoInvalidaException}</li>
+ * </ul>
+ *
+ * <p>
+ * Además, el controlador se encarga de mantener sincronizados los textos de la
+ * interfaz según el idioma seleccionado y de gestionar la personalización
+ * visual del usuario (foto de perfil, alias, etc.).
+ * </p>
+ *
+ * @author
+ * @version Juan Martinez
+ */
 public class Controlador implements ActionListener {
 
+	/** Fachada que centraliza la lógica del modelo. */
 	private ModelFacade mf;
+
+	/** Fachada que gestiona la interfaz gráfica del usuario. */
 	private ViewFacade vf;
+
+	/**
+	 * Archivo de propiedades que contiene las cadenas de texto del idioma actual.
+	 */
 	private Properties propIdioma;
+
+	/** Archivo de propiedades con la configuración general del programa. */
 	private Properties propConfig;
 
+	/**
+	 * Crea un nuevo controlador del sistema BosTinder.
+	 * <p>
+	 * Este constructor inicializa las fachadas del modelo y la vista, carga los
+	 * archivos de configuración e idioma, establece el idioma actual en la interfaz
+	 * y configura los oyentes y textos de los paneles.
+	 * </p>
+	 */
 	public Controlador() {
 		mf = new ModelFacade();
 		vf = new ViewFacade();
@@ -52,6 +121,35 @@ public class Controlador implements ActionListener {
 		cadenasTextoPaneles();
 	}
 
+	/**
+	 * Inicializa y muestra la interfaz gráfica principal del sistema BosTinder.
+	 * <p>
+	 * Este método configura los distintos paneles de la aplicación, definiendo su
+	 * posición, tamaño y visibilidad inicial dentro del {@code JLayeredPane}.
+	 * Además, se encarga de refrescar la vista y hacer visible la ventana
+	 * principal.
+	 * </p>
+	 *
+	 * <p>
+	 * Los paneles gestionados incluyen:
+	 * </p>
+	 * <ul>
+	 * <li>Panel de inicio de sesión</li>
+	 * <li>Panel de banner</li>
+	 * <li>Panel de selección de género</li>
+	 * <li>Panel de registro</li>
+	 * <li>Panel de código de verificación</li>
+	 * <li>Panel principal con scroll</li>
+	 * <li>Panel de perfil (hombre y mujer)</li>
+	 * <li>Panel de administración</li>
+	 * </ul>
+	 *
+	 * <p>
+	 * Cada panel se agrega a la capa de paleta ({@code JLayeredPane.PALETTE_LAYER})
+	 * y, excepto los de inicio y banner, se mantienen ocultos hasta que sean
+	 * requeridos.
+	 * </p>
+	 */
 	public void runGUI() {
 
 		// Panel iniciar sesion
@@ -102,6 +200,32 @@ public class Controlador implements ActionListener {
 
 	}
 
+	/**
+	 * Inicializa la configuración general de la aplicación BosTinder.
+	 * <p>
+	 * Este método aplica el modo visual (oscuro o claro) y el idioma guardado en el
+	 * archivo {@code config.properties}. También establece valores por defecto para
+	 * ciertos parámetros, como el índice mostrado y el estado de inicio de sesión.
+	 * </p>
+	 *
+	 * <p>
+	 * Los posibles idiomas configurables son:
+	 * </p>
+	 * <ul>
+	 * <li>Español (ES)</li>
+	 * <li>Inglés (US)</li>
+	 * <li>Portugués (BR)</li>
+	 * <li>Ruso (RU)</li>
+	 * <li>Chino (CN)</li>
+	 * <li>Hebreo (IL)</li>
+	 * </ul>
+	 *
+	 * <p>
+	 * Después de aplicar los cambios, la configuración se guarda nuevamente en el
+	 * archivo de propiedades.
+	 * </p>
+	 *
+	 */
 	public void inicializarConfig() {
 		boolean modoOscuro = Boolean.parseBoolean(propConfig.getProperty("proyectoFinalSemestre2.modoOscuro"));
 		if (modoOscuro) {
@@ -147,6 +271,26 @@ public class Controlador implements ActionListener {
 
 	}
 
+	/**
+	 * Alterna entre el modo oscuro y el modo claro de la interfaz.
+	 * <p>
+	 * Este método verifica el valor actual del modo visual en el archivo
+	 * {@code config.properties}, cambia su valor (de verdadero a falso o
+	 * viceversa), actualiza el archivo y aplica el nuevo tema visual en la
+	 * interfaz.
+	 * </p>
+	 *
+	 * <p>
+	 * Si ocurre un error al leer o escribir en el archivo de configuración, se
+	 * captura y muestra la excepción en la consola.
+	 * </p>
+	 *
+	 * @throws InputMismatchException Si el valor del modo oscuro en el archivo de
+	 *                                propiedades no es válido para conversión
+	 *                                booleana.
+	 * @throws IOException            Si ocurre un error al guardar los cambios en
+	 *                                el archivo de configuración.
+	 */
 	public void modoOscuro() {
 		boolean modoOscuro = Boolean.parseBoolean(propConfig.getProperty("proyectoFinalSemestre2.modoOscuro"));
 		try {
@@ -167,6 +311,29 @@ public class Controlador implements ActionListener {
 		}
 	}
 
+	/**
+	 * Cambia el idioma de la interfaz según la opción seleccionada en el combo box
+	 * de idiomas. Carga el archivo de propiedades correspondiente, actualiza el
+	 * archivo de configuración con el nuevo código de idioma y refresca todos los
+	 * textos visibles en la interfaz.
+	 * <p>
+	 * Además, si un usuario tiene sesión iniciada, vuelve a mostrar la persona
+	 * correspondiente y actualiza el panel de perfil si está visible.
+	 * </p>
+	 *
+	 * <p>
+	 * Idiomas soportados:
+	 * </p>
+	 * <ul>
+	 * <li>Español (ES)</li>
+	 * <li>Inglés (US)</li>
+	 * <li>Portugués (BR)</li>
+	 * <li>Ruso (RU)</li>
+	 * <li>Chino (CN)</li>
+	 * <li>Hebreo (IL)</li>
+	 * </ul>
+	 *
+	 */
 	public void idioma() {
 
 		String idioma = String.valueOf(vf.getpBan().getCmbIdioma().getSelectedItem());
@@ -227,6 +394,34 @@ public class Controlador implements ActionListener {
 		vf.refrescarVista();
 	}
 
+	/**
+	 * Inicia el proceso de inicio de sesión de un usuario o del administrador.
+	 * <p>
+	 * Verifica las credenciales ingresadas en el panel de inicio de sesión. Si las
+	 * credenciales corresponden al administrador, se muestra el panel
+	 * administrativo con el modo de orden configurado (ascendente o descendente).
+	 * En caso contrario, se validan las credenciales contra las listas de usuarios
+	 * (hombres y mujeres) registradas en el sistema.
+	 * </p>
+	 *
+	 * <p>
+	 * Si el inicio de sesión es exitoso:
+	 * <ul>
+	 * <li>Se muestra un mensaje de confirmación.</li>
+	 * <li>Si el usuario está verificado, se abre el panel principal.</li>
+	 * <li>Si el usuario no está verificado, se genera un código de verificación de
+	 * 6 dígitos y se envía por correo electrónico.</li>
+	 * <li>Se actualiza el archivo <code>config.properties</code> con los datos del
+	 * usuario, como su ID, género, estado de sesión e índice mostrado.</li>
+	 * </ul>
+	 * </p>
+	 *
+	 * <p>
+	 * Si el inicio de sesión falla, se muestra un mensaje de error con el idioma
+	 * actualmente seleccionado.
+	 * </p>
+	 *
+	 */
 	public void iniciarSesion() {
 		String correo = vf.getpInic().getTxtEmail().getText();
 		String contrasenia = vf.getpInic().getJpfContrasenia().getText();
@@ -335,6 +530,57 @@ public class Controlador implements ActionListener {
 
 		}
 	}
+
+	/**
+	 * Registra un nuevo usuario (hombre o mujer) en el sistema.
+	 * <p>
+	 * Este método recopila la información ingresada en el panel de registro, valida
+	 * los datos mediante la clase {@link LanzadorDeExcepcion}, y crea un objeto
+	 * {@link HombreDTO} o {@link MujerDTO} dependiendo del parámetro
+	 * {@code esHombre}.
+	 * </p>
+	 *
+	 * <p>
+	 * El proceso de registro incluye:
+	 * <ul>
+	 * <li>Validar los campos de texto: nombre, apellido, alias, correo y
+	 * contraseña.</li>
+	 * <li>Verificar la fecha de nacimiento y calcular la edad del usuario.</li>
+	 * <li>Comprobar que el alias y el correo no estén registrados previamente.</li>
+	 * <li>Enviar un correo de confirmación usando {@link CorreoDTO} para verificar
+	 * la validez del correo electrónico.</li>
+	 * <li>Registrar al usuario en la base de datos si el correo fue enviado
+	 * exitosamente.</li>
+	 * <li>Mostrar mensajes informativos o de error en función del resultado.</li>
+	 * </ul>
+	 * </p>
+	 *
+	 * <p>
+	 * Si el registro se completa correctamente, el panel de registro se oculta, se
+	 * muestra el panel de inicio de sesión y se actualiza la interfaz con
+	 * {@link ViewFacade#refrescarVista()}.
+	 * </p>
+	 *
+	 * @param esHombre {@code true} si el registro corresponde a un hombre,
+	 *                 {@code false} si corresponde a una mujer.
+	 * 
+	 * @throws StringInvalidoException          Si alguno de los textos ingresados
+	 *                                          es inválido o está vacío.
+	 * @throws FechaNacimientoInvalidaException Si la fecha de nacimiento no tiene
+	 *                                          un formato válido o la edad no es
+	 *                                          coherente.
+	 * @throws CorreoInvalidoException          Si el formato del correo electrónico
+	 *                                          es incorrecto.
+	 * @throws CorreoExistenteException         Si el correo electrónico ya está
+	 *                                          registrado en el sistema.
+	 * @throws AliasExistenteException          Si el alias ingresado ya existe en
+	 *                                          la base de datos.
+	 * @throws ContraseniaDiferenteException    Si las contraseñas ingresadas no
+	 *                                          coinciden.
+	 * @throws ContraseniaDebilException        Si la contraseña no cumple los
+	 *                                          criterios mínimos de seguridad.
+	 *
+	 */
 
 	public void registrarse(boolean esHombre) {
 		/*
@@ -446,28 +692,41 @@ public class Controlador implements ActionListener {
 
 	}
 
+	/**
+	 * Obtiene la ruta de la imagen seleccionada por el usuario en el formulario de
+	 * registro.
+	 * <p>
+	 * Si el usuario no selecciona ninguna imagen, retorna la ruta por defecto
+	 * <code>"files/default.png"</code>. En caso de que haya una imagen
+	 * seleccionada, esta se copia a la carpeta <code>pfp</code> (creándola si no
+	 * existe) y se retorna la ruta relativa del nuevo archivo.
+	 * </p>
+	 *
+	 * @return La ruta relativa de la imagen guardada, o
+	 *         <code>"files/default.png"</code> si no se seleccionó ninguna imagen o
+	 *         ocurrió un error.
+	 *
+	 * @throws IOException Si ocurre un error al copiar la imagen seleccionada a la
+	 *                     carpeta <code>pfp</code>.
+	 *
+	 */
 	public String tomarRutaFoto() {
 
 		File archivoSeleccionado = vf.getpReg().getArchivoImagenSeleccionada();
 
-		// Verificar si hay una imagen seleccionada
 		if (archivoSeleccionado == null) {
-			// No se seleccionó ninguna imagen, retornar default
+
 			return "files/default.png";
 		}
 
 		try {
-			// Crear carpeta pfp si no existe
 			File carpetaFiles = new File("pfp");
 
-			// Crear archivo de destino dentro de esa carpeta
 			String nombreArchivo = archivoSeleccionado.getName();
 			File destino = new File(carpetaFiles, nombreArchivo);
 
-			// Copiar imagen seleccionada a la carpeta pfp
 			Files.copy(archivoSeleccionado.toPath(), destino.toPath(), StandardCopyOption.REPLACE_EXISTING);
 
-			// Retornar ruta relativa
 			return "pfp/" + nombreArchivo;
 
 		} catch (IOException e) {
@@ -478,6 +737,24 @@ public class Controlador implements ActionListener {
 		}
 	}
 
+	/**
+	 * Verifica el código de confirmación ingresado por el usuario tras el registro.
+	 * <p>
+	 * Compara el código ingresado en los campos del panel de verificación con el
+	 * valor almacenado en <code>config.properties</code>. Si el código es correcto,
+	 * actualiza el estado de verificación del usuario (hombre o mujer) en su
+	 * respectiva lista dentro del DAO y muestra la interfaz principal.
+	 * </p>
+	 *
+	 * <p>
+	 * Si el código no coincide, muestra un mensaje de error indicando que la
+	 * verificación falló.
+	 * </p>
+	 *
+	 * @throws IOException Si ocurre un error al acceder o modificar los archivos de
+	 *                     configuración.
+	 *
+	 */
 	public void verificarCodigo() {
 		String codigo = propConfig.getProperty("proyectoFinalSemestre2.cddvf");
 		StringBuilder sb = new StringBuilder();
@@ -517,6 +794,32 @@ public class Controlador implements ActionListener {
 			vf.refrescarVista();
 		}
 	}
+
+	/**
+	 * Muestra en la interfaz la información de la persona correspondiente al índice
+	 * indicado, según las preferencias del usuario actualmente autenticado.
+	 * <p>
+	 * Si el usuario es una mujer, se muestra un perfil de hombre que cumpla con sus
+	 * preferencias de edad y estatura. Si el usuario es un hombre, se muestra un
+	 * perfil de mujer que cumpla con sus preferencias de edad y estado civil.
+	 * </p>
+	 *
+	 * <p>
+	 * Si la persona en la posición indicada no cumple con las condiciones de
+	 * compatibilidad, el método incrementa el índice (mediante
+	 * {@link #aumentarContador()}) y vuelve a intentar mostrar el siguiente perfil
+	 * disponible.
+	 * </p>
+	 *
+	 * <p>
+	 * Además, este método se encarga de ajustar las imágenes (perfil y atributos),
+	 * convertir los valores de ingresos según el idioma configurado, y actualizar
+	 * la vista principal del programa.
+	 * </p>
+	 *
+	 * @param indice índice en la lista de usuarios a mostrar.
+	 *
+	 */
 
 	public void mostrarPersona(int indice) {
 		vf.getpScr().ocultarAtributos();
@@ -591,6 +894,17 @@ public class Controlador implements ActionListener {
 		vf.refrescarVista();
 	}
 
+	/**
+	 * Registra un "me gusta" (smash) sobre la persona actualmente mostrada,
+	 * dependiendo del género del usuario configurado.
+	 * <p>
+	 * Si el usuario es mujer, incrementa el contador de "likes" del
+	 * {@link HombreDTO} actual; si el usuario es hombre, lo hace en el
+	 * {@link MujerDTO}.
+	 * </p>
+	 * Tras registrar el "me gusta", el método avanza al siguiente perfil
+	 * disponible.
+	 */
 	public void smash() {
 		int contador = Integer.parseInt(propConfig.getProperty("proyectoFinalSemestre2.indiceMostrar"));
 
@@ -608,10 +922,30 @@ public class Controlador implements ActionListener {
 		aumentarContador();
 	}
 
+	/**
+	 * Omite (pasa) el perfil actual y muestra el siguiente disponible.
+	 * <p>
+	 * Este método no realiza ninguna acción sobre los datos del perfil actual;
+	 * simplemente avanza el índice de visualización.
+	 * </p>
+	 */
+
 	public void pass() {
 		aumentarContador();
 	}
 
+	/**
+	 * Incrementa el índice del perfil mostrado actualmente y lo guarda en el
+	 * archivo de configuración.
+	 * <p>
+	 * Si se alcanza el final de la lista de perfiles del género correspondiente, el
+	 * contador se reinicia a 0.
+	 * </p>
+	 * <p>
+	 * Este valor se almacena en el archivo <code>config.properties</code> bajo la
+	 * clave <code>proyectoFinalSemestre2.indiceMostrar</code>.
+	 * </p>
+	 */
 	public void aumentarContador() {
 		int contador = Integer.parseInt(propConfig.getProperty("proyectoFinalSemestre2.indiceMostrar"));
 		contador++;
@@ -628,6 +962,18 @@ public class Controlador implements ActionListener {
 		}
 	}
 
+	/**
+	 * Establece el género del usuario en el archivo de configuración.
+	 * <p>
+	 * Este valor determina si el usuario es considerado hombre o mujer en el
+	 * contexto de la aplicación, y se guarda en el archivo
+	 * <code>config.properties</code> bajo la clave
+	 * <code>proyectoFinalSemestre2.generoHombre</code>.
+	 * </p>
+	 *
+	 * @param esHombre {@code true} si el usuario es hombre, {@code false} si es
+	 *                 mujer.
+	 */
 	public void generoSeleccionadoHombre(boolean esHombre) {
 		propConfig.setProperty("proyectoFinalSemestre2.generoHombre", "" + esHombre + "");
 		try {
@@ -636,6 +982,20 @@ public class Controlador implements ActionListener {
 		}
 	}
 
+	/**
+	 * Carga los datos del perfil del usuario hombre desde el modelo y los muestra
+	 * en la interfaz gráfica correspondiente.
+	 * <p>
+	 * Obtiene la información del {@link HombreDTO} asociado al ID guardado en las
+	 * propiedades de configuración y actualiza todos los campos visibles del panel
+	 * de perfil de hombre, incluyendo nombre, alias, edad, estatura, ingresos,
+	 * preferencias de edad y visibilidad del perfil.
+	 * </p>
+	 * <p>
+	 * Además, carga la foto de perfil asociada al usuario y la establece en el
+	 * componente visual correspondiente.
+	 * </p>
+	 */
 	public void perfilHombre() {
 		HombreDTO dto = mf.getHombreDao().buscarId(propConfig.getProperty("proyectoFinalSemestre2.id"));
 		vf.getpPH().getLblNombreUsuario().setText(dto.getNombre());
@@ -658,6 +1018,20 @@ public class Controlador implements ActionListener {
 		vf.getpPH().setArchivoImagenSeleccionada(archivoImagen);
 	}
 
+	/**
+	 * Carga los datos del perfil del usuario mujer desde el modelo y los muestra en
+	 * la interfaz gráfica correspondiente.
+	 * <p>
+	 * Obtiene la información del {@link MujerDTO} asociada al ID guardado en las
+	 * propiedades de configuración y actualiza todos los campos visibles del panel
+	 * de perfil de mujer, incluyendo nombre, alias, edad, estatura, estatura ideal,
+	 * rango de edad preferido, visibilidad y estado civil (divorciada o no).
+	 * </p>
+	 * <p>
+	 * Además, carga la foto de perfil asociada al usuario y la establece en el
+	 * componente visual correspondiente.
+	 * </p>
+	 */
 	public void perfilMujer() {
 		MujerDTO dto = mf.getMujerDao().buscarId(propConfig.getProperty("proyectoFinalSemestre2.id"));
 		vf.getpPM().getLblNombreUsuario().setText(dto.getNombre());
@@ -679,6 +1053,32 @@ public class Controlador implements ActionListener {
 		vf.getpPM().setArchivoImagenSeleccionada(archivoImagen);
 	}
 
+	/**
+	 * Actualiza la información del perfil de un usuario hombre con los nuevos datos
+	 * ingresados en el panel de perfil.
+	 * <p>
+	 * Este método obtiene los valores actuales del formulario, realiza
+	 * verificaciones de validez (como coincidencia de contraseñas, formato
+	 * numérico, fortaleza de contraseña y existencia del alias), y luego crea un
+	 * nuevo {@link HombreDTO} con los datos actualizados.
+	 * </p>
+	 * <p>
+	 * Finalmente, actualiza el registro correspondiente en el DAO, muestra un
+	 * mensaje de éxito al usuario y cambia la vista al panel principal.
+	 * </p>
+	 *
+	 * @throws InputMismatchException             si se ingresan valores no válidos
+	 *                                            en campos numéricos.
+	 * @throws AliasExistenteActualizadoException si el alias ingresado ya está en
+	 *                                            uso por otro usuario.
+	 * @throws ContraseniaDiferenteException      si las contraseñas no coinciden.
+	 * @throws ContraseniaDebilException          si la contraseña no cumple con los
+	 *                                            requisitos mínimos de seguridad.
+	 * @throws NumeroInvalidoException            si los valores numéricos no
+	 *                                            cumplen con el formato o rango
+	 *                                            esperado.
+	 *
+	 */
 	public void actualizarHombre() {
 
 		try {
@@ -758,28 +1158,34 @@ public class Controlador implements ActionListener {
 
 	}
 
+	/**
+	 * Copia la imagen seleccionada por el usuario en la carpeta "pfp" del proyecto
+	 * y devuelve la ruta donde se almacenó la imagen.
+	 * <p>
+	 * Si el usuario no selecciona ninguna imagen, se devuelve la ruta por defecto
+	 * {@code "files/default.png"}.
+	 * </p>
+	 *
+	 * @return la ruta de la imagen copiada dentro de la carpeta "pfp", o la ruta
+	 *         por defecto si no se seleccionó ninguna imagen o si ocurre un error.
+	 */
 	public String tomarRutaFotoHombre() {
-		// Obtener el archivo seleccionado del panel
+
 		File archivoSeleccionado = vf.getpPH().getArchivoImagenSeleccionada();
 
-		// Verificar si hay una imagen seleccionada
 		if (archivoSeleccionado == null) {
-			// No se seleccionó ninguna imagen, retornar default
 			return "files/default.png";
 		}
 
 		try {
-			// Crear carpeta pfp si no existe
+
 			File carpetaFiles = new File("pfp");
 
-			// Crear archivo de destino dentro de esa carpeta
 			String nombreArchivo = archivoSeleccionado.getName();
 			File destino = new File(carpetaFiles, nombreArchivo);
 
-			// Copiar imagen seleccionada a la carpeta pfp
 			Files.copy(archivoSeleccionado.toPath(), destino.toPath(), StandardCopyOption.REPLACE_EXISTING);
 
-			// Retornar ruta relativa
 			return "pfp/" + nombreArchivo;
 
 		} catch (IOException e) {
@@ -790,6 +1196,29 @@ public class Controlador implements ActionListener {
 		}
 	}
 
+	/**
+	 * Actualiza la información de una mujer registrada en el sistema utilizando los
+	 * datos ingresados en la interfaz gráfica.
+	 * <p>
+	 * Se validan los datos antes de ser actualizados, incluyendo alias,
+	 * contraseñas, números y valores booleanos. Si ocurre algún error de validación
+	 * o formato, se muestra un mensaje de error al usuario.
+	 * </p>
+	 * <p>
+	 * Si la actualización es exitosa, la vista de perfil se oculta y se muestra la
+	 * vista principal.
+	 * </p>
+	 *
+	 * @throws InputMismatchException             si algún campo numérico contiene
+	 *                                            caracteres inválidos.
+	 * @throws AliasExistenteActualizadoException si el alias ingresado ya existe en
+	 *                                            otro registro.
+	 * @throws ContraseniaDiferenteException      si las contraseñas no coinciden.
+	 * @throws ContraseniaDebilException          si la contraseña no cumple con los
+	 *                                            requisitos mínimos.
+	 * @throws NumeroInvalidoException            si algún número ingresado no es
+	 *                                            válido.
+	 */
 	public void actualizarMujer() {
 
 		try {
@@ -866,28 +1295,36 @@ public class Controlador implements ActionListener {
 
 	}
 
+	/**
+	 * Copia la imagen seleccionada por el usuario en la carpeta {@code "pfp"} del
+	 * proyecto y devuelve la ruta donde se almacenó la imagen.
+	 * <p>
+	 * Si el usuario no selecciona ninguna imagen, se devuelve la ruta por defecto
+	 * {@code "files/default.png"}.
+	 * </p>
+	 *
+	 * @return la ruta de la imagen copiada dentro de la carpeta {@code "pfp"}, o la
+	 *         ruta por defecto si no se seleccionó ninguna imagen o si ocurre un
+	 *         error.
+	 */
 	public String tomarRutaFotoMujer() {
-		// Obtener el archivo seleccionado del panel
+
 		File archivoSeleccionado = vf.getpPM().getArchivoImagenSeleccionada();
 
-		// Verificar si hay una imagen seleccionada
 		if (archivoSeleccionado == null) {
-			// No se seleccionó ninguna imagen, retornar default
+
 			return "files/default.png";
 		}
 
 		try {
-			// Crear carpeta pfp si no existe
+
 			File carpetaFiles = new File("pfp");
 
-			// Crear archivo de destino dentro de esa carpeta
 			String nombreArchivo = archivoSeleccionado.getName();
 			File destino = new File(carpetaFiles, nombreArchivo);
 
-			// Copiar imagen seleccionada a la carpeta pfp
 			Files.copy(archivoSeleccionado.toPath(), destino.toPath(), StandardCopyOption.REPLACE_EXISTING);
 
-			// Retornar ruta relativa
 			return "pfp/" + nombreArchivo;
 
 		} catch (IOException e) {
@@ -898,6 +1335,21 @@ public class Controlador implements ActionListener {
 		}
 	}
 
+	/**
+	 * Elimina la cuenta del usuario actualmente autenticado, ya sea hombre o mujer,
+	 * previa confirmación del usuario mediante un cuadro de diálogo.
+	 * <p>
+	 * Si el usuario confirma la eliminación, se elimina el registro correspondiente
+	 * del DAO y se restablece la interfaz gráfica al estado inicial de inicio de
+	 * sesión. Además, se actualiza el archivo de configuración para indicar que no
+	 * hay sesión activa.
+	 * </p>
+	 *
+	 * <p>
+	 * En caso de error de escritura del archivo {@code config.properties}, se
+	 * ignora la excepción.
+	 * </p>
+	 */
 	public void eliminarCuenta() {
 
 		if (Boolean.parseBoolean(propConfig.getProperty("proyectoFinalSemestre2.generoUsuarioHombre")) == true) {
@@ -938,6 +1390,22 @@ public class Controlador implements ActionListener {
 		}
 	}
 
+	/**
+	 * Alterna el modo de ordenamiento (ascendente o descendente) de los datos en la
+	 * vista principal.
+	 * <p>
+	 * Si el modo actual es ascendente, cambia al modo descendente y viceversa. El
+	 * nuevo estado se almacena en el archivo de configuración
+	 * {@code config.properties} bajo la propiedad
+	 * {@code "proyectoFinalSemestre2.modoAscendente"}.
+	 * </p>
+	 *
+	 * <p>
+	 * Este método invoca las funciones {@link vf#ordenAscendente()} y
+	 * {@link vf#ordenDescendente()} según el estado actual del modo de
+	 * ordenamiento.
+	 * </p>
+	 */
 	public void filtrarOrden() {
 		boolean modoAscendente = Boolean.parseBoolean(propConfig.getProperty("proyectoFinalSemestre2.modoAscendente"));
 		if (modoAscendente) {
@@ -956,6 +1424,31 @@ public class Controlador implements ActionListener {
 
 	}
 
+	/**
+	 * Aplica los filtros y el ordenamiento seleccionados por el administrador en la
+	 * interfaz.
+	 * <p>
+	 * Dependiendo de la opción seleccionada en el combo {@code CmbFiltro}, el
+	 * método muestra los resultados filtrados o ordenados en el panel de
+	 * administración.
+	 * </p>
+	 *
+	 * <ul>
+	 * <li><b>Alias, Nombre, Apellido, Likes, Edad:</b> Aplica orden ascendente o
+	 * descendente según configuración.</li>
+	 * <li><b>Top 10 Likes:</b> Muestra los 10 usuarios (hombres o mujeres) con más
+	 * likes.</li>
+	 * <li><b>Ingresos:</b> Muestra los hombres con ingresos mensuales mayores o
+	 * iguales a 245.</li>
+	 * </ul>
+	 *
+	 * <p>
+	 * También controla la visibilidad de los botones y combos de filtro del panel
+	 * de administrador según la selección actual. Los cambios se reflejan
+	 * visualmente en la interfaz mediante los métodos {@code mostrarHombre()} y
+	 * {@code mostrarMujer()}.
+	 * </p>
+	 */
 	public void filtrarAdministrador() {
 		vf.getpAdmin().getBtnOrden().setVisible(true);
 		vf.getpAdmin().getCmbGenero().setVisible(true);
@@ -1043,6 +1536,38 @@ public class Controlador implements ActionListener {
 
 	}
 
+	/**
+	 * Maneja los eventos de acción generados por los distintos componentes de la
+	 * interfaz gráfica.
+	 * <p>
+	 * Este método se ejecuta automáticamente cuando ocurre una acción asociada a un
+	 * botón, menú u otro componente con un comando específico. Según el comando
+	 * recibido, se invocan diferentes métodos del controlador o se actualiza la
+	 * interfaz.
+	 * </p>
+	 *
+	 * <p>
+	 * <b>Principales funcionalidades:</b>
+	 * </p>
+	 * <ul>
+	 * <li>Alternar entre modo oscuro y claro.</li>
+	 * <li>Cambiar el idioma de la aplicación.</li>
+	 * <li>Manejar el proceso de inicio de sesión y registro de usuarios.</li>
+	 * <li>Controlar la visibilidad de los paneles según el flujo de
+	 * navegación.</li>
+	 * <li>Realizar acciones como “smash”, “pass”, y mostrar perfiles.</li>
+	 * <li>Actualizar o eliminar usuarios.</li>
+	 * <li>Filtrar y ordenar la información del panel de administrador.</li>
+	 * <li>Generar reportes PDF con estadísticas.</li>
+	 * </ul>
+	 *
+	 * <p>
+	 * Además, maneja comandos dinámicos como <code>"eliminarX"</code>, donde
+	 * <code>X</code> representa el índice del elemento a eliminar.
+	 * </p>
+	 *
+	 * @param e el evento de acción que contiene el comando ejecutado
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String comando = e.getActionCommand();
@@ -1229,6 +1754,41 @@ public class Controlador implements ActionListener {
 
 	}
 
+	/**
+	 * Inicializa los oyentes de acción (ActionListener) para todos los componentes
+	 * interactivos de la interfaz gráfica.
+	 * <p>
+	 * Este método asocia cada botón, combo box u otro elemento de la vista con el
+	 * controlador, definiendo además un comando de acción específico que permitirá
+	 * identificar el evento dentro del método
+	 * {@code actionPerformed(ActionEvent e)}.
+	 * </p>
+	 *
+	 * <p>
+	 * <b>Responsabilidades principales:</b>
+	 * </p>
+	 * <ul>
+	 * <li>Asignar ActionListeners a los botones y elementos de los distintos
+	 * paneles.</li>
+	 * <li>Definir los comandos de acción que determinan el comportamiento de cada
+	 * evento.</li>
+	 * <li>Conectar la interfaz gráfica (vista) con la lógica del controlador.</li>
+	 * </ul>
+	 *
+	 * <p>
+	 * Paneles afectados:
+	 * </p>
+	 * <ul>
+	 * <li>Banner (modo oscuro, idioma, perfil)</li>
+	 * <li>Inicio de sesión</li>
+	 * <li>Selección de género</li>
+	 * <li>Registro de usuario</li>
+	 * <li>Código de verificación</li>
+	 * <li>Panel principal (scroll)</li>
+	 * <li>Perfiles (hombre y mujer)</li>
+	 * <li>Administrador</li>
+	 * </ul>
+	 */
 	public void inicializarOyentes() {
 		// Panel Banner
 		vf.getpBan().getBtnModoOscuro().addActionListener(this);
@@ -1323,6 +1883,40 @@ public class Controlador implements ActionListener {
 		vf.getpPa().getBtnDarDeBaja().addActionListener(this);
 	}
 
+	/**
+	 * Asigna los textos correspondientes a cada componente visible de los distintos
+	 * paneles, utilizando las propiedades cargadas desde el archivo de idioma
+	 * actual.
+	 * <p>
+	 * Este método permite cambiar el idioma de todos los textos mostrados en la
+	 * interfaz gráfica (botones, etiquetas, títulos, etc.) sin modificar el código
+	 * fuente.
+	 * </p>
+	 *
+	 * <p>
+	 * <b>Responsabilidades principales:</b>
+	 * </p>
+	 * <ul>
+	 * <li>Actualizar las etiquetas, botones y títulos de todos los paneles.</li>
+	 * <li>Utilizar las claves definidas en el archivo de propiedades de
+	 * idioma.</li>
+	 * <li>Garantizar la coherencia visual del idioma seleccionado por el
+	 * usuario.</li>
+	 * </ul>
+	 *
+	 * <p>
+	 * Paneles afectados:
+	 * </p>
+	 * <ul>
+	 * <li>Administrador</li>
+	 * <li>Código de verificación</li>
+	 * <li>Inicio de sesión</li>
+	 * <li>Perfiles (hombre y mujer)</li>
+	 * <li>Panel principal (scroll)</li>
+	 * <li>Registro de usuario</li>
+	 * <li>Selección de género</li>
+	 * </ul>
+	 */
 	public void cadenasTextoPaneles() {
 		// vf.getpAdmin().setBtnTextoDescPdf(propIdioma.getProperty("admin.btn.descPdf"));
 		// vf.getpAdmin().setBtnTextoElimUss(propIdioma.getProperty("admin.btn.elimUss"));

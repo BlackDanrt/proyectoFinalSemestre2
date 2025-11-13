@@ -145,6 +145,19 @@ public class MujerDAO implements DAO<MujerDTO> {
 		return null;
 	}
 
+	/**
+	 * Busca el índice de un registro en la lista según el identificador
+	 * especificado.
+	 * <p>
+	 * Recorre la lista interna de entidades {@link Mujer} y compara su
+	 * identificador con el valor recibido. Si encuentra coincidencia, retorna la
+	 * posición del elemento en la lista.
+	 * </p>
+	 *
+	 * @param id el identificador único de la {@link Mujer} que se desea buscar
+	 * @return el índice del elemento en la lista si se encuentra, o {@code null} si
+	 *         no existe ninguna coincidencia
+	 */
 	@Override
 	public int buscarIdIndice(String id) {
 		for (int i = 0; i < listaMujeres.size(); i++) {
@@ -202,6 +215,14 @@ public class MujerDAO implements DAO<MujerDTO> {
 		SERIAL_FILE_NAME = sERIAL_FILE_NAME;
 	}
 
+	/**
+	 * Ordena la lista de mujeres de menor a mayor según el alias utilizando el
+	 * algoritmo de ordenamiento por selección.
+	 * <p>
+	 * Este método modifica directamente la lista interna de {@link Mujer},
+	 * comparando los alias de forma lexicográfica.
+	 * </p>
+	 */
 	@Override
 	public void menorAMayorSeleccionAlias() {
 		int n = listaMujeres.size();
@@ -221,6 +242,14 @@ public class MujerDAO implements DAO<MujerDTO> {
 		}
 	}
 
+	/**
+	 * Ordena la lista de mujeres de mayor a menor según el alias utilizando el
+	 * algoritmo de ordenamiento por selección.
+	 * <p>
+	 * Este método modifica directamente la lista interna de {@link Mujer},
+	 * comparando los alias de forma lexicográfica descendente.
+	 * </p>
+	 */
 	@Override
 	public void mayorAMenorSeleccionAlias() {
 		int n = listaMujeres.size();
@@ -240,6 +269,14 @@ public class MujerDAO implements DAO<MujerDTO> {
 		}
 	}
 
+	/**
+	 * Ordena la lista de mujeres de menor a mayor según el nombre utilizando el
+	 * algoritmo de ordenamiento por selección.
+	 * <p>
+	 * Este método modifica directamente la lista interna de {@link Mujer},
+	 * comparando los nombres de forma lexicográfica.
+	 * </p>
+	 */
 	@Override
 	public void menorAMayorSeleccionNombre() {
 		int n = listaMujeres.size();
@@ -259,6 +296,14 @@ public class MujerDAO implements DAO<MujerDTO> {
 		}
 	}
 
+	/**
+	 * Ordena la lista de mujeres de mayor a menor según el nombre utilizando el
+	 * algoritmo de ordenamiento por selección.
+	 * <p>
+	 * Este método modifica directamente la lista interna de {@link Mujer},
+	 * comparando los nombres de forma lexicográfica descendente.
+	 * </p>
+	 */
 	@Override
 	public void mayorAMenorSeleccionNombre() {
 		int n = listaMujeres.size();
@@ -278,6 +323,14 @@ public class MujerDAO implements DAO<MujerDTO> {
 		}
 	}
 
+	/**
+	 * Ordena la lista de mujeres de menor a mayor según el apellido utilizando el
+	 * algoritmo de ordenamiento por selección.
+	 * <p>
+	 * Este método modifica directamente la lista interna de {@link Mujer},
+	 * comparando los apellidos de forma lexicográfica.
+	 * </p>
+	 */
 	@Override
 	public void menorAMayorSeleccionApellido() {
 		int n = listaMujeres.size();
@@ -297,6 +350,14 @@ public class MujerDAO implements DAO<MujerDTO> {
 		}
 	}
 
+	/**
+	 * Ordena la lista de mujeres de mayor a menor según el apellido utilizando el
+	 * algoritmo de ordenamiento por selección.
+	 * <p>
+	 * Este método modifica directamente la lista interna de {@link Mujer},
+	 * comparando los apellidos de forma lexicográfica descendente.
+	 * </p>
+	 */
 	@Override
 	public void mayorAMenorSeleccionApellido() {
 		int n = listaMujeres.size();
@@ -316,6 +377,15 @@ public class MujerDAO implements DAO<MujerDTO> {
 		}
 	}
 
+	/**
+	 * Ordena la lista de mujeres de mayor a menor según la cantidad de "likes"
+	 * utilizando el algoritmo de ordenamiento por inserción.
+	 * <p>
+	 * Este método modifica directamente la lista interna de {@link Mujer},
+	 * ordenando los elementos de forma que las que tienen mayor cantidad de "likes"
+	 * aparezcan primero.
+	 * </p>
+	 */
 	@Override
 	public void mayorAMenorInsercionCantLike() {
 		int n = listaMujeres.size();
@@ -331,6 +401,15 @@ public class MujerDAO implements DAO<MujerDTO> {
 		}
 	}
 
+	/**
+	 * Ordena la lista de mujeres de menor a mayor según la cantidad de "likes"
+	 * utilizando el algoritmo de ordenamiento por inserción.
+	 * <p>
+	 * Este método modifica directamente la lista interna de {@link Mujer},
+	 * ordenando los elementos de forma que las que tienen menor cantidad de "likes"
+	 * aparezcan primero.
+	 * </p>
+	 */
 	@Override
 	public void menorAMayorInsercionCantLike() {
 		int n = listaMujeres.size();
@@ -346,6 +425,14 @@ public class MujerDAO implements DAO<MujerDTO> {
 		}
 	}
 
+	/**
+	 * Ordena la lista de mujeres de mayor a menor según la edad utilizando el
+	 * algoritmo de ordenamiento por inserción.
+	 * <p>
+	 * Este método modifica directamente la lista interna de {@link Mujer},
+	 * ordenando los elementos de forma que las de mayor edad aparezcan primero.
+	 * </p>
+	 */
 	@Override
 	public void mayorAMenorInsercionEdad() {
 		int n = listaMujeres.size();
@@ -361,6 +448,15 @@ public class MujerDAO implements DAO<MujerDTO> {
 		}
 	}
 
+	/**
+	 * Ordena la lista de mujeres de menor a mayor según el ingreso mensual
+	 * utilizando el algoritmo de ordenamiento por inserción.
+	 * <p>
+	 * Este método modifica directamente la lista interna de {@link Mujer},
+	 * ordenando los elementos de forma que las que tienen menor ingreso mensual
+	 * aparezcan primero.
+	 * </p>
+	 */
 	@Override
 	public void menorAMayorInsercionEdad() {
 		int n = listaMujeres.size();

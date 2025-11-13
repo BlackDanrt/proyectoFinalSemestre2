@@ -8,11 +8,13 @@ import co.edu.unbosque.model.Correo;
 import co.edu.unbosque.model.CorreoDTO;
 
 /**
- * Clase {@code CorreoDAO} encargada de gestionar el envío de correos
- * electrónicos desde el sistema.
+ * Clase de acceso a datos (DAO) encargada de gestionar el envío de correos
+ * electrónicos desde el sistema BosTinder.
+ * 
  * <p>
  * Implementa métodos para enviar mensajes de verificación y notificaciones de
- * registro exitoso utilizando el protocolo SMTP de Gmail.
+ * registro exitoso utilizando el protocolo SMTP de Gmail. Los correos se
+ * generan con formato HTML y soporte multiidioma.
  * </p>
  * 
  * <p>
@@ -21,10 +23,21 @@ import co.edu.unbosque.model.CorreoDTO;
  * instancias de {@link Correo} mediante el {@link DataMapper}.
  * </p>
  * 
- * <h2>Funciones principales:</h2>
+ * <h3>Funciones principales:</h3>
  * <ul>
- * <li>Enviar correos de verificación con código de acceso.</li>
- * <li>Enviar correos de confirmación de registro exitoso.</li>
+ * <li>Enviar correos de verificación con código de acceso</li>
+ * <li>Enviar correos de confirmación de registro exitoso</li>
+ * <li>Generar contenido HTML personalizado según el idioma del usuario</li>
+ * </ul>
+ * 
+ * <h3>Idiomas soportados:</h3>
+ * <ul>
+ * <li>ES - Español</li>
+ * <li>US - Inglés</li>
+ * <li>BR - Portugués</li>
+ * <li>RU - Ruso</li>
+ * <li>CN - Chino</li>
+ * <li>IL - Hebreo</li>
  * </ul>
  * 
  * <p>
@@ -36,25 +49,47 @@ import co.edu.unbosque.model.CorreoDTO;
  * @author Juan Martinez
  * @version 1.0
  */
-
 public class CorreoDAO {
 
+	/**
+	 * Host del servidor SMTP de Gmail.
+	 */
 	private static final String SMTP_HOST = "smtp.gmail.com";
+
+	/**
+	 * Puerto utilizado para la conexión SMTP con TLS.
+	 */
 	private static final String SMTP_PORT = "587";
+
+	/**
+	 * Dirección de correo electrónico del remitente del sistema.
+	 */
 	private static final String EMAIL_REMITENTE = "danrt2018@gmail.com";
+
+	/**
+	 * Contraseña de aplicación para autenticación SMTP.
+	 */
 	private static final String PASSWORD_REMITENTE = "bwuqfizniporvykl";
 
+	/**
+	 * Constructor por defecto de la clase CorreoDAO. Crea una nueva instancia del
+	 * DAO de correos electrónicos.
+	 */
 	public CorreoDAO() {
-		// TODO Auto-generated constructor stub
+		// Constructor vacío
 	}
 
 	/**
-	 * Envía un correo electrónico con un código de verificación a un destinatario.
+	 * Envía un correo electrónico con un código de verificación al destinatario
+	 * especificado. El contenido del correo se genera en formato HTML y se adapta
+	 * automáticamente al idioma proporcionado.
 	 * 
-	 * @param dto Objeto {@link CorreoDTO} con los datos del destinatario, alias y
-	 *            código.
+	 * @param dto    objeto {@link CorreoDTO} que contiene los datos del
+	 *               destinatario, alias y código
+	 * @param idioma código del idioma para el contenido del correo ("ES", "US",
+	 *               "BR", "RU", "CN", "IL")
 	 * @return {@code true} si el correo se envió correctamente; {@code false} si
-	 *         ocurrió algún error durante el proceso.
+	 *         ocurrió algún error
 	 */
 	public boolean enviarCodigoVerificacion(CorreoDTO dto, String idioma) {
 
@@ -84,10 +119,15 @@ public class CorreoDAO {
 
 	/**
 	 * Envía un correo de confirmación cuando un registro se realiza exitosamente.
+	 * El correo incluye los datos de la cuenta creada y se adapta al idioma del
+	 * usuario.
 	 * 
-	 * @param dto Objeto {@link CorreoDTO} con los datos del destinatario y alias.
+	 * @param dto    objeto {@link CorreoDTO} que contiene los datos del
+	 *               destinatario y alias
+	 * @param idioma código del idioma para el contenido del correo ("ES", "US",
+	 *               "BR", "RU", "CN", "IL")
 	 * @return {@code true} si el correo fue enviado correctamente; {@code false} si
-	 *         ocurrió algún error durante el envío.
+	 *         ocurrió algún error
 	 */
 	public boolean enviarRegistroExitoso(CorreoDTO dto, String idioma) {
 
@@ -117,9 +157,9 @@ public class CorreoDAO {
 
 	/**
 	 * Configura las propiedades necesarias para la conexión con el servidor SMTP de
-	 * Gmail.
+	 * Gmail. Establece el host, puerto, autenticación y habilitación de TLS.
 	 * 
-	 * @return Un objeto {@link Properties} con las configuraciones del servidor.
+	 * @return objeto {@link Properties} con las configuraciones del servidor SMTP
 	 */
 	private Properties configurarPropiedades() {
 		Properties props = new Properties();
@@ -134,9 +174,8 @@ public class CorreoDAO {
 	 * Crea una sesión de correo autenticada utilizando las credenciales del
 	 * remitente.
 	 * 
-	 * @param props Propiedades configuradas para el servidor SMTP.
-	 * @return Una instancia de {@link Session} autenticada lista para enviar
-	 *         correos.
+	 * @param props propiedades configuradas para el servidor SMTP
+	 * @return instancia de {@link Session} autenticada lista para enviar correos
 	 */
 	private Session crearSesion(Properties props) {
 		return Session.getInstance(props, new Authenticator() {
@@ -149,12 +188,14 @@ public class CorreoDAO {
 
 	/**
 	 * Construye el cuerpo del mensaje en formato HTML para el correo de
-	 * verificación. Este mensaje cambia automáticamente según el idioma del
-	 * usuario.
+	 * verificación. El mensaje se personaliza automáticamente según el idioma del
+	 * usuario, incluyendo el código de verificación con diseño visual atractivo.
 	 * 
-	 * @param correo         Objeto {@link Correo} con alias, destinatario y código.
-	 * @param idiomaGuardado Código del idioma ("ES", "US", "BR", "RU", "CN", "IL").
-	 * @return HTML del correo de verificación.
+	 * @param correo         objeto {@link Correo} que contiene alias, destinatario
+	 *                       y código de verificación
+	 * @param idiomaGuardado código del idioma ("ES", "US", "BR", "RU", "CN", "IL")
+	 * @return cadena de texto con el contenido HTML completo del correo de
+	 *         verificación
 	 */
 	private String construirMensajeCodigoHTML(Correo correo, String idiomaGuardado) {
 		String titulo, saludo, mensajePrincipal, avisoImportante, pie, textoCodigo;
@@ -165,7 +206,7 @@ public class CorreoDAO {
 			saludo = "Hello <strong>" + correo.getAlias() + "</strong>,";
 			mensajePrincipal = "You requested a verification code to access your account.";
 			textoCodigo = "Your code is:";
-			avisoImportante = "<strong>Important:</strong> This code is valid while you remain on the verification screen. If you didn’t request it, please ignore this message.";
+			avisoImportante = "<strong>Important:</strong> This code is valid while you remain on the verification screen. If you didn't request it, please ignore this message.";
 			pie = "This is an automatic message, please do not reply.";
 		}
 		case "BR" -> {
@@ -200,7 +241,7 @@ public class CorreoDAO {
 			avisoImportante = "<strong>חשוב:</strong> קוד זה תקף כל עוד אתה נשאר במסך האימות. אם לא ביקשת קוד זה, התעלם מהודעה זו.";
 			pie = "זוהי הודעה אוטומטית, אנא אל תגיב.";
 		}
-		default -> { // 🇪🇸 Español
+		default -> { // Español
 			titulo = "Código de Verificación";
 			saludo = "Hola <strong>" + correo.getAlias() + "</strong>,";
 			mensajePrincipal = "Has solicitado un código de verificación para acceder a tu cuenta.";
@@ -228,11 +269,13 @@ public class CorreoDAO {
 
 	/**
 	 * Construye el cuerpo del mensaje en formato HTML para el correo de registro
-	 * exitoso. Cambia automáticamente según el idioma del usuario.
+	 * exitoso. El mensaje incluye los datos de la cuenta creada y se personaliza
+	 * según el idioma del usuario.
 	 * 
-	 * @param correo         Objeto {@link Correo} con alias y destinatario.
-	 * @param idiomaGuardado Código del idioma ("ES", "US", "BR", "RU", "CN", "IL").
-	 * @return HTML del correo de registro exitoso.
+	 * @param correo         objeto {@link Correo} que contiene alias y destinatario
+	 * @param idiomaGuardado código del idioma ("ES", "US", "BR", "RU", "CN", "IL")
+	 * @return cadena de texto con el contenido HTML completo del correo de registro
+	 *         exitoso
 	 */
 	private String construirMensajeRegistroHTML(Correo correo, String idiomaGuardado) {
 		String titulo, saludo, mensaje, datosCuenta, usuario, email, consejo, pie1, pie2;
@@ -246,7 +289,7 @@ public class CorreoDAO {
 			usuario = "Username:";
 			email = "Email:";
 			consejo = "<strong>Tip:</strong> Save this information in a safe place.";
-			pie1 = "If you didn’t create this account, please contact support immediately.";
+			pie1 = "If you didn't create this account, please contact support immediately.";
 			pie2 = "This is an automatic message, please do not reply.";
 		}
 		case "BR" -> {

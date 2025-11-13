@@ -12,12 +12,24 @@ import javax.swing.*;
 import co.edu.unbosque.model.HombreDTO;
 import co.edu.unbosque.model.MujerDTO;
 
+/**
+ * Panel de interfaz gráfica para la administración de usuarios del sistema.
+ * Proporciona funcionalidades para visualizar, filtrar y ordenar usuarios
+ * (hombres y mujeres), así como generar reportes en PDF y cerrar sesión.
+ * 
+ * @author Juan Martinez
+ * @version 1.0
+ */
 public class PanelAdministrador extends JPanel {
 
 	private JComboBox<String> cmbGenero, cmbFiltro;
 	private JButton btnOrden, btnCrearPdf, btnCerrarSesion;
 	private JScrollPane scroll;
 
+	/**
+	 * Constructor que inicializa el panel de administrador con sus componentes
+	 * gráficos y configuraciones predeterminadas.
+	 */
 	public PanelAdministrador() {
 		this.setLayout(null);
 		this.setSize(1280, 800);
@@ -26,6 +38,10 @@ public class PanelAdministrador extends JPanel {
 		inicializarComponentes();
 	}
 
+	/**
+	 * Inicializa todos los componentes gráficos del panel de administrador,
+	 * incluyendo combo boxes, botones y el área de scroll para mostrar usuarios.
+	 */
 	private void inicializarComponentes() {
 		cmbGenero = new JComboBox<String>();
 		cmbGenero.setBounds(115, 58, 150, 27);
@@ -76,54 +92,127 @@ public class PanelAdministrador extends JPanel {
 
 	}
 
+	/**
+	 * Obtiene el combo box para seleccionar el género.
+	 * 
+	 * @return el combo box de género
+	 */
 	public JComboBox<String> getCmbGenero() {
 		return cmbGenero;
 	}
 
+	/**
+	 * Establece el combo box para seleccionar el género.
+	 * 
+	 * @param cmbGenero el nuevo combo box de género
+	 */
 	public void setCmbGenero(JComboBox<String> cmbGenero) {
 		this.cmbGenero = cmbGenero;
 	}
 
+	/**
+	 * Obtiene el combo box para seleccionar el filtro de ordenamiento.
+	 * 
+	 * @return el combo box de filtro
+	 */
 	public JComboBox<String> getCmbFiltro() {
 		return cmbFiltro;
 	}
 
+	/**
+	 * Establece el combo box para seleccionar el filtro de ordenamiento.
+	 * 
+	 * @param cmbFiltro el nuevo combo box de filtro
+	 */
 	public void setCmbFiltro(JComboBox<String> cmbFiltro) {
 		this.cmbFiltro = cmbFiltro;
 	}
 
+	/**
+	 * Obtiene el botón para cambiar el orden de visualización.
+	 * 
+	 * @return el botón de orden
+	 */
 	public JButton getBtnOrden() {
 		return btnOrden;
 	}
 
+	/**
+	 * Establece el botón para cambiar el orden de visualización.
+	 * 
+	 * @param btnOrden el nuevo botón de orden
+	 */
 	public void setBtnOrden(JButton btnOrden) {
 		this.btnOrden = btnOrden;
 	}
 
+	/**
+	 * Obtiene el botón para crear un reporte en PDF.
+	 * 
+	 * @return el botón de crear PDF
+	 */
 	public JButton getBtnCrearPdf() {
 		return btnCrearPdf;
 	}
 
+	/**
+	 * Establece el botón para crear un reporte en PDF.
+	 * 
+	 * @param btnCrearPdf el nuevo botón de crear PDF
+	 */
 	public void setBtnCrearPdf(JButton btnCrearPdf) {
 		this.btnCrearPdf = btnCrearPdf;
 	}
 
+	/**
+	 * Obtiene el botón para cerrar la sesión del administrador.
+	 * 
+	 * @return el botón de cerrar sesión
+	 */
 	public JButton getBtnCerrarSesion() {
 		return btnCerrarSesion;
 	}
 
+	/**
+	 * Establece el botón para cerrar la sesión del administrador.
+	 * 
+	 * @param btnCerrarSesion el nuevo botón de cerrar sesión
+	 */
 	public void setBtnCerrarSesion(JButton btnCerrarSesion) {
 		this.btnCerrarSesion = btnCerrarSesion;
 	}
 
+	/**
+	 * Obtiene el scroll pane que contiene la lista de usuarios.
+	 * 
+	 * @return el scroll pane
+	 */
 	public JScrollPane getScroll() {
 		return scroll;
 	}
 
+	/**
+	 * Establece el scroll pane que contiene la lista de usuarios.
+	 * 
+	 * @param scroll el nuevo scroll pane
+	 */
 	public void setScroll(JScrollPane scroll) {
 		this.scroll = scroll;
 	}
 
+	/**
+	 * Muestra la lista de hombres registrados en el sistema en forma de paneles.
+	 * <p>
+	 * Cada usuario se muestra en un panel individual con su información completa
+	 * incluyendo foto, alias, nombre, apellido, edad, cantidad de likes e ingresos
+	 * mensuales. Los paneles se muestran con colores alternados para facilitar la
+	 * lectura.
+	 * </p>
+	 * 
+	 * @param listaDto         la lista de objetos {@link HombreDTO} a mostrar
+	 * @param eliminarListener el listener para manejar la acción de eliminar
+	 *                         usuarios
+	 */
 	public void mostrarHombre(ArrayList<HombreDTO> listaDto, ActionListener eliminarListener) {
 		JPanel contenedorPaneles = new JPanel();
 		contenedorPaneles.setLayout(new BoxLayout(contenedorPaneles, BoxLayout.Y_AXIS));
@@ -147,7 +236,6 @@ public class PanelAdministrador extends JPanel {
 			plant.getLblIngresos().setVisible(true);
 			plant.getLblIngresosCuenta().setVisible(true);
 
-			// ✅ Cargar desde recursos del proyecto
 			ImageIcon icon = new ImageIcon(dto.getFoto());
 			Image img = icon.getImage().getScaledInstance(90, 120, Image.SCALE_SMOOTH);
 			plant.getLblImagenCuenta().setIcon(new ImageIcon(img));
@@ -169,6 +257,20 @@ public class PanelAdministrador extends JPanel {
 		scroll.repaint();
 	}
 
+	/**
+	 * Muestra la lista de mujeres registradas en el sistema en forma de paneles.
+	 * <p>
+	 * Cada usuario se muestra en un panel individual con su información completa
+	 * incluyendo foto, alias, nombre, apellido, edad y cantidad de likes. Los
+	 * paneles se muestran con colores alternados para facilitar la lectura. A
+	 * diferencia del método para hombres, este método oculta el campo de ingresos
+	 * mensuales.
+	 * </p>
+	 * 
+	 * @param listaDto         la lista de objetos {@link MujerDTO} a mostrar
+	 * @param eliminarListener el listener para manejar la acción de eliminar
+	 *                         usuarios
+	 */
 	public void mostrarMujer(ArrayList<MujerDTO> listaDto, ActionListener eliminarListener) {
 		JPanel contenedorPaneles = new JPanel();
 		contenedorPaneles.setLayout(new BoxLayout(contenedorPaneles, BoxLayout.Y_AXIS));

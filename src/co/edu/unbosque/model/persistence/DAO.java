@@ -11,6 +11,10 @@ import java.util.ArrayList;
  * leer, actualizar y eliminar), además del manejo de archivos serializados para
  * almacenar los datos de manera persistente.
  * </p>
+ * <p>
+ * Esta interfaz también incluye métodos para la manipulación y ordenamiento de
+ * la lista de objetos gestionados.
+ * </p>
  * 
  * <h3>Ejemplo de implementación:</h3>
  * 
@@ -80,6 +84,14 @@ public interface DAO<E> {
 	 */
 	public Object buscarId(String id);
 
+	/**
+	 * Busca un elemento dentro de la colección utilizando su identificador único y
+	 * retorna su índice en la lista.
+	 * 
+	 * @param id identificador único del objeto a buscar
+	 * @return el índice del objeto en la lista si se encuentra, -1 en caso
+	 *         contrario
+	 */
 	public int buscarIdIndice(String id);
 
 	/**
@@ -89,24 +101,66 @@ public interface DAO<E> {
 	 */
 	public ArrayList<E> getLista();
 
+	/**
+	 * Ordena la lista interna de objetos en orden ascendente (menor a mayor) según
+	 * el atributo 'nombre' utilizando el algoritmo de selección.
+	 */
 	public void menorAMayorSeleccionNombre();
 
+	/**
+	 * Ordena la lista interna de objetos en orden descendente (mayor a menor) según
+	 * el atributo 'nombre' utilizando el algoritmo de selección.
+	 */
 	public void mayorAMenorSeleccionNombre();
 
+	/**
+	 * Ordena la lista interna de objetos en orden ascendente (menor a mayor) según
+	 * el atributo 'apellido' utilizando el algoritmo de selección.
+	 */
 	public void menorAMayorSeleccionApellido();
 
+	/**
+	 * Ordena la lista interna de objetos en orden descendente (mayor a menor) según
+	 * el atributo 'apellido' utilizando el algoritmo de selección.
+	 */
 	public void mayorAMenorSeleccionApellido();
 
+	/**
+	 * Ordena la lista interna de objetos en orden ascendente (menor a mayor) según
+	 * el atributo 'alias' utilizando el algoritmo de selección.
+	 */
 	public void menorAMayorSeleccionAlias();
 
+	/**
+	 * Ordena la lista interna de objetos en orden descendente (mayor a menor) según
+	 * el atributo 'alias' utilizando el algoritmo de selección.
+	 */
 	public void mayorAMenorSeleccionAlias();
 
+	/**
+	 * Ordena la lista interna de objetos en orden ascendente (menor a mayor) según
+	 * el atributo 'cantLike' (cantidad de likes) utilizando el algoritmo de
+	 * inserción.
+	 */
 	public void menorAMayorInsercionCantLike();
 
+	/**
+	 * Ordena la lista interna de objetos en orden descendente (mayor a menor) según
+	 * el atributo 'cantLike' (cantidad de likes) utilizando el algoritmo de
+	 * inserción.
+	 */
 	public void mayorAMenorInsercionCantLike();
 
+	/**
+	 * Ordena la lista interna de objetos en orden ascendente (menor a mayor) según
+	 * el atributo 'edad' utilizando el algoritmo de inserción.
+	 */
 	public void menorAMayorInsercionEdad();
 
+	/**
+	 * Ordena la lista interna de objetos en orden descendente (mayor a menor) según
+	 * el atributo 'edad' utilizando el algoritmo de inserción.
+	 */
 	public void mayorAMenorInsercionEdad();
 
 }

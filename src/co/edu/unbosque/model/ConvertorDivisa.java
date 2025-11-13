@@ -1,11 +1,56 @@
 package co.edu.unbosque.model;
 
+/**
+ * Clase utilitaria para la conversión de divisas entre diferentes monedas y el
+ * dólar estadounidense (USD). Proporciona métodos para convertir valores
+ * monetarios desde y hacia USD utilizando tasas de cambio predefinidas.
+ * 
+ * <p>
+ * Las divisas soportadas son:
+ * </p>
+ * <ul>
+ * <li>ES - Peso Colombiano (COP)</li>
+ * <li>BR - Real Brasileño (BRL)</li>
+ * <li>RU - Rublo Ruso (RUB)</li>
+ * <li>IL - Shekel Israelí (ILS)</li>
+ * <li>CN - Yuan Chino (CNY)</li>
+ * </ul>
+ *
+ * @author Juan Martinez
+ * @version 1.0
+ */
 public class ConvertorDivisa {
 
+	/**
+	 * Constructor por defecto de la clase ConvertorDivisa. Crea una nueva instancia
+	 * del conversor de divisas.
+	 */
 	public ConvertorDivisa() {
-		// TODO Auto-generated constructor stub
+		// Constructor vacío
 	}
 
+	/**
+	 * Convierte un valor en la moneda local especificada a dólares estadounidenses
+	 * (USD).
+	 * 
+	 * <p>
+	 * Tasas de cambio utilizadas:
+	 * </p>
+	 * <ul>
+	 * <li>ES (COP): 3900 COP = 1 USD</li>
+	 * <li>BR (BRL): 5.36 BRL = 1 USD</li>
+	 * <li>RU (RUB): 8.35 RUB = 1 USD</li>
+	 * <li>IL (ILS): 3.27 ILS = 1 USD</li>
+	 * <li>CN (CNY): 7.13 CNY = 1 USD</li>
+	 * </ul>
+	 * 
+	 * @param valor  el monto en la moneda local a convertir
+	 * @param idioma código de idioma/país que representa la divisa origen: "ES"
+	 *               (Colombia), "BR" (Brasil), "RU" (Rusia), "IL" (Israel), "CN"
+	 *               (China)
+	 * @return el valor convertido a dólares estadounidenses (USD). Si el idioma no
+	 *         es reconocido, retorna el valor original sin conversión
+	 */
 	public long convertirADolar(long valor, String idioma) {
 		long temp = 0;
 		if (idioma.equals("ES")) {
@@ -24,6 +69,28 @@ public class ConvertorDivisa {
 		return temp;
 	}
 
+	/**
+	 * Convierte un valor en dólares estadounidenses (USD) a la moneda local
+	 * especificada.
+	 * 
+	 * <p>
+	 * Tasas de cambio utilizadas:
+	 * </p>
+	 * <ul>
+	 * <li>ES (COP): 1 USD = 3900 COP</li>
+	 * <li>BR (BRL): 1 USD = 5.36 BRL</li>
+	 * <li>RU (RUB): 1 USD = 8.35 RUB</li>
+	 * <li>IL (ILS): 1 USD = 3.27 ILS</li>
+	 * <li>CN (CNY): 1 USD = 7.13 CNY</li>
+	 * </ul>
+	 * 
+	 * @param valorUSD el monto en dólares estadounidenses (USD) a convertir
+	 * @param idioma   código de idioma/país que representa la divisa destino: "ES"
+	 *                 (Colombia), "BR" (Brasil), "RU" (Rusia), "IL" (Israel), "CN"
+	 *                 (China)
+	 * @return el valor convertido a la moneda local especificada. Si el idioma no
+	 *         es reconocido, retorna el valor original sin conversión
+	 */
 	public long convertirAIdioma(long valorUSD, String idioma) {
 		long temp = 0;
 		if (idioma.equals("ES")) {

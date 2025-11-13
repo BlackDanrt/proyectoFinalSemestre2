@@ -59,10 +59,6 @@ public class FileHandler {
 	/** Maneja archivos de tipo propiedades (.properties). */
 	public static Properties prop;
 
-	// =====================================================
-	// MÉTODOS DE ARCHIVOS DE TEXTO
-	// =====================================================
-
 	/**
 	 * Escribe el contenido dado dentro de un archivo de texto.
 	 * 
@@ -126,10 +122,6 @@ public class FileHandler {
 		return null;
 	}
 
-	// =====================================================
-	// MÉTODOS DE ARCHIVOS SERIALIZADOS
-	// =====================================================
-
 	/**
 	 * Escribe un objeto en un archivo serializado.
 	 * 
@@ -176,7 +168,6 @@ public class FileHandler {
 		File archivo = new File(url);
 
 		try {
-			// Si el archivo no existe o está vacío, no intentamos leer
 			if (!archivo.exists() || archivo.length() == 0) {
 				return null;
 			}
@@ -201,10 +192,6 @@ public class FileHandler {
 			return null;
 		}
 	}
-
-	// =====================================================
-	// MÉTODOS DE ARCHIVOS DE PROPIEDADES
-	// =====================================================
 
 	/**
 	 * Carga un archivo de propiedades (.properties) y lo devuelve como un objeto

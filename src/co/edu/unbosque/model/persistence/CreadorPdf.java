@@ -1,3 +1,4 @@
+
 package co.edu.unbosque.model.persistence;
 
 import java.io.File;
@@ -20,19 +21,43 @@ import org.jfree.data.category.DefaultCategoryDataset;
 import co.edu.unbosque.model.HombreDTO;
 import co.edu.unbosque.model.MujerDTO;
 
+/**
+ * Clase encargada de crear un archivo PDF con estadísticas generadas a partir
+ * de los datos de hombres y mujeres almacenados en DAOs. El PDF incluye
+ * gráficos de media, moda, mediana, varianza y desviación estándar para las
+ * cantidades de likes y edades, diferenciando entre hombres y mujeres.
+ * 
+ * @author Juan Martinez
+ * @version 1.0
+ */
 public class CreadorPdf {
 
 	private static HombreDAO daoH;
 	private static MujerDAO daoM;
 
+	/**
+	 * Constructor de la clase. Inicializa los objetos DAO para hombres y mujeres.
+	 */
 	public CreadorPdf() {
 		daoH = new HombreDAO();
 		daoM = new MujerDAO();
 	}
 
+	/**
+	 * Genera y guarda un archivo PDF llamado "EstadisticasBosTinder.pdf" que
+	 * contiene gráficos estadísticos y metadatos como la fecha y hora de
+	 * generación. El PDF tiene 5 páginas, cada una dedicada a un tipo diferente de
+	 * estadístico: media, moda, mediana, varianza y desviación estándar.
+	 * <p>
+	 * Antes de crear el PDF, se llaman a los métodos para generar los gráficos
+	 * correspondientes.
+	 * </p>
+	 *
+	 * @throws RuntimeException si ocurre un error de E/S durante la creación del
+	 *                          PDF.
+	 */
 	public void crearPDF() {
 		try {
-
 			crearGraficos();
 			LocalDateTime base = LocalDateTime.now();
 			DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -86,7 +111,7 @@ public class CreadorPdf {
 			contenido.drawImage(imagen2, 70, 100, 450, 300);
 			contenido.close();
 
-			// PÁGINA 2 - Moda
+			// Moda
 			PDPageContentStream contenido2 = new PDPageContentStream(pdf, pagina2);
 
 			contenido2.beginText();
@@ -102,7 +127,7 @@ public class CreadorPdf {
 			contenido2.drawImage(imagenModa2, 70, 100, 450, 300);
 			contenido2.close();
 
-			// PÁGINA 3 - Mediana
+			// Mediana
 			PDPageContentStream contenido3 = new PDPageContentStream(pdf, pagina3);
 
 			contenido3.beginText();
@@ -119,7 +144,7 @@ public class CreadorPdf {
 			contenido3.drawImage(imagenMediana2, 70, 100, 450, 300);
 			contenido3.close();
 
-			// PÁGINA 4 - Varianza
+			// Varianza
 			PDPageContentStream contenido4 = new PDPageContentStream(pdf, pagina4);
 
 			contenido4.beginText();
@@ -137,7 +162,7 @@ public class CreadorPdf {
 			contenido4.drawImage(imagenVarianza2, 70, 100, 450, 300);
 			contenido4.close();
 
-			// PÁGINA 5 - Desviación
+			// Desviación
 			PDPageContentStream contenido5 = new PDPageContentStream(pdf, pagina5);
 
 			contenido5.beginText();
@@ -160,9 +185,20 @@ public class CreadorPdf {
 			pdf.close();
 
 		} catch (IOException e) {
+			throw new RuntimeException(e);
 		}
 	}
 
+	/**
+	 * Genera gráficos de barras en formato PNG para las estadísticas de likes y
+	 * edades de hombres y mujeres. Los gráficos se guardan en la carpeta
+	 * "estadisticas/". Se generan gráficos para Media, Moda, Mediana, Varianza y
+	 * Desviación Estándar.
+	 * <p>
+	 * Utiliza métodos estáticos de esta clase para calcular los valores
+	 * estadísticos.
+	 * </p>
+	 */
 	public static void crearGraficos() {
 
 		try {
@@ -234,10 +270,10 @@ public class CreadorPdf {
 			edadVarianza.setValue(m8, "Edad Mujeres", "Mujeres");
 
 			// Desviacion estandar
-			double h9 = calcularDesviacionEstandarEdadHombre(daoH.getLista());
+			double h9 = calcularDesviacionEstandarLikeHombre(daoH.getLista());
 			double h10 = calcularDesviacionEstandarEdadHombre(daoH.getLista());
 
-			double m9 = calcularDesviacionEstandarEdadMujer(daoM.getLista());
+			double m9 = calcularDesviacionEstandarLikeMujer(daoM.getLista());
 			double m10 = calcularDesviacionEstandarEdadMujer(daoM.getLista());
 
 			likeDesviacion.setValue(h9, "Likes Hombres", "Hombres");
@@ -260,14 +296,14 @@ public class CreadorPdf {
 					edadMediana);
 
 			JFreeChart graficoLikeVarianza = ChartFactory.createBarChart("Varianza de Likes ", "Varianza", "Personas",
-					likeMediana);
+					likeVarianza); //
 			JFreeChart graficoEdadVarianza = ChartFactory.createBarChart("Varianza de Edades ", "Varianza", "Personas",
-					edadMediana);
+					edadVarianza);
 
 			JFreeChart graficoLikeDesviacion = ChartFactory.createBarChart("Desviacion estandar de Likes ",
-					"Desviacion", "Personas", likeMediana);
+					"Desviacion", "Personas", likeDesviacion);
 			JFreeChart graficoEdadDesviacion = ChartFactory.createBarChart("Desviacion estandar de Edades ",
-					"Desviacion", "Personas", edadMediana);
+					"Desviacion", "Personas", edadDesviacion);
 
 			ChartUtilities.saveChartAsPNG(new File("estadisticas/grafico_media_likes.png"), graficoLikeMedia, 800, 600);
 			ChartUtilities.saveChartAsPNG(new File("estadisticas/grafico_media_edades.png"), graficoEdadMedia, 800,
@@ -288,41 +324,73 @@ public class CreadorPdf {
 					800, 600);
 
 		} catch (IOException e) {
+			throw new RuntimeException(e);
 		}
 	}
 
+	/**
+	 * Calcula la media (promedio) de la cantidad de likes de una lista de hombres.
+	 *
+	 * @param listaDto Lista de objetos HombreDTO.
+	 * @return La media de los likes.
+	 */
 	public static double calcularMediaLikeHombre(ArrayList<HombreDTO> listaDto) {
 		double suma = 0;
 		for (HombreDTO dto : listaDto) {
 			suma += dto.getCantLike();
 		}
-		return suma;
+		return suma / listaDto.size();
 	}
 
+	/**
+	 * Calcula la media (promedio) de la edad de una lista de hombres.
+	 *
+	 * @param listaDto Lista de objetos HombreDTO.
+	 * @return La media de las edades.
+	 */
 	public static double calcularMediaEdadHombre(ArrayList<HombreDTO> listaDto) {
 		double suma = 0;
 		for (HombreDTO dto : listaDto) {
 			suma += dto.getEdad();
 		}
-		return suma;
+		return suma / listaDto.size();
 	}
 
+	/**
+	 * Calcula la media (promedio) de la cantidad de likes de una lista de mujeres.
+	 *
+	 * @param listaDto Lista de objetos MujerDTO.
+	 * @return La media de los likes.
+	 */
 	public static double calcularMediaLikeMujer(ArrayList<MujerDTO> listaDto) {
 		double suma = 0;
 		for (MujerDTO dto : listaDto) {
 			suma += dto.getCantLike();
 		}
-		return suma;
+		return suma / listaDto.size();
 	}
 
+	/**
+	 * Calcula la media (promedio) de la edad de una lista de mujeres.
+	 *
+	 * @param listaDto Lista de objetos MujerDTO.
+	 * @return La media de las edades.
+	 */
 	public static double calcularMediaEdadMujer(ArrayList<MujerDTO> listaDto) {
 		double suma = 0;
 		for (MujerDTO dto : listaDto) {
 			suma += dto.getEdad();
 		}
-		return suma;
+		return suma / listaDto.size();
 	}
 
+	/**
+	 * Calcula la moda de la cantidad de likes de una lista de hombres. Si no hay un
+	 * valor que se repita más que otros, o si hay empate, devuelve 0.
+	 *
+	 * @param listaDto Lista de objetos HombreDTO.
+	 * @return La moda de los likes o 0 si no hay una moda clara.
+	 */
 	public static double calcularModaLikeHombre(ArrayList<HombreDTO> listaDto) {
 		if (listaDto == null || listaDto.isEmpty()) {
 			return 0;
@@ -380,6 +448,13 @@ public class CreadorPdf {
 
 	}
 
+	/**
+	 * Calcula la moda de la edad de una lista de hombres. Si no hay un valor que se
+	 * repita más que otros, o si hay empate, devuelve 0.
+	 *
+	 * @param listaDto Lista de objetos HombreDTO.
+	 * @return La moda de las edades o 0 si no hay una moda clara.
+	 */
 	public static double calcularModaEdadHombre(ArrayList<HombreDTO> listaDto) {
 		if (listaDto == null || listaDto.isEmpty()) {
 			return 0;
@@ -391,11 +466,11 @@ public class CreadorPdf {
 		int cantidadUnicos = 0;
 
 		for (int i = 0; i < n; i++) {
-			int likesActual = listaDto.get(i).getEdad();
+			int edadActual = listaDto.get(i).getEdad();
 			boolean encontrado = false;
 
 			for (int j = 0; j < cantidadUnicos; j++) {
-				if (valoresUnicos[j] == likesActual) {
+				if (valoresUnicos[j] == edadActual) {
 					frecuencias[j]++;
 					encontrado = true;
 					break;
@@ -403,7 +478,7 @@ public class CreadorPdf {
 			}
 
 			if (!encontrado) {
-				valoresUnicos[cantidadUnicos] = likesActual;
+				valoresUnicos[cantidadUnicos] = edadActual;
 				frecuencias[cantidadUnicos] = 1;
 				cantidadUnicos++;
 			}
@@ -437,6 +512,13 @@ public class CreadorPdf {
 
 	}
 
+	/**
+	 * Calcula la moda de la cantidad de likes de una lista de mujeres. Si no hay un
+	 * valor que se repita más que otros, o si hay empate, devuelve 0.
+	 *
+	 * @param listaDto Lista de objetos MujerDTO.
+	 * @return La moda de los likes o 0 si no hay una moda clara.
+	 */
 	public static double calcularModaLikeMujer(ArrayList<MujerDTO> listaDto) {
 		if (listaDto == null || listaDto.isEmpty()) {
 			return 0;
@@ -494,6 +576,13 @@ public class CreadorPdf {
 
 	}
 
+	/**
+	 * Calcula la moda de la edad de una lista de mujeres. Si no hay un valor que se
+	 * repita más que otros, o si hay empate, devuelve 0.
+	 *
+	 * @param listaDto Lista de objetos MujerDTO.
+	 * @return La moda de las edades o 0 si no hay una moda clara.
+	 */
 	public static double calcularModaEdadMujer(ArrayList<MujerDTO> listaDto) {
 		if (listaDto == null || listaDto.isEmpty()) {
 			return 0;
@@ -505,11 +594,11 @@ public class CreadorPdf {
 		int cantidadUnicos = 0;
 
 		for (int i = 0; i < n; i++) {
-			int likesActual = listaDto.get(i).getEdad();
+			int edadActual = listaDto.get(i).getEdad();
 			boolean encontrado = false;
 
 			for (int j = 0; j < cantidadUnicos; j++) {
-				if (valoresUnicos[j] == likesActual) {
+				if (valoresUnicos[j] == edadActual) {
 					frecuencias[j]++;
 					encontrado = true;
 					break;
@@ -517,7 +606,7 @@ public class CreadorPdf {
 			}
 
 			if (!encontrado) {
-				valoresUnicos[cantidadUnicos] = likesActual;
+				valoresUnicos[cantidadUnicos] = edadActual;
 				frecuencias[cantidadUnicos] = 1;
 				cantidadUnicos++;
 			}
@@ -551,6 +640,16 @@ public class CreadorPdf {
 
 	}
 
+	/**
+	 * Calcula la mediana de la cantidad de likes de una lista de hombres.
+	 * <p>
+	 * <b>Advertencia:</b> Este método llama a un método de ordenamiento en el DAO
+	 * que podría alterar el orden original de la lista de manera externa.
+	 * </p>
+	 *
+	 * @param listaDto Lista de objetos HombreDTO.
+	 * @return La mediana de los likes.
+	 */
 	public static int calcularMedianaLikeHombre(ArrayList<HombreDTO> listaDto) {
 		if (listaDto == null || listaDto.isEmpty()) {
 			return 0;
@@ -561,16 +660,24 @@ public class CreadorPdf {
 		int n = listaDto.size();
 
 		if (n % 2 == 0) {
-
 			int medio1 = listaDto.get(n / 2 - 1).getCantLike();
 			int medio2 = listaDto.get(n / 2).getCantLike();
 			return (int) ((medio1 + medio2) / 2.0);
 		} else {
-
 			return listaDto.get(n / 2).getCantLike();
 		}
 	}
 
+	/**
+	 * Calcula la mediana de la edad de una lista de hombres.
+	 * <p>
+	 * <b>Advertencia:</b> Este método llama a un método de ordenamiento en el DAO
+	 * que podría alterar el orden original de la lista de manera externa.
+	 * </p>
+	 *
+	 * @param listaDto Lista de objetos HombreDTO.
+	 * @return La mediana de las edades.
+	 */
 	public static int calcularMedianaEdadHombre(ArrayList<HombreDTO> listaDto) {
 		if (listaDto == null || listaDto.isEmpty()) {
 			return 0;
@@ -581,16 +688,24 @@ public class CreadorPdf {
 		int n = listaDto.size();
 
 		if (n % 2 == 0) {
-
 			int medio1 = listaDto.get(n / 2 - 1).getEdad();
 			int medio2 = listaDto.get(n / 2).getEdad();
 			return (int) ((medio1 + medio2) / 2.0);
 		} else {
-
 			return listaDto.get(n / 2).getEdad();
 		}
 	}
 
+	/**
+	 * Calcula la mediana de la cantidad de likes de una lista de mujeres.
+	 * <p>
+	 * <b>Advertencia:</b> Este método llama a un método de ordenamiento en el DAO
+	 * que podría alterar el orden original de la lista de manera externa.
+	 * </p>
+	 *
+	 * @param listaDto Lista de objetos MujerDTO.
+	 * @return La mediana de los likes.
+	 */
 	public static int calcularMedianaLikeMujer(ArrayList<MujerDTO> listaDto) {
 		if (listaDto == null || listaDto.isEmpty()) {
 			return 0;
@@ -601,16 +716,24 @@ public class CreadorPdf {
 		int n = listaDto.size();
 
 		if (n % 2 == 0) {
-
 			int medio1 = listaDto.get(n / 2 - 1).getCantLike();
 			int medio2 = listaDto.get(n / 2).getCantLike();
 			return (int) ((medio1 + medio2) / 2.0);
 		} else {
-
 			return listaDto.get(n / 2).getCantLike();
 		}
 	}
 
+	/**
+	 * Calcula la mediana de la edad de una lista de mujeres.
+	 * <p>
+	 * <b>Advertencia:</b> Este método llama a un método de ordenamiento en el DAO
+	 * que podría alterar el orden original de la lista de manera externa.
+	 * </p>
+	 *
+	 * @param listaDto Lista de objetos MujerDTO.
+	 * @return La mediana de las edades.
+	 */
 	public static int calcularMedianaEdadMujer(ArrayList<MujerDTO> listaDto) {
 		if (listaDto == null || listaDto.isEmpty()) {
 			return 0;
@@ -621,16 +744,20 @@ public class CreadorPdf {
 		int n = listaDto.size();
 
 		if (n % 2 == 0) {
-
 			int medio1 = listaDto.get(n / 2 - 1).getEdad();
 			int medio2 = listaDto.get(n / 2).getEdad();
 			return (int) ((medio1 + medio2) / 2.0);
 		} else {
-
 			return listaDto.get(n / 2).getEdad();
 		}
 	}
 
+	/**
+	 * Calcula la varianza de la cantidad de likes de una lista de hombres.
+	 *
+	 * @param listaDto Lista de objetos HombreDTO.
+	 * @return La varianza de los likes.
+	 */
 	public static double calcularVarianzaLikeHombre(ArrayList<HombreDTO> listaDto) {
 		if (listaDto == null || listaDto.isEmpty()) {
 			return 0;
@@ -647,6 +774,12 @@ public class CreadorPdf {
 		return sumaCuadrados / listaDto.size();
 	}
 
+	/**
+	 * Calcula la varianza de la edad de una lista de hombres.
+	 *
+	 * @param listaDto Lista de objetos HombreDTO.
+	 * @return La varianza de las edades.
+	 */
 	public static double calcularVarianzaEdadHombre(ArrayList<HombreDTO> listaDto) {
 		if (listaDto == null || listaDto.isEmpty()) {
 			return 0;
@@ -656,13 +789,19 @@ public class CreadorPdf {
 
 		double sumaCuadrados = 0;
 		for (int i = 0; i < listaDto.size(); i++) {
-			double diferencia = listaDto.get(i).getCantLike() - media;
+			double diferencia = listaDto.get(i).getEdad() - media;
 			sumaCuadrados += diferencia * diferencia;
 		}
 
 		return sumaCuadrados / listaDto.size();
 	}
 
+	/**
+	 * Calcula la varianza de la cantidad de likes de una lista de mujeres.
+	 *
+	 * @param listaDto Lista de objetos MujerDTO.
+	 * @return La varianza de los likes.
+	 */
 	public static double calcularVarianzaLikeMujer(ArrayList<MujerDTO> listaDto) {
 		if (listaDto == null || listaDto.isEmpty()) {
 			return 0;
@@ -679,6 +818,12 @@ public class CreadorPdf {
 		return sumaCuadrados / listaDto.size();
 	}
 
+	/**
+	 * Calcula la varianza de la edad de una lista de mujeres.
+	 *
+	 * @param listaDto Lista de objetos MujerDTO.
+	 * @return La varianza de las edades.
+	 */
 	public static double calcularVarianzaEdadMujer(ArrayList<MujerDTO> listaDto) {
 		if (listaDto == null || listaDto.isEmpty()) {
 			return 0;
@@ -688,13 +833,20 @@ public class CreadorPdf {
 
 		double sumaCuadrados = 0;
 		for (int i = 0; i < listaDto.size(); i++) {
-			double diferencia = listaDto.get(i).getCantLike() - media;
+			double diferencia = listaDto.get(i).getEdad() - media;
 			sumaCuadrados += diferencia * diferencia;
 		}
 
 		return sumaCuadrados / listaDto.size();
 	}
 
+	/**
+	 * Calcula la desviación estándar de la cantidad de likes de una lista de
+	 * hombres.
+	 *
+	 * @param listaDto Lista de objetos HombreDTO.
+	 * @return La desviación estándar de los likes.
+	 */
 	public static double calcularDesviacionEstandarLikeHombre(ArrayList<HombreDTO> listaDto) {
 		if (listaDto == null || listaDto.isEmpty()) {
 			return 0;
@@ -704,6 +856,12 @@ public class CreadorPdf {
 		return Math.sqrt(varianza);
 	}
 
+	/**
+	 * Calcula la desviación estándar de la edad de una lista de hombres.
+	 *
+	 * @param listaDto Lista de objetos HombreDTO.
+	 * @return La desviación estándar de las edades.
+	 */
 	public static double calcularDesviacionEstandarEdadHombre(ArrayList<HombreDTO> listaDto) {
 		if (listaDto == null || listaDto.isEmpty()) {
 			return 0;
@@ -713,6 +871,13 @@ public class CreadorPdf {
 		return Math.sqrt(varianza);
 	}
 
+	/**
+	 * Calcula la desviación estándar de la cantidad de likes de una lista de
+	 * mujeres.
+	 *
+	 * @param listaDto Lista de objetos MujerDTO.
+	 * @return La desviación estándar de los likes.
+	 */
 	public static double calcularDesviacionEstandarLikeMujer(ArrayList<MujerDTO> listaDto) {
 		if (listaDto == null || listaDto.isEmpty()) {
 			return 0;
@@ -722,6 +887,12 @@ public class CreadorPdf {
 		return Math.sqrt(varianza);
 	}
 
+	/**
+	 * Calcula la desviación estándar de la edad de una lista de mujeres.
+	 *
+	 * @param listaDto Lista de objetos MujerDTO.
+	 * @return La desviación estándar de las edades.
+	 */
 	public static double calcularDesviacionEstandarEdadMujer(ArrayList<MujerDTO> listaDto) {
 		if (listaDto == null || listaDto.isEmpty()) {
 			return 0;
