@@ -210,7 +210,7 @@ public class MujerDAO implements DAO<MujerDTO> {
 			int min_idx = i;
 
 			for (int j = i + 1; j < n; j++) {
-				if (listaMujeres.get(j).getAlias().compareTo(listaMujeres.get(min_idx).getAlias()) > 0) {
+				if (listaMujeres.get(j).getAlias().compareTo(listaMujeres.get(min_idx).getAlias()) < 0) {
 					min_idx = j;
 				}
 			}
@@ -229,7 +229,7 @@ public class MujerDAO implements DAO<MujerDTO> {
 			int max_idx = i;
 
 			for (int j = i + 1; j < n; j++) {
-				if (listaMujeres.get(j).getAlias().compareTo(listaMujeres.get(max_idx).getAlias()) < 0) {
+				if (listaMujeres.get(j).getAlias().compareTo(listaMujeres.get(max_idx).getAlias()) > 0) {
 					max_idx = j;
 				}
 			}
@@ -248,7 +248,7 @@ public class MujerDAO implements DAO<MujerDTO> {
 			int min_idx = i;
 
 			for (int j = i + 1; j < n; j++) {
-				if (listaMujeres.get(j).getNombre().compareTo(listaMujeres.get(min_idx).getNombre()) > 0) {
+				if (listaMujeres.get(j).getNombre().compareTo(listaMujeres.get(min_idx).getNombre()) < 0) {
 					min_idx = j;
 				}
 			}
@@ -267,7 +267,7 @@ public class MujerDAO implements DAO<MujerDTO> {
 			int max_idx = i;
 
 			for (int j = i + 1; j < n; j++) {
-				if (listaMujeres.get(j).getNombre().compareTo(listaMujeres.get(max_idx).getNombre()) < 0) {
+				if (listaMujeres.get(j).getNombre().compareTo(listaMujeres.get(max_idx).getNombre()) > 0) {
 					max_idx = j;
 				}
 			}
@@ -286,7 +286,7 @@ public class MujerDAO implements DAO<MujerDTO> {
 			int min_idx = i;
 
 			for (int j = i + 1; j < n; j++) {
-				if (listaMujeres.get(j).getApellido().compareTo(listaMujeres.get(min_idx).getApellido()) > 0) {
+				if (listaMujeres.get(j).getApellido().compareTo(listaMujeres.get(min_idx).getApellido()) < 0) {
 					min_idx = j;
 				}
 			}
@@ -305,7 +305,7 @@ public class MujerDAO implements DAO<MujerDTO> {
 			int max_idx = i;
 
 			for (int j = i + 1; j < n; j++) {
-				if (listaMujeres.get(j).getApellido().compareTo(listaMujeres.get(max_idx).getApellido()) < 0) {
+				if (listaMujeres.get(j).getApellido().compareTo(listaMujeres.get(max_idx).getApellido()) > 0) {
 					max_idx = j;
 				}
 			}
