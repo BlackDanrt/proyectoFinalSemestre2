@@ -1,5 +1,4 @@
 
-
 import java.util.ArrayList;
 
 import org.junit.After;
@@ -30,15 +29,15 @@ public class CorreoDAOTest {
 	}
 
 	@Test
-	public void enviarCorroRegistro() {
+	public void enviarCorreoRegistro() {
 		CorreoDTO temp = new CorreoDTO("estehernandz2003@gmail.com", "Danrt", 123456);
-		dao.enviarRegistroExitoso(temp);
+		dao.enviarRegistroExitoso(temp, "ES");
 	}
 
 	@Test
 	public void enviarCorreoCodigo() {
 		CorreoDTO temp = new CorreoDTO("estehernandz2003@gmail.com", "Danrt", 123456);
-		dao.enviarCodigoVerificacion(temp);
+		dao.enviarCodigoVerificacion(temp, "US");
 	}
 
 	@After

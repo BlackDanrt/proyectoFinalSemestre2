@@ -293,7 +293,8 @@ public class Controlador implements ActionListener {
 					int codigoVerificacion = (int) (Math.random() * 900000) + 100000;
 
 					CorreoDTO dto = new CorreoDTO(correo, alias, codigoVerificacion);
-					mf.getCorreoDao().enviarCodigoVerificacion(dto);
+					mf.getCorreoDao().enviarCodigoVerificacion(dto,
+							propConfig.getProperty("proyectoFinalSemestre2.idioma"));
 					try {
 						propConfig.setProperty("proyectoFinalSemestre2.cddvf", "" + codigoVerificacion + "");
 						propConfig.store(new FileWriter("config.properties"), null);
@@ -373,7 +374,8 @@ public class Controlador implements ActionListener {
 
 			CorreoDTO tempCorreo = new CorreoDTO(correo, alias, 0);
 
-			if (mf.getCorreoDao().enviarRegistroExitoso(tempCorreo)) {
+			if (mf.getCorreoDao().enviarRegistroExitoso(tempCorreo,
+					propConfig.getProperty("proyectoFinalSemestre2.idioma"))) {
 
 				if (esHombre) {
 					long ingresoMensual = 0;
@@ -1303,7 +1305,7 @@ public class Controlador implements ActionListener {
 		vf.getpInic().getLblContrasenia().setText(propIdioma.getProperty("inic.lbl.contra"));
 		vf.getpInic().getBtnIniciarSesion().setText(propIdioma.getProperty("inic.btn.iniciarSesion"));
 		vf.getpInic().getBtnRegistrar().setText(propIdioma.getProperty("inic.btn.registrar"));
-		
+
 		vf.getpPH().getLblFondo().setText(propIdioma.getProperty("perfil.lbl.tituloHombre"));
 		vf.getpPH().getLblAlias().setText(propIdioma.getProperty("perfil.lbl.alias"));
 		vf.getpPH().getLblNombre().setText(propIdioma.getProperty("perfil.lbl.nombre"));
@@ -1322,7 +1324,7 @@ public class Controlador implements ActionListener {
 		vf.getpPH().getBtnSeleccionarFoto().setText(propIdioma.getProperty("perfil.lbl.fotoPerf"));
 		vf.getpPH().getBtnCerrarSesion().setText(propIdioma.getProperty("perfil.btn.cerrarSesion"));
 		vf.getpPH().getBtnEliminarCuenta().setText(propIdioma.getProperty("perfil.btn.EliminarCuenta"));
-		
+
 		vf.getpPM().getLblAlias().setText(propIdioma.getProperty("perfil.lbl.tituloMujer"));
 		vf.getpPM().getLblAlias().setText(propIdioma.getProperty("perfil.lbl.alias"));
 		vf.getpPM().getLblNombre().setText(propIdioma.getProperty("perfil.lbl.nombre"));
@@ -1349,7 +1351,7 @@ public class Controlador implements ActionListener {
 		vf.getpScr().getLblEstaturaTexto().setText(propIdioma.getProperty("scroll.lbl.estatura"));
 
 		vf.getpReg().getLblFondo().setText(propIdioma.getProperty("reg.lbl.titulo"));
-		vf.getpReg().getLblFotoPerfil().setText(" ");		
+		vf.getpReg().getLblFotoPerfil().setText(" ");
 		vf.getpReg().getLblNombre().setText(propIdioma.getProperty("reg.lbl.nombre"));
 		vf.getpReg().getLblApellido().setText(propIdioma.getProperty("reg.lbl.apellido"));
 		vf.getpReg().getLblAlias().setText(propIdioma.getProperty("reg.lbl.alias"));

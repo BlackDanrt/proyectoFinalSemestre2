@@ -3,6 +3,8 @@ package co.edu.unbosque.view;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Image;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -11,6 +13,7 @@ import javax.swing.SwingConstants;
 
 public class PanelScroll extends JPanel {
 
+	private Image imagenFondo;
 	private JLabel lblFondo;
 	private JLabel lblAlias;
 	private JLabel lblEdadTexto;
@@ -166,6 +169,22 @@ public class PanelScroll extends JPanel {
 			lblEstatura.setVisible(true);
 			lblEstaturaTexto.setVisible(true);
 		}
+	}
+
+	@Override
+	protected void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		if (imagenFondo != null) { // Verifica que exista
+			g.drawImage(imagenFondo, 440, 20, this);
+		}
+	}
+
+	public Image getImagenFondo() {
+		return imagenFondo;
+	}
+
+	public void setImagenFondo(Image imagenFondo) {
+		this.imagenFondo = imagenFondo;
 	}
 
 	public JLabel getLblFondo() {
