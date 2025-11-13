@@ -1,12 +1,14 @@
 package co.edu.unbosque.view;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Image;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 public class PanelSeleccionarGenero extends JPanel {
 
@@ -25,6 +27,9 @@ public class PanelSeleccionarGenero extends JPanel {
 	public void inicializarComponentes() {
 		lblTitulo = new JLabel();
 		lblTitulo.setBounds(326, 120, 628, 69);
+		lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
+		lblTitulo.setFont(new Font("Arial", Font.BOLD, 36));
+		lblTitulo.setForeground(Color.WHITE);
 
 		btnHombre = new JButton();
 		btnHombre.setBounds(326, 256, 261, 240);

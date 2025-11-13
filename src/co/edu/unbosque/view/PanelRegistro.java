@@ -56,8 +56,7 @@ public class PanelRegistro extends JPanel {
 		lblFondo = new JLabel();
 		lblFondo.setBounds(440, 30, 400, 150);
 		lblFondo.setHorizontalAlignment(SwingConstants.CENTER);
-		lblFondo.setText("REGISTRO"); // Texto temporal
-		lblFondo.setFont(new Font("Arial", Font.BOLD, 36));
+		lblFondo.setFont(new Font("SimSun", Font.PLAIN, 36));
 		lblFondo.setForeground(Color.WHITE);
 
 		lblFotoPerfil = new JLabel();
@@ -81,7 +80,7 @@ public class PanelRegistro extends JPanel {
 		});
 
 		// Botón para seleccionar foto
-		btnSeleccionarFoto = new JButton("Cambiar Foto");
+		btnSeleccionarFoto = new JButton();
 		btnSeleccionarFoto.setBounds(50, 160, 120, 30);
 		btnSeleccionarFoto.setFont(new Font("Arial", Font.PLAIN, 12));
 		btnSeleccionarFoto.setBackground(Color.decode("#9B59B6"));
@@ -179,6 +178,7 @@ public class PanelRegistro extends JPanel {
 		btnCancelar = new JButton();
 		btnCancelar.setBounds(660, 640, 180, 45);
 		btnCancelar.setFont(new Font("Arial", Font.BOLD, 16));
+		btnCancelar.setBackground(Color.decode("#F54927"));
 		btnCancelar.setForeground(Color.WHITE);
 		btnCancelar.setFocusPainted(false);
 		btnCancelar.setCursor(new Cursor(Cursor.HAND_CURSOR));

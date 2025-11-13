@@ -73,7 +73,6 @@ public class PanelPerfilMujer extends JPanel {
 		lblFondo = new JLabel();
 		lblFondo.setBounds(440, 30, 400, 150);
 		lblFondo.setHorizontalAlignment(SwingConstants.CENTER);
-		lblFondo.setText("PERFIL MUJER");
 		lblFondo.setFont(new Font("Arial", Font.BOLD, 32));
 		lblFondo.setForeground(Color.WHITE);
 
@@ -241,7 +240,7 @@ public class PanelPerfilMujer extends JPanel {
 		txtEdadMaxima.setFont(new Font("Arial", Font.PLAIN, 14));
 
 		// Checkbox Divorciada
-		chkDivorciada = new JCheckBox("¿Divorciada?");
+		chkDivorciada = new JCheckBox();
 		chkDivorciada.setBounds(740, 520, 220, 30);
 		chkDivorciada.setOpaque(false);
 		chkDivorciada.setFont(new Font("Arial", Font.BOLD, 14));

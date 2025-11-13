@@ -1121,39 +1121,53 @@ public class Controlador implements ActionListener {
 		vf.getpInic().getLblContrasenia().setText(propIdioma.getProperty("inic.lbl.contra"));
 		vf.getpInic().getBtnIniciarSesion().setText(propIdioma.getProperty("inic.btn.iniciarSesion"));
 		vf.getpInic().getBtnRegistrar().setText(propIdioma.getProperty("inic.btn.registrar"));
-
+		
+		vf.getpPH().getLblFondo().setText(propIdioma.getProperty("perfil.lbl.tituloHombre"));
 		vf.getpPH().getLblAlias().setText(propIdioma.getProperty("perfil.lbl.alias"));
 		vf.getpPH().getLblNombre().setText(propIdioma.getProperty("perfil.lbl.nombre"));
 		vf.getpPH().getLblApellido().setText(propIdioma.getProperty("perfil.lbl.apellido"));
 		vf.getpPH().getLblEmail().setText(propIdioma.getProperty("perfil.lbl.email"));
+		vf.getpPH().getLblContrasenia().setText(propIdioma.getProperty("perfil.lbl.NuevaContraseña"));
+		vf.getpPH().getLblConfirmarContrasenia().setText(propIdioma.getProperty("perfil.lbl.ConfirmarContraseña"));
 		vf.getpPH().getLblEstatura().setText(propIdioma.getProperty("perfil.lbl.estatura"));
+		vf.getpPH().getLblEdad().setText(propIdioma.getProperty("perfil.lbl.edad"));
 		vf.getpPH().getLblEdadMinima().setText(propIdioma.getProperty("perfil.lbl.edadMinima"));
 		vf.getpPH().getLblEdadMaxima().setText(propIdioma.getProperty("perfil.lbl.edadMaxima"));
 		vf.getpPH().getLblIngresosMensuales().setText(propIdioma.getProperty("perfil.lbl.ingresos"));
 		vf.getpPH().getChkDivorcioPreferencia().setText(propIdioma.getProperty("perfil.lbl.mostrarDivorcio"));
 		vf.getpPH().getChkVisibilidad().setText(propIdioma.getProperty("perfil.lbl.visibilidad"));
-		vf.getpPH().getBtnActualizar().setText(propIdioma.getProperty("perfil.btn.actualizar"));
 		vf.getpPH().getBtnCancelar().setText(propIdioma.getProperty("perfil.btn.cancelar"));
+		vf.getpPH().getBtnSeleccionarFoto().setText(propIdioma.getProperty("perfil.lbl.fotoPerf"));
 		vf.getpPH().getBtnCerrarSesion().setText(propIdioma.getProperty("perfil.btn.cerrarSesion"));
-
+		vf.getpPH().getBtnEliminarCuenta().setText(propIdioma.getProperty("perfil.btn.EliminarCuenta"));
+		
+		vf.getpPM().getLblAlias().setText(propIdioma.getProperty("perfil.lbl.tituloMujer"));
 		vf.getpPM().getLblAlias().setText(propIdioma.getProperty("perfil.lbl.alias"));
 		vf.getpPM().getLblNombre().setText(propIdioma.getProperty("perfil.lbl.nombre"));
 		vf.getpPM().getLblApellido().setText(propIdioma.getProperty("perfil.lbl.apellido"));
 		vf.getpPM().getLblEmail().setText(propIdioma.getProperty("perfil.lbl.email"));
+		vf.getpPM().getLblContrasenia().setText(propIdioma.getProperty("perfil.lbl.NuevaContraseña"));
+		vf.getpPM().getLblConfirmarContrasenia().setText(propIdioma.getProperty("perfil.lbl.ConfirmarContraseña"));
 		vf.getpPM().getLblEstatura().setText(propIdioma.getProperty("perfil.lbl.estatura"));
+		vf.getpPM().getLblEdad().setText(propIdioma.getProperty("perfil.lbl.edad"));
 		vf.getpPM().getLblEdadMinima().setText(propIdioma.getProperty("perfil.lbl.edadMinima"));
 		vf.getpPM().getLblEdadMaxima().setText(propIdioma.getProperty("perfil.lbl.edadMaxima"));
 		vf.getpPM().getLblEstaturaIdeal().setText(propIdioma.getProperty("perfil.lbl.estaIdeal"));
 		vf.getpPM().getChkVisibilidad().setText(propIdioma.getProperty("perfil.lbl.visibilidad"));
-		vf.getpPM().getBtnActualizar().setText(propIdioma.getProperty("perfil.btn.actualizar"));
+		vf.getpPM().getChkDivorciada().setText(propIdioma.getProperty("perfil.lbl.divorcio"));
+		vf.getpPM().getBtnSeleccionarFoto().setText(propIdioma.getProperty("perfil.lbl.fotoPerf"));
 		vf.getpPM().getBtnCancelar().setText(propIdioma.getProperty("perfil.btn.cancelar"));
+		vf.getpPM().getBtnActualizar().setText(propIdioma.getProperty("perfil.btn.actualizar"));
 		vf.getpPM().getBtnCerrarSesion().setText(propIdioma.getProperty("perfil.btn.cerrarSesion"));
+		vf.getpPM().getBtnEliminarCuenta().setText(propIdioma.getProperty("perfil.btn.EliminarCuenta"));
 
 		vf.getpScr().getLblEdadTexto().setText(propIdioma.getProperty("scroll.lbl.edad"));
 		vf.getpScr().getLblIngresosTexto().setText(propIdioma.getProperty("scroll.lbl.ingresos"));
 		vf.getpScr().getLblDivorcioTexto().setText(propIdioma.getProperty("scroll.lbl.divorciada"));
 		vf.getpScr().getLblEstaturaTexto().setText(propIdioma.getProperty("scroll.lbl.estatura"));
 
+		vf.getpReg().getLblFondo().setText(propIdioma.getProperty("reg.lbl.titulo"));
+		vf.getpReg().getLblFotoPerfil().setText(" ");		
 		vf.getpReg().getLblNombre().setText(propIdioma.getProperty("reg.lbl.nombre"));
 		vf.getpReg().getLblApellido().setText(propIdioma.getProperty("reg.lbl.apellido"));
 		vf.getpReg().getLblAlias().setText(propIdioma.getProperty("reg.lbl.alias"));
@@ -1161,10 +1175,11 @@ public class Controlador implements ActionListener {
 		vf.getpReg().getLblFechaNacimiento().setText(propIdioma.getProperty("reg.lbl.fechaNac"));
 		vf.getpReg().getLblContrasenia().setText(propIdioma.getProperty("reg.lbl.contra"));
 		vf.getpReg().getLblConfirmarContrasenia().setText(propIdioma.getProperty("reg.lbl.confirContra"));
+		vf.getpReg().getBtnSeleccionarFoto().setText(propIdioma.getProperty("reg.btn.SeleccionarFoto"));
 		vf.getpReg().getBtnRegistrar().setText(propIdioma.getProperty("reg.btn.registrar"));
 		vf.getpReg().getBtnCancelar().setText(propIdioma.getProperty("reg.btn.cancelar"));
 
-		vf.getpScr().getBtnSmash().setText("<3");
+		vf.getpScr().getBtnSmash().setText(propIdioma.getProperty("scroll.lbl.smash"));
 		vf.getpScr().getBtnPass().setText("X");
 
 		vf.getpGen().setLblTextoTitulo(propIdioma.getProperty("gen.lbl.titulo"));

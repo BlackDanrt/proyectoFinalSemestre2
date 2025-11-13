@@ -73,7 +73,6 @@ public class PanelPerfilHombre extends JPanel {
 		lblFondo = new JLabel();
 		lblFondo.setBounds(440, 30, 400, 150);
 		lblFondo.setHorizontalAlignment(SwingConstants.CENTER);
-		lblFondo.setText("PERFIL HOMBRE");
 		lblFondo.setFont(new Font("Arial", Font.BOLD, 32));
 		lblFondo.setForeground(Color.WHITE);
 
