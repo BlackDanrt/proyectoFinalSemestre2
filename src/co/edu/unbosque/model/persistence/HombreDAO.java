@@ -218,7 +218,7 @@ public class HombreDAO implements DAO<HombreDTO> {
 			int min_idx = i;
 
 			for (int j = i + 1; j < n; j++) {
-				if (listaHombres.get(j).getAlias().compareTo(listaHombres.get(min_idx).getAlias()) > 0) {
+				if (listaHombres.get(j).getAlias().compareTo(listaHombres.get(min_idx).getAlias()) < 0) {
 					min_idx = j;
 				}
 			}
@@ -237,7 +237,7 @@ public class HombreDAO implements DAO<HombreDTO> {
 			int max_idx = i;
 
 			for (int j = i + 1; j < n; j++) {
-				if (listaHombres.get(j).getAlias().compareTo(listaHombres.get(max_idx).getAlias()) < 0) {
+				if (listaHombres.get(j).getAlias().compareTo(listaHombres.get(max_idx).getAlias()) > 0) {
 					max_idx = j;
 				}
 			}
@@ -256,7 +256,7 @@ public class HombreDAO implements DAO<HombreDTO> {
 			int min_idx = i;
 
 			for (int j = i + 1; j < n; j++) {
-				if (listaHombres.get(j).getNombre().compareTo(listaHombres.get(min_idx).getNombre()) > 0) {
+				if (listaHombres.get(j).getNombre().compareTo(listaHombres.get(min_idx).getNombre()) < 0) {
 					min_idx = j;
 				}
 			}
@@ -275,7 +275,7 @@ public class HombreDAO implements DAO<HombreDTO> {
 			int max_idx = i;
 
 			for (int j = i + 1; j < n; j++) {
-				if (listaHombres.get(j).getNombre().compareTo(listaHombres.get(max_idx).getNombre()) < 0) {
+				if (listaHombres.get(j).getNombre().compareTo(listaHombres.get(max_idx).getNombre()) > 0) {
 					max_idx = j;
 				}
 			}
@@ -294,7 +294,7 @@ public class HombreDAO implements DAO<HombreDTO> {
 			int min_idx = i;
 
 			for (int j = i + 1; j < n; j++) {
-				if (listaHombres.get(j).getApellido().compareTo(listaHombres.get(min_idx).getApellido()) > 0) {
+				if (listaHombres.get(j).getApellido().compareTo(listaHombres.get(min_idx).getApellido()) < 0) {
 					min_idx = j;
 				}
 			}
@@ -313,7 +313,7 @@ public class HombreDAO implements DAO<HombreDTO> {
 			int max_idx = i;
 
 			for (int j = i + 1; j < n; j++) {
-				if (listaHombres.get(j).getApellido().compareTo(listaHombres.get(max_idx).getApellido()) < 0) {
+				if (listaHombres.get(j).getApellido().compareTo(listaHombres.get(max_idx).getApellido()) > 0) {
 					max_idx = j;
 				}
 			}
@@ -383,7 +383,7 @@ public class HombreDAO implements DAO<HombreDTO> {
 			listaHombres.set(j + 1, key);
 		}
 	}
-
+	
 	public void mayorAMenorInsercionIngreso() {
 		int n = listaHombres.size();
 		for (int i = 1; i < n; ++i) {

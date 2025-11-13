@@ -1,4 +1,4 @@
-package proyectoFinalSemestre2;
+
 
 import java.util.ArrayList;
 
@@ -19,7 +19,7 @@ public class CorreoDAOTest {
 
 	@BeforeClass
 	public static void antesDeTodo() {
-		System.out.println("Inciando prueba unitarias");
+		System.out.println("Iniciando prueba unitarias");
 		dao = new CorreoDAO();
 		contador = 1;
 	}
