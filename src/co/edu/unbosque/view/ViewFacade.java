@@ -2,6 +2,7 @@ package co.edu.unbosque.view;
 
 import java.awt.Color;
 import java.awt.Image;
+import java.awt.Insets;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -19,6 +20,7 @@ public class ViewFacade {
 	private PanelScroll pScr;
 	private PanelPerfilMujer pPM;
 	private PanelPerfilHombre pPH;
+	private PanelPlantilla pPa;
 
 	public ViewFacade() {
 		ven = new Ventana();
@@ -31,6 +33,8 @@ public class ViewFacade {
 		pScr = new PanelScroll();
 		pPM = new PanelPerfilMujer();
 		pPH = new PanelPerfilHombre();
+		pPa = new PanelPlantilla();
+
 		pGen.setVisible(false);
 		pReg.setVisible(false);
 		pCV.setVisible(false);
@@ -38,6 +42,7 @@ public class ViewFacade {
 		pScr.setVisible(false);
 		pPM.setVisible(false);
 		pPH.setVisible(false);
+		pPa.setVisible(false);
 	}
 
 	public void refrescarVista() {
@@ -124,6 +129,14 @@ public class ViewFacade {
 		this.pPH = pPH;
 	}
 
+	public PanelPlantilla getpPa() {
+		return pPa;
+	}
+
+	public void setpPa(PanelPlantilla pPa) {
+		this.pPa = pPa;
+	}
+
 	private void cambiarIconoModo(String ruta) {
 		ImageIcon iconoOriginal = new ImageIcon(ruta);
 		Image imgEscalada = iconoOriginal.getImage().getScaledInstance(40, 40,
@@ -154,5 +167,25 @@ public class ViewFacade {
 		pInic.repaint();
 		pCV.setImagenFondo(new ImageIcon("files/codigoClaro.png").getImage());
 		pCV.repaint();
+	}
+
+	public void ordenAscendente() {
+	    cargarIconoOrden("files/ascendente.png");
+	}
+
+	public void ordenDescendente() {
+	    cargarIconoOrden("files/descendente.png");
+	}
+
+	private void cargarIconoOrden(String ruta) {
+	    ImageIcon iconoOriginal = new ImageIcon(ruta);
+	    Image imgEscalada = iconoOriginal.getImage().getScaledInstance(35, 35, Image.SCALE_SMOOTH);
+	    pAdmin.getBtnOrden().setIcon(new ImageIcon(imgEscalada));
+	    
+	    // Configurar el botón
+		pAdmin.getBtnOrden().setMargin(new Insets(0, 0, 0, 0));
+	    pAdmin.getBtnOrden().setBorderPainted(false);
+	    pAdmin.getBtnOrden().setContentAreaFilled(false);
+	    pAdmin.getBtnOrden().setFocusPainted(false);
 	}
 }
