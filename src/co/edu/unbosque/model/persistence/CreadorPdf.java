@@ -32,6 +32,7 @@ public class CreadorPdf {
 
 	public void crearPDF() {
 		try {
+
 			crearGraficos();
 			LocalDateTime base = LocalDateTime.now();
 			DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("dd/MM/yyyy");

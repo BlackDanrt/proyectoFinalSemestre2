@@ -9,6 +9,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 public class PanelCodigoVerificacion extends JPanel {
 
@@ -29,6 +30,10 @@ public class PanelCodigoVerificacion extends JPanel {
 
 		lbltitulo = new JLabel();
 		lbltitulo.setBounds(270, 120, 739, 127);
+		lbltitulo.setHorizontalAlignment(SwingConstants.CENTER);
+		lbltitulo.setFont(new Font("Noto Sans CJK SC", Font.PLAIN, 36));
+		;
+		lbltitulo.setForeground(Color.WHITE);
 
 		txtfnum1 = new JTextField();
 		txtfnum1.setBounds(68, 310, 133, 181);

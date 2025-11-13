@@ -36,6 +36,7 @@ import co.edu.unbosque.model.CorreoDTO;
  * @author Juan Martinez
  * @version 1.0
  */
+
 public class CorreoDAO {
 
 	private static final String SMTP_HOST = "smtp.gmail.com";

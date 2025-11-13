@@ -46,7 +46,7 @@ public class PanelScroll extends JPanel {
 		Font labelFont = new Font("Noto Sans CJK SC", Font.BOLD, 16);
 		Color labelColor = Color.WHITE;
 
-		// Alias - debajo de la foto
+		// Alias
 		lblAlias = new JLabel();
 		lblAlias.setBounds(505, 425, 270, 30);
 		lblAlias.setForeground(labelColor);
@@ -159,7 +159,7 @@ public class PanelScroll extends JPanel {
 	}
 
 	public void mostrarAtributosMujer(boolean atributoExtra) {
-		lblDivorcio.setBounds(670, 511, 135, 30);
+		lblDivorcio.setBounds(670, 511, 30, 30);
 		lblDivorcioTexto.setBounds(505, 511, 135, 30);
 		lblDivorcio.setVisible(true);
 		lblDivorcioTexto.setVisible(true);
