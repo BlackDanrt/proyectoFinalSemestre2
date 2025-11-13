@@ -933,27 +933,37 @@ public class Controlador implements ActionListener {
 			if (ordenAscendente) {
 				if (vf.getpAdmin().getCmbFiltro().getSelectedItem().equals("Alias")) {
 					mf.getHombreDao().menorAMayorSeleccionAlias();
+					mf.getMujerDao().menorAMayorSeleccionAlias();
 				} else if (vf.getpAdmin().getCmbFiltro().getSelectedItem().equals("Nombre")) {
 					mf.getHombreDao().menorAMayorSeleccionNombre();
+					mf.getMujerDao().menorAMayorSeleccionNombre();
 				} else if (vf.getpAdmin().getCmbFiltro().getSelectedItem().equals("Apellido")) {
 					mf.getHombreDao().menorAMayorSeleccionApellido();
+					mf.getMujerDao().menorAMayorSeleccionApellido();
 				} else if (vf.getpAdmin().getCmbFiltro().getSelectedItem().equals("Likes")) {
 					mf.getHombreDao().menorAMayorInsercionCantLike();
+					mf.getMujerDao().menorAMayorInsercionCantLike();
 				} else if (vf.getpAdmin().getCmbFiltro().getSelectedItem().equals("Edad")) {
 					mf.getHombreDao().menorAMayorInsercionEdad();
+					mf.getMujerDao().menorAMayorInsercionEdad();
 				}
 
 			} else {
 				if (vf.getpAdmin().getCmbFiltro().getSelectedItem().equals("Alias")) {
 					mf.getHombreDao().mayorAMenorSeleccionAlias();
+					mf.getMujerDao().mayorAMenorSeleccionAlias();
 				} else if (vf.getpAdmin().getCmbFiltro().getSelectedItem().equals("Nombre")) {
 					mf.getHombreDao().mayorAMenorSeleccionNombre();
+					mf.getMujerDao().mayorAMenorSeleccionNombre();
 				} else if (vf.getpAdmin().getCmbFiltro().getSelectedItem().equals("Apellido")) {
 					mf.getHombreDao().mayorAMenorSeleccionApellido();
+					mf.getMujerDao().mayorAMenorSeleccionApellido();
 				} else if (vf.getpAdmin().getCmbFiltro().getSelectedItem().equals("Likes")) {
 					mf.getHombreDao().mayorAMenorInsercionCantLike();
+					mf.getMujerDao().mayorAMenorInsercionCantLike();
 				} else if (vf.getpAdmin().getCmbFiltro().getSelectedItem().equals("Edad")) {
 					mf.getHombreDao().mayorAMenorInsercionEdad();
+					mf.getMujerDao().mayorAMenorInsercionEdad();
 				}
 			}
 		}
