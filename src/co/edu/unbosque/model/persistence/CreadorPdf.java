@@ -52,7 +52,6 @@ public class CreadorPdf {
 			pdf.addPage(pagina4);
 			pdf.addPage(pagina5);
 
-			// PÁGINA 1 - Portada y Media
 			PDPageContentStream contenido = new PDPageContentStream(pdf, pagina);
 
 			contenido.beginText();
@@ -79,10 +78,10 @@ public class CreadorPdf {
 			contenido.showText("Graficas de Media de likes y Edad");
 			contenido.endText();
 
-			PDImageXObject imagen = PDImageXObject.createFromFile("grafico_media_likes.png", pdf);
+			PDImageXObject imagen = PDImageXObject.createFromFile("estadisticas/grafico_media_likes.png", pdf);
 			contenido.drawImage(imagen, 70, 400, 450, 300);
 
-			PDImageXObject imagen2 = PDImageXObject.createFromFile("grafico_media_edades.png", pdf);
+			PDImageXObject imagen2 = PDImageXObject.createFromFile("estadisticas/grafico_media_edades.png", pdf);
 			contenido.drawImage(imagen2, 70, 100, 450, 300);
 			contenido.close();
 
@@ -91,14 +90,14 @@ public class CreadorPdf {
 
 			contenido2.beginText();
 			contenido2.setFont(PDType1Font.TIMES_BOLD, 12);
-			contenido2.newLineAtOffset(50, pagina2.getMediaBox().getHeight() - 50); // ✅ CAMBIO: usa pagina2
+			contenido2.newLineAtOffset(50, pagina2.getMediaBox().getHeight() - 50);
 			contenido2.showText("Graficas de Moda de likes y Edad");
 			contenido2.endText();
 
-			PDImageXObject imagenModa = PDImageXObject.createFromFile("grafico_moda_likes.png", pdf);
+			PDImageXObject imagenModa = PDImageXObject.createFromFile("estadisticas/grafico_moda_likes.png", pdf);
 			contenido2.drawImage(imagenModa, 70, 400, 450, 300);
 
-			PDImageXObject imagenModa2 = PDImageXObject.createFromFile("grafico_moda_edades.png", pdf);
+			PDImageXObject imagenModa2 = PDImageXObject.createFromFile("estadisticas/grafico_moda_edades.png", pdf);
 			contenido2.drawImage(imagenModa2, 70, 100, 450, 300);
 			contenido2.close();
 
@@ -107,14 +106,15 @@ public class CreadorPdf {
 
 			contenido3.beginText();
 			contenido3.setFont(PDType1Font.TIMES_BOLD, 12);
-			contenido3.newLineAtOffset(50, pagina3.getMediaBox().getHeight() - 50); // ✅ CAMBIO: usa pagina3
+			contenido3.newLineAtOffset(50, pagina3.getMediaBox().getHeight() - 50);
 			contenido3.showText("Graficas de Mediana de likes y Edad");
 			contenido3.endText();
 
-			PDImageXObject imagenMediana = PDImageXObject.createFromFile("grafico_mediana_likes.png", pdf);
+			PDImageXObject imagenMediana = PDImageXObject.createFromFile("estadisticas/grafico_mediana_likes.png", pdf);
 			contenido3.drawImage(imagenMediana, 70, 400, 450, 300);
 
-			PDImageXObject imagenMediana2 = PDImageXObject.createFromFile("grafico_mediana_edades.png", pdf);
+			PDImageXObject imagenMediana2 = PDImageXObject.createFromFile("estadisticas/grafico_mediana_edades.png",
+					pdf);
 			contenido3.drawImage(imagenMediana2, 70, 100, 450, 300);
 			contenido3.close();
 
@@ -123,14 +123,16 @@ public class CreadorPdf {
 
 			contenido4.beginText();
 			contenido4.setFont(PDType1Font.TIMES_BOLD, 12);
-			contenido4.newLineAtOffset(50, pagina4.getMediaBox().getHeight() - 50); // ✅ CAMBIO: usa pagina4
+			contenido4.newLineAtOffset(50, pagina4.getMediaBox().getHeight() - 50);
 			contenido4.showText("Graficas de Varianza de likes y Edad");
 			contenido4.endText();
 
-			PDImageXObject imagenVarianza = PDImageXObject.createFromFile("grafico_varianza_likes.png", pdf);
+			PDImageXObject imagenVarianza = PDImageXObject.createFromFile("estadisticas/grafico_varianza_likes.png",
+					pdf);
 			contenido4.drawImage(imagenVarianza, 70, 400, 450, 300);
 
-			PDImageXObject imagenVarianza2 = PDImageXObject.createFromFile("grafico_varianza_edades.png", pdf);
+			PDImageXObject imagenVarianza2 = PDImageXObject.createFromFile("estadisticas/grafico_varianza_edades.png",
+					pdf);
 			contenido4.drawImage(imagenVarianza2, 70, 100, 450, 300);
 			contenido4.close();
 
@@ -139,15 +141,17 @@ public class CreadorPdf {
 
 			contenido5.beginText();
 			contenido5.setFont(PDType1Font.TIMES_BOLD, 12);
-			contenido5.newLineAtOffset(50, pagina5.getMediaBox().getHeight() - 50); // ✅ CAMBIO: usa pagina5 y corrige
-																					// variable
+			contenido5.newLineAtOffset(50, pagina5.getMediaBox().getHeight() - 50);
+
 			contenido5.showText("Graficas de Desviacion estandar de likes y Edad");
 			contenido5.endText();
 
-			PDImageXObject imagenDesviacion = PDImageXObject.createFromFile("grafico_desviacion_likes.png", pdf);
+			PDImageXObject imagenDesviacion = PDImageXObject.createFromFile("estadisticas/grafico_desviacion_likes.png",
+					pdf);
 			contenido5.drawImage(imagenDesviacion, 70, 400, 450, 300);
 
-			PDImageXObject imagenDesviacion2 = PDImageXObject.createFromFile("grafico_desviacion_edades.png", pdf);
+			PDImageXObject imagenDesviacion2 = PDImageXObject
+					.createFromFile("estadisticas/grafico_desviacion_edades.png", pdf);
 			contenido5.drawImage(imagenDesviacion2, 70, 100, 450, 300);
 			contenido5.close();
 
@@ -264,16 +268,23 @@ public class CreadorPdf {
 			JFreeChart graficoEdadDesviacion = ChartFactory.createBarChart("Desviacion estandar de Edades ",
 					"Desviacion", "Personas", edadMediana);
 
-			ChartUtilities.saveChartAsPNG(new File("grafico_media_likes.png"), graficoLikeMedia, 800, 600);
-			ChartUtilities.saveChartAsPNG(new File("grafico_media_edades.png"), graficoEdadMedia, 800, 600);
-			ChartUtilities.saveChartAsPNG(new File("grafico_moda_likes.png"), graficoLikeModa, 800, 600);
-			ChartUtilities.saveChartAsPNG(new File("grafico_moda_edades.png"), graficoEdadModa, 800, 600);
-			ChartUtilities.saveChartAsPNG(new File("grafico_mediana_likes.png"), graficoLikeMediana, 800, 600);
-			ChartUtilities.saveChartAsPNG(new File("grafico_mediana_edades.png"), graficoEdadMediana, 800, 600);
-			ChartUtilities.saveChartAsPNG(new File("grafico_varianza_likes.png"), graficoLikeVarianza, 800, 600);
-			ChartUtilities.saveChartAsPNG(new File("grafico_varianza_edades.png"), graficoEdadVarianza, 800, 600);
-			ChartUtilities.saveChartAsPNG(new File("grafico_desviacion_likes.png"), graficoLikeDesviacion, 800, 600);
-			ChartUtilities.saveChartAsPNG(new File("grafico_desviacion_edades.png"), graficoEdadDesviacion, 800, 600);
+			ChartUtilities.saveChartAsPNG(new File("estadisticas/grafico_media_likes.png"), graficoLikeMedia, 800, 600);
+			ChartUtilities.saveChartAsPNG(new File("estadisticas/grafico_media_edades.png"), graficoEdadMedia, 800,
+					600);
+			ChartUtilities.saveChartAsPNG(new File("estadisticas/grafico_moda_likes.png"), graficoLikeModa, 800, 600);
+			ChartUtilities.saveChartAsPNG(new File("estadisticas/grafico_moda_edades.png"), graficoEdadModa, 800, 600);
+			ChartUtilities.saveChartAsPNG(new File("estadisticas/grafico_mediana_likes.png"), graficoLikeMediana, 800,
+					600);
+			ChartUtilities.saveChartAsPNG(new File("estadisticas/grafico_mediana_edades.png"), graficoEdadMediana, 800,
+					600);
+			ChartUtilities.saveChartAsPNG(new File("estadisticas/grafico_varianza_likes.png"), graficoLikeVarianza, 800,
+					600);
+			ChartUtilities.saveChartAsPNG(new File("estadisticas/grafico_varianza_edades.png"), graficoEdadVarianza,
+					800, 600);
+			ChartUtilities.saveChartAsPNG(new File("estadisticas/grafico_desviacion_likes.png"), graficoLikeDesviacion,
+					800, 600);
+			ChartUtilities.saveChartAsPNG(new File("estadisticas/grafico_desviacion_edades.png"), graficoEdadDesviacion,
+					800, 600);
 
 		} catch (IOException e) {
 		}
@@ -321,7 +332,6 @@ public class CreadorPdf {
 		int[] frecuencias = new int[n];
 		int cantidadUnicos = 0;
 
-		// Contar frecuencias
 		for (int i = 0; i < n; i++) {
 			int likesActual = listaDto.get(i).getCantLike();
 			boolean encontrado = false;
@@ -341,7 +351,6 @@ public class CreadorPdf {
 			}
 		}
 
-		// Encontrar máxima frecuencia
 		int maxFrecuencia = 0;
 		for (int i = 0; i < cantidadUnicos; i++) {
 			if (frecuencias[i] > maxFrecuencia) {
@@ -349,12 +358,10 @@ public class CreadorPdf {
 			}
 		}
 
-		// Si todos tienen frecuencia 1, no hay moda
 		if (maxFrecuencia == 1) {
 			return 0;
 		}
 
-		// Encontrar el valor con máxima frecuencia
 		int contadorModas = 0;
 		int moda = 0;
 
@@ -365,7 +372,6 @@ public class CreadorPdf {
 			}
 		}
 
-		// Si hay más de una moda, retornar -1
 		if (contadorModas > 1) {
 			return 0;
 		}
@@ -383,7 +389,6 @@ public class CreadorPdf {
 		int[] frecuencias = new int[n];
 		int cantidadUnicos = 0;
 
-		// Contar frecuencias
 		for (int i = 0; i < n; i++) {
 			int likesActual = listaDto.get(i).getEdad();
 			boolean encontrado = false;
@@ -403,7 +408,6 @@ public class CreadorPdf {
 			}
 		}
 
-		// Encontrar máxima frecuencia
 		int maxFrecuencia = 0;
 		for (int i = 0; i < cantidadUnicos; i++) {
 			if (frecuencias[i] > maxFrecuencia) {
@@ -411,12 +415,10 @@ public class CreadorPdf {
 			}
 		}
 
-		// Si todos tienen frecuencia 1, no hay moda
 		if (maxFrecuencia == 1) {
 			return 0;
 		}
 
-		// Encontrar el valor con máxima frecuencia
 		int contadorModas = 0;
 		int moda = 0;
 
@@ -427,7 +429,6 @@ public class CreadorPdf {
 			}
 		}
 
-		// Si hay más de una moda, retornar -1
 		if (contadorModas > 1) {
 			return 0;
 		}
@@ -445,7 +446,6 @@ public class CreadorPdf {
 		int[] frecuencias = new int[n];
 		int cantidadUnicos = 0;
 
-		// Contar frecuencias
 		for (int i = 0; i < n; i++) {
 			int likesActual = listaDto.get(i).getCantLike();
 			boolean encontrado = false;
@@ -465,7 +465,6 @@ public class CreadorPdf {
 			}
 		}
 
-		// Encontrar máxima frecuencia
 		int maxFrecuencia = 0;
 		for (int i = 0; i < cantidadUnicos; i++) {
 			if (frecuencias[i] > maxFrecuencia) {
@@ -473,12 +472,10 @@ public class CreadorPdf {
 			}
 		}
 
-		// Si todos tienen frecuencia 1, no hay moda
 		if (maxFrecuencia == 1) {
 			return 0;
 		}
 
-		// Encontrar el valor con máxima frecuencia
 		int contadorModas = 0;
 		int moda = 0;
 
@@ -489,7 +486,6 @@ public class CreadorPdf {
 			}
 		}
 
-		// Si hay más de una moda, retornar -1
 		if (contadorModas > 1) {
 			return 0;
 		}
@@ -507,7 +503,6 @@ public class CreadorPdf {
 		int[] frecuencias = new int[n];
 		int cantidadUnicos = 0;
 
-		// Contar frecuencias
 		for (int i = 0; i < n; i++) {
 			int likesActual = listaDto.get(i).getEdad();
 			boolean encontrado = false;
@@ -527,7 +522,6 @@ public class CreadorPdf {
 			}
 		}
 
-		// Encontrar máxima frecuencia
 		int maxFrecuencia = 0;
 		for (int i = 0; i < cantidadUnicos; i++) {
 			if (frecuencias[i] > maxFrecuencia) {
@@ -535,12 +529,10 @@ public class CreadorPdf {
 			}
 		}
 
-		// Si todos tienen frecuencia 1, no hay moda
 		if (maxFrecuencia == 1) {
 			return 0;
 		}
 
-		// Encontrar el valor con máxima frecuencia
 		int contadorModas = 0;
 		int moda = 0;
 
@@ -551,7 +543,6 @@ public class CreadorPdf {
 			}
 		}
 
-		// Si hay más de una moda, retornar -1
 		if (contadorModas > 1) {
 			return 0;
 		}
@@ -563,18 +554,18 @@ public class CreadorPdf {
 		if (listaDto == null || listaDto.isEmpty()) {
 			return 0;
 		}
-		// Ordenar de menor a mayor usando el DAO
+
 		daoH.menorAMayorInsercionCantLike();
 
 		int n = listaDto.size();
 
 		if (n % 2 == 0) {
-			// Par: promedio de los dos centrales
+
 			int medio1 = listaDto.get(n / 2 - 1).getCantLike();
 			int medio2 = listaDto.get(n / 2).getCantLike();
 			return (int) ((medio1 + medio2) / 2.0);
 		} else {
-			// Impar: el central
+
 			return listaDto.get(n / 2).getCantLike();
 		}
 	}
@@ -583,18 +574,18 @@ public class CreadorPdf {
 		if (listaDto == null || listaDto.isEmpty()) {
 			return 0;
 		}
-		// Ordenar de menor a mayor usando el DAO
+
 		daoH.menorAMayorInsercionEdad();
 
 		int n = listaDto.size();
 
 		if (n % 2 == 0) {
-			// Par: promedio de los dos centrales
+
 			int medio1 = listaDto.get(n / 2 - 1).getEdad();
 			int medio2 = listaDto.get(n / 2).getEdad();
 			return (int) ((medio1 + medio2) / 2.0);
 		} else {
-			// Impar: el central
+
 			return listaDto.get(n / 2).getEdad();
 		}
 	}
@@ -603,18 +594,18 @@ public class CreadorPdf {
 		if (listaDto == null || listaDto.isEmpty()) {
 			return 0;
 		}
-		// Ordenar de menor a mayor usando el DAO
+
 		daoM.menorAMayorInsercionCantLike();
 
 		int n = listaDto.size();
 
 		if (n % 2 == 0) {
-			// Par: promedio de los dos centrales
+
 			int medio1 = listaDto.get(n / 2 - 1).getCantLike();
 			int medio2 = listaDto.get(n / 2).getCantLike();
 			return (int) ((medio1 + medio2) / 2.0);
 		} else {
-			// Impar: el central
+
 			return listaDto.get(n / 2).getCantLike();
 		}
 	}
@@ -623,18 +614,18 @@ public class CreadorPdf {
 		if (listaDto == null || listaDto.isEmpty()) {
 			return 0;
 		}
-		// Ordenar de menor a mayor usando el DAO
+
 		daoM.menorAMayorInsercionEdad();
 
 		int n = listaDto.size();
 
 		if (n % 2 == 0) {
-			// Par: promedio de los dos centrales
+
 			int medio1 = listaDto.get(n / 2 - 1).getEdad();
 			int medio2 = listaDto.get(n / 2).getEdad();
 			return (int) ((medio1 + medio2) / 2.0);
 		} else {
-			// Impar: el central
+
 			return listaDto.get(n / 2).getEdad();
 		}
 	}
@@ -644,17 +635,14 @@ public class CreadorPdf {
 			return 0;
 		}
 
-		// Paso 1: Calcular la media
 		double media = calcularMediaLikeHombre(listaDto);
 
-		// Paso 2: Calcular la suma de las diferencias al cuadrado
 		double sumaCuadrados = 0;
 		for (int i = 0; i < listaDto.size(); i++) {
 			double diferencia = listaDto.get(i).getCantLike() - media;
 			sumaCuadrados += diferencia * diferencia;
 		}
 
-		// Paso 3: Dividir entre la cantidad de datos
 		return sumaCuadrados / listaDto.size();
 	}
 
@@ -663,17 +651,14 @@ public class CreadorPdf {
 			return 0;
 		}
 
-		// Paso 1: Calcular la media
 		double media = calcularMediaEdadHombre(listaDto);
 
-		// Paso 2: Calcular la suma de las diferencias al cuadrado
 		double sumaCuadrados = 0;
 		for (int i = 0; i < listaDto.size(); i++) {
 			double diferencia = listaDto.get(i).getCantLike() - media;
 			sumaCuadrados += diferencia * diferencia;
 		}
 
-		// Paso 3: Dividir entre la cantidad de datos
 		return sumaCuadrados / listaDto.size();
 	}
 
@@ -682,17 +667,14 @@ public class CreadorPdf {
 			return 0;
 		}
 
-		// Paso 1: Calcular la media
 		double media = calcularMediaLikeMujer(listaDto);
 
-		// Paso 2: Calcular la suma de las diferencias al cuadrado
 		double sumaCuadrados = 0;
 		for (int i = 0; i < listaDto.size(); i++) {
 			double diferencia = listaDto.get(i).getCantLike() - media;
 			sumaCuadrados += diferencia * diferencia;
 		}
 
-		// Paso 3: Dividir entre la cantidad de datos
 		return sumaCuadrados / listaDto.size();
 	}
 
@@ -701,17 +683,14 @@ public class CreadorPdf {
 			return 0;
 		}
 
-		// Paso 1: Calcular la media
 		double media = calcularMediaEdadMujer(listaDto);
 
-		// Paso 2: Calcular la suma de las diferencias al cuadrado
 		double sumaCuadrados = 0;
 		for (int i = 0; i < listaDto.size(); i++) {
 			double diferencia = listaDto.get(i).getCantLike() - media;
 			sumaCuadrados += diferencia * diferencia;
 		}
 
-		// Paso 3: Dividir entre la cantidad de datos
 		return sumaCuadrados / listaDto.size();
 	}
 
@@ -720,7 +699,6 @@ public class CreadorPdf {
 			return 0;
 		}
 
-		// La desviación estándar es la raíz cuadrada de la varianza
 		double varianza = calcularVarianzaLikeHombre(listaDto);
 		return Math.sqrt(varianza);
 	}
@@ -730,7 +708,6 @@ public class CreadorPdf {
 			return 0;
 		}
 
-		// La desviación estándar es la raíz cuadrada de la varianza
 		double varianza = calcularVarianzaEdadHombre(listaDto);
 		return Math.sqrt(varianza);
 	}
@@ -740,7 +717,6 @@ public class CreadorPdf {
 			return 0;
 		}
 
-		// La desviación estándar es la raíz cuadrada de la varianza
 		double varianza = calcularVarianzaLikeMujer(listaDto);
 		return Math.sqrt(varianza);
 	}
@@ -750,7 +726,6 @@ public class CreadorPdf {
 			return 0;
 		}
 
-		// La desviación estándar es la raíz cuadrada de la varianza
 		double varianza = calcularVarianzaEdadMujer(listaDto);
 		return Math.sqrt(varianza);
 	}

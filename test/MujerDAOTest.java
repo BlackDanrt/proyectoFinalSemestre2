@@ -1,5 +1,4 @@
 
-
 import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
@@ -87,7 +86,7 @@ public class MujerDAOTest {
 
 	@Test
 	public void escrituraYCargaDeArchivo() {
-		String archivoTest = "testHombres.bin";
+		String archivoTest = "testMujeres.bin";
 
 		ArrayList<Mujer> listaTest = new ArrayList<Mujer>();
 		Mujer entity = new Mujer("000000", "Test", "Archivo", "Prueba", 0, "test@gmail.com", "soyLaPasswrod",
