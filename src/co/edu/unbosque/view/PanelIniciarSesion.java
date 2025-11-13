@@ -26,22 +26,30 @@ public class PanelIniciarSesion extends JPanel {
 
 	private void inicializarComponentes() {
 		lblEmail = new JLabel();
-		lblEmail.setBounds(70, 250, 340, 40);
+		lblEmail.setBounds(115, 250, 340, 40);
+		lblEmail.setFont(new Font("Noto Sans CJK SC", Font.BOLD, 16));
 
 		txtEmail = new JTextField();
-		txtEmail.setBounds(70, 300, 340, 40);
+		txtEmail.setBounds(115, 300, 340, 40);
 
 		lblContrasenia = new JLabel();
-		lblContrasenia.setBounds(70, 365, 340, 40);
+		lblContrasenia.setBounds(115, 365, 340, 40);
+		lblContrasenia.setFont(new Font("Noto Sans CJK SC", Font.BOLD, 16));
 
 		jpfContrasenia = new JPasswordField();
-		jpfContrasenia.setBounds(70, 415, 340, 40);
+		jpfContrasenia.setBounds(115, 415, 340, 40);
 
-		btnIniciarSesion = new JButton();
-		btnIniciarSesion.setBounds(70, 470, 140, 35);
+		btnIniciarSesion = new JButton();	
+		btnIniciarSesion.setBounds(130, 490, 140, 60);
+		btnIniciarSesion.setBackground(Color.decode("#FF8A00"));
+		btnIniciarSesion.setForeground(Color.decode("#8F8B8B"));
+		btnIniciarSesion.setFont(new Font("Noto Sans CJK SC", Font.BOLD, 12));
 
 		btnRegistrar = new JButton();
-		btnRegistrar.setBounds(70, 560, 140, 35);
+		btnRegistrar.setBounds(290, 490, 140, 60);
+		btnRegistrar.setBackground(Color.decode("#FF8A00"));
+		btnRegistrar.setForeground(Color.decode("#8F8B8B"));
+		btnRegistrar.setFont(new Font("Noto Sans CJK SC", Font.BOLD, 12));
 
 		this.add(lblEmail);
 		this.add(txtEmail);

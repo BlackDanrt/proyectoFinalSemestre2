@@ -28,7 +28,7 @@ public class PanelSeleccionarGenero extends JPanel {
 		lblTitulo = new JLabel();
 		lblTitulo.setBounds(326, 120, 628, 69);
 		lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTitulo.setFont(new Font("Arial", Font.BOLD, 36));
+		lblTitulo.setFont(new Font("Noto Sans CJK SC", Font.BOLD, 36));
 		lblTitulo.setForeground(Color.WHITE);
 
 		btnHombre = new JButton();

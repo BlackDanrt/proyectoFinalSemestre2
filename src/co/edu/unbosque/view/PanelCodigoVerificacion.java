@@ -32,42 +32,42 @@ public class PanelCodigoVerificacion extends JPanel {
 
 		txtfnum1 = new JTextField();
 		txtfnum1.setBounds(68, 310, 133, 181);
-		txtfnum1.setFont(new Font("Arial", Font.BOLD, 42));
+		txtfnum1.setFont(new Font("Noto Sans CJK SC", Font.PLAIN, 42));
 		txtfnum1.setHorizontalAlignment(JTextField.CENTER);
 		txtfnum1.setOpaque(false);
 		txtfnum1.setBorder(null);
 
 		txtfnum2 = new JTextField();
 		txtfnum2.setBounds(270, 310, 133, 181);
-		txtfnum2.setFont(new Font("Arial", Font.BOLD, 42));
+		txtfnum2.setFont(new Font("Noto Sans CJK SC", Font.BOLD, 42));
 		txtfnum2.setHorizontalAlignment(JTextField.CENTER);
 		txtfnum2.setOpaque(false);
 		txtfnum2.setBorder(null);
 
 		txtfnum3 = new JTextField();
 		txtfnum3.setBounds(472, 310, 133, 181);
-		txtfnum3.setFont(new Font("Arial", Font.BOLD, 42));
+		txtfnum3.setFont(new Font("Noto Sans CJK SC", Font.BOLD, 42));
 		txtfnum3.setHorizontalAlignment(JTextField.CENTER);
 		txtfnum3.setOpaque(false);
 		txtfnum3.setBorder(null);
 
 		txtfnum4 = new JTextField();
 		txtfnum4.setBounds(674, 310, 133, 181);
-		txtfnum4.setFont(new Font("Arial", Font.BOLD, 42));
+		txtfnum4.setFont(new Font("Noto Sans CJK SC", Font.BOLD, 42));
 		txtfnum4.setHorizontalAlignment(JTextField.CENTER);
 		txtfnum4.setOpaque(false);
 		txtfnum4.setBorder(null);
 
 		txtfnum5 = new JTextField();
 		txtfnum5.setBounds(876, 310, 133, 181);
-		txtfnum5.setFont(new Font("Arial", Font.BOLD, 42));
+		txtfnum5.setFont(new Font("Noto Sans CJK SC", Font.BOLD, 42));
 		txtfnum5.setHorizontalAlignment(JTextField.CENTER);
 		txtfnum5.setOpaque(false);
 		txtfnum5.setBorder(null);
 
 		txtfnum6 = new JTextField();
 		txtfnum6.setBounds(1078, 310, 133, 181);
-		txtfnum6.setFont(new Font("Arial", Font.BOLD, 42));
+		txtfnum6.setFont(new Font("Noto Sans CJK SC", Font.BOLD, 42));
 		txtfnum6.setHorizontalAlignment(JTextField.CENTER);
 		txtfnum6.setOpaque(false);
 		txtfnum6.setBorder(null);

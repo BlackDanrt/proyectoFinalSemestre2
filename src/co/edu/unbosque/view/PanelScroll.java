@@ -40,13 +40,12 @@ public class PanelScroll extends JPanel {
 		lblFondo.setBackground(new Color(255, 255, 255, 100));
 
 		// Configuración de fuente común para los labels
-		Font labelFont = new Font("Arial", Font.BOLD, 16);
+		Font labelFont = new Font("Noto Sans CJK SC", Font.BOLD, 16);
 		Color labelColor = Color.WHITE;
 
 		// Alias - debajo de la foto
 		lblAlias = new JLabel();
 		lblAlias.setBounds(505, 425, 270, 30);
-		lblAlias.setFont(new Font("Arial", Font.BOLD, 24));
 		lblAlias.setForeground(labelColor);
 
 		// Edad
@@ -95,7 +94,7 @@ public class PanelScroll extends JPanel {
 		lblDivorcio.setVisible(false);
 
 		// Configuración de fuente para botones
-		Font buttonFont = new Font("Arial", Font.BOLD, 18);
+		Font buttonFont = new Font("Noto Sans CJK SC", Font.BOLD, 18);
 
 		// Botón Pass (izquierda)
 		btnPass = new JButton();

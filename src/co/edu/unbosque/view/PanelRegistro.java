@@ -56,7 +56,7 @@ public class PanelRegistro extends JPanel {
 		lblFondo = new JLabel();
 		lblFondo.setBounds(440, 30, 400, 150);
 		lblFondo.setHorizontalAlignment(SwingConstants.CENTER);
-		lblFondo.setFont(new Font("SimSun", Font.PLAIN, 36));
+		lblFondo.setFont(new Font("Noto Sans CJK SC", Font.PLAIN, 36)); ;
 		lblFondo.setForeground(Color.WHITE);
 
 		lblFotoPerfil = new JLabel();
@@ -64,7 +64,7 @@ public class PanelRegistro extends JPanel {
 		lblFotoPerfil.setHorizontalAlignment(SwingConstants.CENTER);
 		lblFotoPerfil.setVerticalAlignment(SwingConstants.CENTER);
 		lblFotoPerfil.setText("<html><center>Click para<br>seleccionar<br>foto</center></html>");
-		lblFotoPerfil.setFont(new Font("Arial", Font.PLAIN, 11));
+		lblFotoPerfil.setFont(new Font("Noto Sans CJK SC", Font.PLAIN, 11));
 		lblFotoPerfil.setForeground(Color.WHITE);
 		lblFotoPerfil.setOpaque(true);
 		lblFotoPerfil.setBackground(new Color(255, 255, 255, 100));
@@ -82,7 +82,7 @@ public class PanelRegistro extends JPanel {
 		// Botón para seleccionar foto
 		btnSeleccionarFoto = new JButton();
 		btnSeleccionarFoto.setBounds(50, 160, 120, 30);
-		btnSeleccionarFoto.setFont(new Font("Arial", Font.PLAIN, 12));
+		btnSeleccionarFoto.setFont(new Font("Noto Sans CJK SC", Font.PLAIN, 12));
 		btnSeleccionarFoto.setBackground(Color.decode("#9B59B6"));
 		btnSeleccionarFoto.setForeground(Color.WHITE);
 		btnSeleccionarFoto.setFocusPainted(false);
@@ -94,53 +94,53 @@ public class PanelRegistro extends JPanel {
 		// Nombre
 		lblNombre = new JLabel();
 		lblNombre.setBounds(200, 220, 340, 20);
-		lblNombre.setFont(new Font("Arial", Font.BOLD, 14));
+		lblNombre.setFont(new Font("Noto Sans CJK SC", Font.BOLD, 14));
 		lblNombre.setForeground(Color.WHITE);
 
 		txtNombre = new JTextField();
 		txtNombre.setBounds(200, 245, 340, 35);
-		txtNombre.setFont(new Font("Arial", Font.PLAIN, 14));
+		txtNombre.setFont(new Font("Noto Sans CJK SC", Font.PLAIN, 14));
 
 		// Apellido
 		lblApellido = new JLabel();
 		lblApellido.setBounds(200, 295, 340, 20);
-		lblApellido.setFont(new Font("Arial", Font.BOLD, 14));
+		lblApellido.setFont(new Font("Noto Sans CJK SC", Font.BOLD, 14));
 		lblApellido.setForeground(Color.WHITE);
 
 		txtApellido = new JTextField();
 		txtApellido.setBounds(200, 320, 340, 35);
-		txtApellido.setFont(new Font("Arial", Font.PLAIN, 14));
+		txtApellido.setFont(new Font("Noto Sans CJK SC", Font.PLAIN, 14));
 
 		// Alias
 		lblAlias = new JLabel();
 		lblAlias.setBounds(200, 370, 340, 20);
-		lblAlias.setFont(new Font("Arial", Font.BOLD, 14));
+		lblAlias.setFont(new Font("Noto Sans CJK SC", Font.BOLD, 14));
 		lblAlias.setForeground(Color.WHITE);
 
 		txtAlias = new JTextField();
 		txtAlias.setBounds(200, 395, 340, 35);
-		txtAlias.setFont(new Font("Arial", Font.PLAIN, 14));
+		txtAlias.setFont(new Font("Noto Sans CJK SC", Font.PLAIN, 14));
 
 		// Email
 		lblEmail = new JLabel();
 		lblEmail.setBounds(200, 445, 340, 20);
-		lblEmail.setFont(new Font("Arial", Font.BOLD, 14));
+		lblEmail.setFont(new Font("Noto Sans CJK SC", Font.BOLD, 14));
 		lblEmail.setForeground(Color.WHITE);
 
 		txtEmail = new JTextField();
 		txtEmail = new JTextField();
 		txtEmail.setBounds(200, 470, 340, 35);
-		txtEmail.setFont(new Font("Arial", Font.PLAIN, 14));
+		txtEmail.setFont(new Font("Noto Sans CJK SC", Font.PLAIN, 14));
 
 		// Fecha de Nacimiento
 		lblFechaNacimiento = new JLabel();
 		lblFechaNacimiento.setBounds(200, 520, 340, 20);
-		lblFechaNacimiento.setFont(new Font("Arial", Font.BOLD, 14));
+		lblFechaNacimiento.setFont(new Font("Noto Sans CJK SC", Font.BOLD, 14));
 		lblFechaNacimiento.setForeground(Color.WHITE);
 
 		txtFechaNacimiento = new JTextField();
 		txtFechaNacimiento.setBounds(200, 545, 340, 35);
-		txtFechaNacimiento.setFont(new Font("Arial", Font.PLAIN, 14));
+		txtFechaNacimiento.setFont(new Font("Noto Sans CJK SC", Font.PLAIN, 14));
 		txtFechaNacimiento.setToolTipText("Formato: dd/mm/aaaa");
 
 		// ============ COLUMNA DERECHA ============
@@ -148,28 +148,28 @@ public class PanelRegistro extends JPanel {
 		// Contraseña
 		lblContrasenia = new JLabel();
 		lblContrasenia.setBounds(740, 220, 340, 20);
-		lblContrasenia.setFont(new Font("Arial", Font.BOLD, 14));
+		lblContrasenia.setFont(new Font("Noto Sans CJK SC", Font.BOLD, 14));
 		lblContrasenia.setForeground(Color.WHITE);
 
 		jpfContrasenia = new JPasswordField();
 		jpfContrasenia.setBounds(740, 245, 340, 35);
-		jpfContrasenia.setFont(new Font("Arial", Font.PLAIN, 14));
+		jpfContrasenia.setFont(new Font("Noto Sans CJK SC", Font.PLAIN, 14));
 
 		// Confirmar Contraseña
 		lblConfirmarContrasenia = new JLabel();
 		lblConfirmarContrasenia.setBounds(740, 295, 340, 20);
-		lblConfirmarContrasenia.setFont(new Font("Arial", Font.BOLD, 14));
+		lblConfirmarContrasenia.setFont(new Font("Noto Sans CJK SC", Font.BOLD, 14));
 		lblConfirmarContrasenia.setForeground(Color.WHITE);
 
 		jpfConfirmarContrasenia = new JPasswordField();
 		jpfConfirmarContrasenia.setBounds(740, 320, 340, 35);
-		jpfConfirmarContrasenia.setFont(new Font("Arial", Font.PLAIN, 14));
+		jpfConfirmarContrasenia.setFont(new Font("Noto Sans CJK SC", Font.PLAIN, 14));
 
 		// ============ BOTONES CENTRADOS ============
 
 		btnRegistrar = new JButton();
 		btnRegistrar.setBounds(440, 640, 180, 45);
-		btnRegistrar.setFont(new Font("Arial", Font.BOLD, 16));
+		btnRegistrar.setFont(new Font("Noto Sans CJK SC", Font.BOLD, 16));
 		btnRegistrar.setBackground(Color.decode("#4CAF50"));
 		btnRegistrar.setForeground(Color.WHITE);
 		btnRegistrar.setFocusPainted(false);
@@ -177,7 +177,7 @@ public class PanelRegistro extends JPanel {
 
 		btnCancelar = new JButton();
 		btnCancelar.setBounds(660, 640, 180, 45);
-		btnCancelar.setFont(new Font("Arial", Font.BOLD, 16));
+		btnCancelar.setFont(new Font("Noto Sans CJK SC", Font.BOLD, 16));
 		btnCancelar.setBackground(Color.decode("#F54927"));
 		btnCancelar.setForeground(Color.WHITE);
 		btnCancelar.setFocusPainted(false);

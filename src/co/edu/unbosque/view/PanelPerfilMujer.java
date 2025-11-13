@@ -73,7 +73,7 @@ public class PanelPerfilMujer extends JPanel {
 		lblFondo = new JLabel();
 		lblFondo.setBounds(440, 30, 400, 150);
 		lblFondo.setHorizontalAlignment(SwingConstants.CENTER);
-		lblFondo.setFont(new Font("Arial", Font.BOLD, 32));
+		lblFondo.setFont(new Font("Noto Sans CJK SC", Font.BOLD, 32));
 		lblFondo.setForeground(Color.WHITE);
 
 		// ============ FOTO DE PERFIL (ARRIBA A LA IZQUIERDA) ============
@@ -84,7 +84,7 @@ public class PanelPerfilMujer extends JPanel {
 		lblFotoPerfil.setHorizontalAlignment(SwingConstants.CENTER);
 		lblFotoPerfil.setVerticalAlignment(SwingConstants.CENTER);
 		lblFotoPerfil.setText("<html><center>Click para<br>seleccionar<br>foto</center></html>");
-		lblFotoPerfil.setFont(new Font("Arial", Font.PLAIN, 11));
+		lblFotoPerfil.setFont(new Font("Noto Sans CJK SC", Font.PLAIN, 11));
 		lblFotoPerfil.setForeground(Color.WHITE);
 		lblFotoPerfil.setOpaque(true);
 		lblFotoPerfil.setBackground(new Color(255, 255, 255, 100));
@@ -102,7 +102,7 @@ public class PanelPerfilMujer extends JPanel {
 		// Botón para seleccionar foto
 		btnSeleccionarFoto = new JButton("Cambiar Foto");
 		btnSeleccionarFoto.setBounds(50, 160, 120, 30);
-		btnSeleccionarFoto.setFont(new Font("Arial", Font.PLAIN, 12));
+		btnSeleccionarFoto.setFont(new Font("Noto Sans CJK SC", Font.PLAIN, 12));
 		btnSeleccionarFoto.setBackground(Color.decode("#9B59B6"));
 		btnSeleccionarFoto.setForeground(Color.WHITE);
 		btnSeleccionarFoto.setFocusPainted(false);
@@ -114,12 +114,12 @@ public class PanelPerfilMujer extends JPanel {
 		// Nombre
 		lblNombre = new JLabel("Nombre:");
 		lblNombre.setBounds(200, 220, 340, 20);
-		lblNombre.setFont(new Font("Arial", Font.BOLD, 14));
+		lblNombre.setFont(new Font("Noto Sans CJK SC", Font.BOLD, 14));
 		lblNombre.setForeground(Color.WHITE);
 
 		lblNombreUsuario = new JLabel();
 		lblNombreUsuario.setBounds(200, 245, 340, 35);
-		lblNombreUsuario.setFont(new Font("Arial", Font.PLAIN, 14));
+		lblNombreUsuario.setFont(new Font("Noto Sans CJK SC", Font.PLAIN, 14));
 		lblNombreUsuario.setForeground(Color.WHITE);
 		lblNombreUsuario.setOpaque(true);
 		lblNombreUsuario.setBackground(new Color(255, 255, 255, 100));
@@ -128,12 +128,12 @@ public class PanelPerfilMujer extends JPanel {
 		// Apellido
 		lblApellido = new JLabel("Apellido:");
 		lblApellido.setBounds(200, 295, 340, 20);
-		lblApellido.setFont(new Font("Arial", Font.BOLD, 14));
+		lblApellido.setFont(new Font("Noto Sans CJK SC", Font.BOLD, 14));
 		lblApellido.setForeground(Color.WHITE);
 
 		lblApellidoUsuario = new JLabel();
 		lblApellidoUsuario.setBounds(200, 320, 340, 35);
-		lblApellidoUsuario.setFont(new Font("Arial", Font.PLAIN, 14));
+		lblApellidoUsuario.setFont(new Font("Noto Sans CJK SC", Font.PLAIN, 14));
 		lblApellidoUsuario.setForeground(Color.WHITE);
 		lblApellidoUsuario.setOpaque(true);
 		lblApellidoUsuario.setBackground(new Color(255, 255, 255, 100));
@@ -142,22 +142,22 @@ public class PanelPerfilMujer extends JPanel {
 		// Alias
 		lblAlias = new JLabel("Alias:");
 		lblAlias.setBounds(200, 370, 340, 20);
-		lblAlias.setFont(new Font("Arial", Font.BOLD, 14));
+		lblAlias.setFont(new Font("Noto Sans CJK SC", Font.BOLD, 14));
 		lblAlias.setForeground(Color.WHITE);
 
 		txtAlias = new JTextField();
 		txtAlias.setBounds(200, 395, 340, 35);
-		txtAlias.setFont(new Font("Arial", Font.PLAIN, 14));
+		txtAlias.setFont(new Font("Noto Sans CJK SC", Font.PLAIN, 14));
 
 		// Email
 		lblEmail = new JLabel("Email:");
 		lblEmail.setBounds(200, 445, 340, 20);
-		lblEmail.setFont(new Font("Arial", Font.BOLD, 14));
+		lblEmail.setFont(new Font("Noto Sans CJK SC", Font.BOLD, 14));
 		lblEmail.setForeground(Color.WHITE);
 
 		lblEmailUsuario = new JLabel();
 		lblEmailUsuario.setBounds(200, 470, 340, 35);
-		lblEmailUsuario.setFont(new Font("Arial", Font.PLAIN, 14));
+		lblEmailUsuario.setFont(new Font("Noto Sans CJK SC", Font.PLAIN, 14));
 		lblEmailUsuario.setForeground(Color.WHITE);
 		lblEmailUsuario.setOpaque(true);
 		lblEmailUsuario.setBackground(new Color(255, 255, 255, 100));
@@ -166,12 +166,12 @@ public class PanelPerfilMujer extends JPanel {
 		// Edad
 		lblEdad = new JLabel("Edad:");
 		lblEdad.setBounds(200, 520, 340, 20);
-		lblEdad.setFont(new Font("Arial", Font.BOLD, 14));
+		lblEdad.setFont(new Font("Noto Sans CJK SC", Font.BOLD, 14));
 		lblEdad.setForeground(Color.WHITE);
 
 		lblEdadUsuario = new JLabel();
 		lblEdadUsuario.setBounds(200, 545, 340, 35);
-		lblEdadUsuario.setFont(new Font("Arial", Font.PLAIN, 14));
+		lblEdadUsuario.setFont(new Font("Noto Sans CJK SC", Font.PLAIN, 14));
 		lblEdadUsuario.setForeground(Color.WHITE);
 		lblEdadUsuario.setOpaque(true);
 		lblEdadUsuario.setBackground(new Color(255, 255, 255, 100));
@@ -182,75 +182,75 @@ public class PanelPerfilMujer extends JPanel {
 		// Contraseña
 		lblContrasenia = new JLabel("Nueva Contraseña:");
 		lblContrasenia.setBounds(740, 220, 340, 20);
-		lblContrasenia.setFont(new Font("Arial", Font.BOLD, 14));
+		lblContrasenia.setFont(new Font("Noto Sans CJK SC", Font.BOLD, 14));
 		lblContrasenia.setForeground(Color.WHITE);
 
 		jpfContrasenia = new JPasswordField();
 		jpfContrasenia.setBounds(740, 245, 340, 35);
-		jpfContrasenia.setFont(new Font("Arial", Font.PLAIN, 14));
+		jpfContrasenia.setFont(new Font("Noto Sans CJK SC", Font.PLAIN, 14));
 
 		// Confirmar Contraseña
 		lblConfirmarContrasenia = new JLabel("Confirmar Contraseña:");
 		lblConfirmarContrasenia.setBounds(740, 295, 340, 20);
-		lblConfirmarContrasenia.setFont(new Font("Arial", Font.BOLD, 14));
+		lblConfirmarContrasenia.setFont(new Font("Noto Sans CJK SC", Font.BOLD, 14));
 		lblConfirmarContrasenia.setForeground(Color.WHITE);
 
 		jpfConfirmarContrasenia = new JPasswordField();
 		jpfConfirmarContrasenia.setBounds(740, 320, 340, 35);
-		jpfConfirmarContrasenia.setFont(new Font("Arial", Font.PLAIN, 14));
+		jpfConfirmarContrasenia.setFont(new Font("Noto Sans CJK SC", Font.PLAIN, 14));
 
 		// Estatura
 		lblEstatura = new JLabel("Estatura (cm):");
 		lblEstatura.setBounds(740, 370, 160, 20);
-		lblEstatura.setFont(new Font("Arial", Font.BOLD, 14));
+		lblEstatura.setFont(new Font("Noto Sans CJK SC", Font.BOLD, 14));
 		lblEstatura.setForeground(Color.WHITE);
 
 		txtEstatura = new JTextField();
 		txtEstatura.setBounds(740, 395, 160, 35);
-		txtEstatura.setFont(new Font("Arial", Font.PLAIN, 14));
+		txtEstatura.setFont(new Font("Noto Sans CJK SC", Font.PLAIN, 14));
 
 		// Estatura Ideal
 		lblEstaturaIdeal = new JLabel("Estatura Ideal (cm):");
 		lblEstaturaIdeal.setBounds(920, 370, 160, 20);
-		lblEstaturaIdeal.setFont(new Font("Arial", Font.BOLD, 14));
+		lblEstaturaIdeal.setFont(new Font("Noto Sans CJK SC", Font.BOLD, 14));
 		lblEstaturaIdeal.setForeground(Color.WHITE);
 
 		txtEstaturaIdeal = new JTextField();
 		txtEstaturaIdeal.setBounds(920, 395, 160, 35);
-		txtEstaturaIdeal.setFont(new Font("Arial", Font.PLAIN, 14));
+		txtEstaturaIdeal.setFont(new Font("Noto Sans CJK SC", Font.PLAIN, 14));
 
 		// Edad Mínima
 		lblEdadMinima = new JLabel("Edad Mínima:");
 		lblEdadMinima.setBounds(740, 445, 160, 20);
-		lblEdadMinima.setFont(new Font("Arial", Font.BOLD, 14));
+		lblEdadMinima.setFont(new Font("Noto Sans CJK SC", Font.BOLD, 14));
 		lblEdadMinima.setForeground(Color.WHITE);
 
 		txtEdadMinima = new JTextField();
 		txtEdadMinima.setBounds(740, 470, 160, 35);
-		txtEdadMinima.setFont(new Font("Arial", Font.PLAIN, 14));
+		txtEdadMinima.setFont(new Font("Noto Sans CJK SC", Font.PLAIN, 14));
 
 		// Edad Máxima
 		lblEdadMaxima = new JLabel("Edad Máxima:");
 		lblEdadMaxima.setBounds(920, 445, 160, 20);
-		lblEdadMaxima.setFont(new Font("Arial", Font.BOLD, 14));
+		lblEdadMaxima.setFont(new Font("Noto Sans CJK SC", Font.BOLD, 14));
 		lblEdadMaxima.setForeground(Color.WHITE);
 
 		txtEdadMaxima = new JTextField();
 		txtEdadMaxima.setBounds(920, 470, 160, 35);
-		txtEdadMaxima.setFont(new Font("Arial", Font.PLAIN, 14));
+		txtEdadMaxima.setFont(new Font("Noto Sans CJK SC", Font.PLAIN, 14));
 
 		// Checkbox Divorciada
 		chkDivorciada = new JCheckBox();
 		chkDivorciada.setBounds(740, 520, 220, 30);
 		chkDivorciada.setOpaque(false);
-		chkDivorciada.setFont(new Font("Arial", Font.BOLD, 14));
+		chkDivorciada.setFont(new Font("Noto Sans CJK SC", Font.BOLD, 14));
 		chkDivorciada.setForeground(Color.WHITE);
 
 		// Checkbox Visibilidad
 		chkVisibilidad = new JCheckBox("Perfil visible para otros usuarios");
 		chkVisibilidad.setBounds(740, 560, 340, 30);
 		chkVisibilidad.setOpaque(false);
-		chkVisibilidad.setFont(new Font("Arial", Font.BOLD, 14));
+		chkVisibilidad.setFont(new Font("Noto Sans CJK SC", Font.BOLD, 14));
 		chkVisibilidad.setForeground(Color.WHITE);
 		chkVisibilidad.setSelected(true);
 
@@ -258,7 +258,7 @@ public class PanelPerfilMujer extends JPanel {
 
 		btnActualizar = new JButton("Actualizar");
 		btnActualizar.setBounds(220, 640, 180, 45);
-		btnActualizar.setFont(new Font("Arial", Font.BOLD, 16));
+		btnActualizar.setFont(new Font("Noto Sans CJK SC", Font.BOLD, 16));
 		btnActualizar.setBackground(Color.decode("#4CAF50"));
 		btnActualizar.setForeground(Color.WHITE);
 		btnActualizar.setFocusPainted(false);
@@ -266,7 +266,7 @@ public class PanelPerfilMujer extends JPanel {
 
 		btnCancelar = new JButton("Cancelar");
 		btnCancelar.setBounds(440, 640, 180, 45);
-		btnCancelar.setFont(new Font("Arial", Font.BOLD, 16));
+		btnCancelar.setFont(new Font("Noto Sans CJK SC", Font.BOLD, 16));
 		btnCancelar.setBackground(Color.decode("#F44336"));
 		btnCancelar.setForeground(Color.WHITE);
 		btnCancelar.setFocusPainted(false);
@@ -274,7 +274,7 @@ public class PanelPerfilMujer extends JPanel {
 
 		btnCerrarSesion = new JButton("Cerrar Sesion");
 		btnCerrarSesion.setBounds(660, 640, 180, 45);
-		btnCerrarSesion.setFont(new Font("Arial", Font.BOLD, 16));
+		btnCerrarSesion.setFont(new Font("Noto Sans CJK SC", Font.BOLD, 16));
 		btnCerrarSesion.setBackground(Color.decode("#F44336"));
 		btnCerrarSesion.setForeground(Color.WHITE);
 		btnCerrarSesion.setFocusPainted(false);
@@ -282,7 +282,7 @@ public class PanelPerfilMujer extends JPanel {
 
 		btnEliminarCuenta = new JButton("Eliminar Cuenta");
 		btnEliminarCuenta.setBounds(880, 640, 180, 45);
-		btnEliminarCuenta.setFont(new Font("Arial", Font.BOLD, 16));
+		btnEliminarCuenta.setFont(new Font("Noto Sans CJK SC", Font.BOLD, 16));
 		btnEliminarCuenta.setBackground(Color.decode("#F44336"));
 		btnEliminarCuenta.setForeground(Color.WHITE);
 		btnEliminarCuenta.setFocusPainted(false);

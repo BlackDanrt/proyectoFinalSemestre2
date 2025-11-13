@@ -26,11 +26,6 @@ public class PanelBanner extends JPanel {
 		this.setBorder(BorderFactory.createLineBorder(Color.decode("#FF4458")));
 		this.setVisible(true);
 
-		/**
-		 * Español: español, Inglés: English, Portugués: português Ruso: русский Chino:
-		 * 中文 Hebreo: עברית
-		 */
-
 		cmbIdioma = new JComboBox<String>();
 		cmbIdioma.addItem("Español ES");
 		cmbIdioma.addItem("English US");
